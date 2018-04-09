@@ -7,11 +7,11 @@ const tap = require('tap');
 
 // Simple server for serving static files
 const app = connect().use(serveStatic('test/'))
-http.createServer(app).listen(8123, () => {
-  test();
+const server = http.createServer(app).listen(8123, () => {
+  test(server);
 })
 
-async function test(){
+async function test(server){
   await tap.test('there is a map div present', async function(t) {
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
@@ -23,5 +23,8 @@ async function test(){
     await browser.close();
     t.end()
   })
+  server.close();
+
+
 
 }
