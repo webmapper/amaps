@@ -4,6 +4,7 @@ const serveStatic = require('serve-static')
 const puppeteer = require('puppeteer');
 const tap = require('tap');
 
+
 // Simple server for serving static files
 const app = connect().use(serveStatic('test/'))
 http.createServer(app).listen(8123, () => {
