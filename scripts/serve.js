@@ -11,7 +11,6 @@ http.createServer(app).listen(8123, () => {
   test();
 })
 
-
 async function test(){
   await tap.test('there is a map div present', async function(t) {
     const browser = await puppeteer.launch();
