@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Testing amaps</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
+    <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/openlayers/4.1.1/ol.css" />-->
+    <link rel="stylesheet" href="https://raw.githubusercontent.com/webmapper/nlmaps/master/dist/assets/nlmaps.css"/>
+    <style> #mapdiv{height:300px}</style>
+  </head>
+  <body>
+    <div id="mapdiv"></div>
+    <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
+    <script src="nlmaps.iife.js"></script>
+    <script>
+      let map = nlmaps.createMap({target: 'mapdiv',
+        layer: 'pastel',
+        marker: true
+      });
+    </script>
+  </body>
+</html>
+
+
+
