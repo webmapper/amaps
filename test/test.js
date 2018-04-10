@@ -7,7 +7,7 @@ async function test(server){
   await tap.test('The map is loaded', async function(t) {
     const browser = await puppeteer.launch({args: ['--no-sandbox', '--disable-setuid-sandbox']});
     const page = await browser.newPage();
-    await page.goto('http://localhost:8123/test.html');
+    await page.goto('http://localhost:8123/index.html');
     const div = await page.$eval('#mapdiv', el => el ? true : false);
     t.assert(div === true, 'div is present');
     const mapCenter = await page.evaluate(() => map.getCenter());
@@ -17,7 +17,7 @@ async function test(server){
   })
   //ARIA tests
   await tap.test('there are no accessibility issues', async function(t) {
-    const ariares = await pa11y('http://localhost:8123/test.html', {
+    const ariares = await pa11y('http://localhost:8123/index.html', {
       allowedStandards: 'WCAG2AA',
       level: 'error',
       chromeLaunchConfig: {
