@@ -11,6 +11,7 @@
     "connect": "^3.6.6",
     "live-server": "^1.2.0",
     "live-server-https": "0.0.2",
+    "pa11y": "^5.0.3",
     "puppeteer": "^1.2.0",
     "serve-static": "^1.13.2",
     "tap": "^11.1.3"

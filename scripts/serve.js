@@ -3,6 +3,7 @@ const connect = require('connect')
 const serveStatic = require('serve-static')
 const puppeteer = require('puppeteer');
 const tap = require('tap');
+const pa11y = require('pa11y');
 
 
 // Simple server for serving static files
@@ -23,6 +24,13 @@ async function test(server){
     await browser.close();
     t.end()
   })
+  await tap.test('there are no accessibility issues', async function(t) {
+    const ariares = await pa11y('http://localhost:8123/test.html');
+    t.assert(ariares.issues.length === 0, 'issue length is 0')
+    t.end()
+    
+  })
+
   server.close();
 
 
