@@ -3,7 +3,7 @@ implementation of nlmaps for Amsterdam (for testing)
 
 This repo contains a reference implementation of nlmaps with Amsterdam's extensions and styling, for testing purposes. The goal is to demonstrate correct working of nlmaps in an application using browser tests. For code unit testing, see the [nlmaps](https://github.com/webmapper/nlmaps) repository.
 
-in `test/index.html is a simple webpage which loads the latest release of `nlmaps` (currently this is by pulling the browser js release from github.com/webmapper/nlmaps. It could also install `nlmaps` from npm.) The tests are defined or loaded in `test/test.js`. The tests include:
+in `test/index.html` is a simple webpage which loads the latest release of `nlmaps` (currently this is by pulling the browser js release from github.com/webmapper/nlmaps. It could also install `nlmaps` from npm.) The tests are defined or loaded in `test/test.js`. The tests include:
 
 * testing for successful loading of map with nlmaps
 * ARIA testing using pa11y.
