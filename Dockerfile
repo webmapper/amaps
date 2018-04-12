@@ -6,4 +6,5 @@ COPY package.json package.json
 RUN npm install
 COPY scripts /app/scripts
 COPY test /app/test
+COPY .eslintrc.js /app/.eslintrc.js
 CMD npm run test
