@@ -4,3 +4,16 @@ services:
     build:
       context: ./
       dockerfile: ./Dockerfile
+  watch-test:
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    volumes:
+      - './scripts:/app/scripts'
+      - './test:/app/test'
+    command: npm run watch-test
+  lint:
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    command: npm run lint
