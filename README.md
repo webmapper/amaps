@@ -22,15 +22,22 @@ During development, to rerun the tests on changes to your test files, run:
 
     npm run watch-test
 
+To lint the code:
+
+    npm run lint
 
 ### with `docker-compose`
 
 
     docker-compose run test
+    docker-compose run watch-test
+    docker-compose run lint
 
 or:
 
     docker-compose up --build --exit-code-from test test
+    docker-compose up --build --exit-code-from watch-test watch-test
+    docker-compose up --build --exit-code-from lint lint
 
 Todo
 ----

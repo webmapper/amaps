@@ -9,6 +9,13 @@
   "dependencies": {},
   "devDependencies": {
     "connect": "^3.6.6",
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-config-standard": "^11.0.0",
+    "eslint-plugin-import": "^2.11.0",
+    "eslint-plugin-node": "^6.0.1",
+    "eslint-plugin-promise": "^3.7.0",
+    "eslint-plugin-standard": "^3.0.1",
     "live-server": "^1.2.0",
     "live-server-https": "0.0.2",
     "nodemon": "^1.17.3",
@@ -19,7 +26,8 @@
   },
   "scripts": {
     "test": "node scripts/serve",
-    "watch-test": "nodemon --watch scripts --watch test -e js,html scripts/serve.js"
+    "watch-test": "nodemon --watch scripts --watch test -e js,html scripts/serve.js",
+    "lint": "eslint test scripts"
   },
   "repository": {
     "type": "git",
