@@ -18,9 +18,9 @@ The tests can be run directly with:
 
     npm run test
 
-During development, you can use e.g. [nodemon](https://github.com/remy/nodemon) to rerun the tests on changes to your test files:
+During development, to rerun the tests on changes to your test files, run:
 
-    nodemon --watch scripts --watch test -e js,html scripts/serve.js
+    npm run watch-test
 
 
 ### with `docker-compose`
