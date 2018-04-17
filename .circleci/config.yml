@@ -46,7 +46,7 @@ jobs:
             cd test/nlmaps
             npm install
             npm run bootstrap 
-            NODE_ENV=production node scripts/build -c ../config/amsterdam.config.js
+            NODE_ENV=production node scripts/build -c ../../config/amsterdam.config.js
             node scripts/publish
 
       # lint
