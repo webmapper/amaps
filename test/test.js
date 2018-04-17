@@ -1,5 +1,5 @@
 const puppeteer = require('puppeteer');
-const test = require('tap').test;
+const { test } = require('tap');
 const pa11y = require('pa11y');
 
 
@@ -23,15 +23,16 @@ async function runTests(server) {
     const page = await browser.newPage();
     await page.goto('http://localhost:8123/index.html');
     /* eslint-disable no-undef */
-    const url_for_standard = await page.evaluate(() => {
+    const urlForStandard = await page.evaluate(() => {
       const layer = nlmaps.leaflet.bgLayer('standaard');
+      /* eslint-disable-next-line no-underscore-dangle */
       return layer._url;
     });
     /* eslint-enable no-undef */
-    await t.assert(url_for_standard === 'https://geodata.nationaalgeoregister.nl/tiles/service/wmts/brtachtergrondkaart/EPSG:3857/{z}/{x}/{y}.png', 'url for created layer is as expected');
+    await t.assert(urlForStandard === 'https://geodata.nationaalgeoregister.nl/tiles/service/wmts/brtachtergrondkaart/EPSG:3857/{z}/{x}/{y}.png', 'url for created layer is as expected');
     await browser.close();
     t.end();
-  })
+  });
   // ARIA tests
   await test('there are no accessibility issues', async (t) => {
     const ariares = await pa11y('http://localhost:8123/index.html', {
