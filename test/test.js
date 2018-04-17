@@ -31,7 +31,7 @@ async function runTests(server) {
     });
     console.log('LAYER URL', urlForStandard);
     /* eslint-enable no-undef */
-    await t.assert(urlForStandard === 'https://geodata.nationaalgeoregister.nl/tiles/service/wmts/brtachtergrondkaart/EPSG:3857/{z}/{x}/{y}.png', 'url for created layer is as expected');
+    await t.assert(urlForStandard === 'https://geodata.nationaalgeoregister.nl/tiles/service/wmts/brtachtergrondkaart/EPSG:3857/{z}/{x}/{y}.jpeg', 'url for created layer is as expected');
     console.log('COMPARE URL', urlForStandard);
     /* eslint-enable no-console */
     /* no-underscore-dangle */
