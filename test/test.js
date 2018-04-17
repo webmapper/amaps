@@ -25,11 +25,17 @@ async function runTests(server) {
     /* eslint-disable no-undef */
     const urlForStandard = await page.evaluate(() => {
       const layer = nlmaps.leaflet.bgLayer('standaard');
-      /* eslint-disable-next-line no-underscore-dangle */
+      /* eslint-disable no-underscore-dangle */
+      /* eslint-disable no-console */
       return layer._url;
     });
+    console.log('LAYER URL', urlForStandard);
     /* eslint-enable no-undef */
     await t.assert(urlForStandard === 'https://geodata.nationaalgeoregister.nl/tiles/service/wmts/brtachtergrondkaart/EPSG:3857/{z}/{x}/{y}.png', 'url for created layer is as expected');
+    console.log('COMPARE URL', urlForStandard);
+    /* eslint-enable no-console */
+    /* no-underscore-dangle */
+    /* eslint-disable-next-line no-self-compare */
     await t.assert('hello' === 'hello', 'hello is hello');
     await browser.close();
     t.end();
