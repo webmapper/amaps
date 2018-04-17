@@ -13,8 +13,29 @@ The test runner is in `scripts/serve.js`. This serves index.html with a simple w
 Usage
 -----
 
+### with `docker-compose`
+
+The primary way to run the tests is with `docker-compose`.
+
+First build nlmaps with the `build-nlmaps` container. The results are put in a volume which will be shared to the test containers.
+
+    docker-compose up --build nlmaps
+
+now you can run the tests:
+
+    docker-compose up --build --exit-code-from test test
+    docker-compose up --build --exit-code-from watch-test watch-test
+    docker-compose up --build --exit-code-from lint lint
+
 ### Running directly
-The tests can be run directly with:
+In order to run the tests directly without `docker-compose`, you need to provide the compiled `nlmaps` code since the test html file expects to load it from the test server. You have two options:
+
+1. modify `test/index.html` to load `nlmaps.iife.js` from a server somewhere (e.g. if you have built it with a custom config in a repo on Github)
+2. clone and build nlmaps (optionally with a custom config), and then symlink the nlmaps directory into the `test` directory. First build nlmaps somewhere, and then you can symlink it. In the `test` directory:
+
+    ln -s /path/to/nlmaps
+
+Now you can run the tests from the root directory:
 
     npm run test
 
@@ -26,18 +47,6 @@ To lint the code:
 
     npm run lint
 
-### with `docker-compose`
-
-
-    docker-compose run test
-    docker-compose run watch-test
-    docker-compose run lint
-
-or:
-
-    docker-compose up --build --exit-code-from test test
-    docker-compose up --build --exit-code-from watch-test watch-test
-    docker-compose up --build --exit-code-from lint lint
 
 Todo
 ----
