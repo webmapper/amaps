@@ -9,9 +9,9 @@ async function runTests(server) {
     const browser = await puppeteer.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox'] });
     const page = await browser.newPage();
     await page.goto('http://localhost:8123/index.html');
-    const div = await page.$eval('#mapdiv', el => !!el);
+    const div = await page.$eval('#mapdiv', el => Boolean(el));
     await t.assert(div === true, 'div is present');
-    /* map call occurs in browser context */
+    // map call occurs in browser context
     /* eslint-disable-next-line no-undef */
     const mapCenter = await page.evaluate(() => map.getCenter());
     await t.assert(mapCenter.lng === 5.9699 && mapCenter.lat === 52.2112, 'map is centered as expected');
