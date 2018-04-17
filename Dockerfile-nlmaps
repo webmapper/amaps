@@ -1,11 +1,7 @@
 FROM node:8.9
 MAINTAINER hans@webmapper.net
-WORKDIR /app
 RUN apt-get update && apt-get install -yq git
-RUN git clone https://github.com/webmapper/nlmaps
+WORKDIR /app
+COPY build-nlmaps.sh build-nlmaps.sh
 COPY config/amsterdam.config.js amsterdam.config.js
-COPY package.json package.json
-WORKDIR /app/nlmaps
-RUN npm install
-RUN NODE_ENV=production node scripts/build -c amsterdam.config.js
-RUN node scripts/publish
+CMD sh build-nlmaps.sh
