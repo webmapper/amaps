@@ -42,11 +42,12 @@ jobs:
 
       # checkout nlmaps and build with custom config
       - run: git clone https://github.com/webmapper/nlmaps test/nlmaps
-      - run: cd test/nlmaps
-      - run: npm install
-      - run: npm run bootstrap 
-        # && NODE_ENV=production node scripts/build -c ../config/amsterdam.config.js \
-        #  && node scripts/publish
+      - run: |
+            cd test/nlmaps
+            npm install
+            npm run bootstrap 
+            NODE_ENV=production node scripts/build -c ../config/amsterdam.config.js
+            node scripts/publish
 
       # lint
       - run: npm run lint
