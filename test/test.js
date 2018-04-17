@@ -30,6 +30,7 @@ async function runTests(server) {
     });
     /* eslint-enable no-undef */
     await t.assert(urlForStandard === 'https://geodata.nationaalgeoregister.nl/tiles/service/wmts/brtachtergrondkaart/EPSG:3857/{z}/{x}/{y}.png', 'url for created layer is as expected');
+    await t.assert('hello' === 'hello', 'hello is hello');
     await browser.close();
     t.end();
   });
