@@ -11,6 +11,7 @@ async function runTests(server) {
     await page.goto('http://localhost:8123/index.html');
     const div = await page.$eval('#mapdiv', el => Boolean(el));
     await t.assert(div === true, 'div is present');
+
     // map call occurs in browser context
     /* eslint-disable-next-line no-undef */
     const mapCenter = await page.evaluate(() => map.getCenter());
@@ -22,21 +23,18 @@ async function runTests(server) {
     const browser = await puppeteer.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox'] });
     const page = await browser.newPage();
     await page.goto('http://localhost:8123/index.html');
+
     /* eslint-disable no-undef */
+    /* eslint-disable no-underscore-dangle */
     const urlForStandard = await page.evaluate(() => {
       const layer = nlmaps.leaflet.bgLayer('standaard');
-      /* eslint-disable no-underscore-dangle */
-      /* eslint-disable no-console */
       return layer._url;
     });
-    console.log('LAYER URL', urlForStandard);
     /* eslint-enable no-undef */
+
+    /* eslint-disable-next-line max-len */
     await t.assert(urlForStandard === 'https://geodata.nationaalgeoregister.nl/tiles/service/wmts/brtachtergrondkaart/EPSG:3857/{z}/{x}/{y}.jpeg', 'url for created layer is as expected');
-    console.log('COMPARE URL', urlForStandard);
-    /* eslint-enable no-console */
     /* no-underscore-dangle */
-    /* eslint-disable-next-line no-self-compare */
-    await t.assert('hello' === 'hello', 'hello is hello');
     await browser.close();
     t.end();
   });

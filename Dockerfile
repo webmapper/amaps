@@ -7,4 +7,5 @@ RUN npm install
 COPY scripts /app/scripts
 COPY test /app/test
 COPY .eslintrc.js /app/.eslintrc.js
+COPY .eslintignore /app/.eslintignore
 CMD npm run test
