@@ -1,19 +1,38 @@
 version: "3"
 services:
+  build-nlmaps:
+    build:
+      context: ./
+      dockerfile: ./Dockerfile-nlmaps
+    volumes:
+      - nlmapsbuild:/app/nlmaps
   test:
     build:
       context: ./
       dockerfile: ./Dockerfile
+    volumes:
+      - nlmapsbuild:/app/test/nlmaps
+    ports:
+      - 8092:8080
   watch-test:
     build:
       context: ./
       dockerfile: ./Dockerfile
+    depends_on:
+      - build-nlmaps
     volumes:
       - './scripts:/app/scripts'
       - './test:/app/test'
+      - nlmapsbuild:/app/test/nlmaps
     command: npm run watch-test
   lint:
     build:
       context: ./
       dockerfile: ./Dockerfile
     command: npm run lint
+    depends_on:
+      - build-nlmaps
+    volumes:
+      - nlmapsbuild:/app/test/nlmaps
+volumes:
+  nlmapsbuild:

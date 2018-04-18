@@ -7,7 +7,7 @@ jobs:
   build:
     branches:
       only:
-        - setup
+        - build-nlmaps
     docker:
       # specify the version you desire here
       - image: circleci/node:8
@@ -25,6 +25,7 @@ jobs:
 
       - checkout
 
+
       # Download and cache dependencies
       - restore_cache:
           keys:
@@ -39,9 +40,18 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package-lock.json" }}
 
+      # checkout nlmaps and build with custom config
+      - run: git clone https://github.com/webmapper/nlmaps test/nlmaps
+      - run: |
+            cd test/nlmaps
+            npm install
+            npm run bootstrap 
+            NODE_ENV=production node scripts/build -c ../../config/amsterdam.config.js -p leaflet,openlayers,googlemaps,geolocator
+            NODE_ENV=production node scripts/build -c ../../config/amsterdam.config.js -p nlmaps
+            node scripts/publish
+
       # lint
       - run: npm run lint
-        
 
       # test
       - run: npm run test
