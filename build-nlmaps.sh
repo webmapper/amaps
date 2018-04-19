@@ -1,4 +1,5 @@
 #!/bin/sh
+rm -rf nlmaps
 git clone https://github.com/webmapper/nlmaps
 cd nlmaps
 npm install
