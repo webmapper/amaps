@@ -34,5 +34,14 @@ services:
       - build-nlmaps
     volumes:
       - nlmapsbuild:/app/test/nlmaps
+  serve:
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    command: npm run serve -- -p 80
+    depends_on:
+      - build-nlmaps
+    volumes:
+      - nlmapsbuild:/app/test/nlmaps
 volumes:
   nlmapsbuild:
