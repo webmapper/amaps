@@ -3,37 +3,28 @@ export default {
     "basemaps": {
         "defaults": {
             "crs": "EPSG:3857",
-            "attr": "Kaartgegevens &copy; <a href='https://www.kadaster.nl'>Kadaster</a> | <a href='https://www.verbeterdekaart.nl'>Verbeter de kaart</a>",
+            "attr": "Kaartgegevens &copy; <a href='https://data.amsterdam.nl'>Datapunt Amsterdam</a>",
             "minZoom": 6,
             "maxZoom": 19,
             "type": "wmts",
-            "format": "jpeg",
-            "url": "https://geodata.nationaalgeoregister.nl/tiles/service"
+            "format": "png",
+            "url": "https://t{s}.data.amsterdam.nl/"
         },
         "layers": [
             {
                 "name": "standaard",
-                "urlname": "brtachtergrondkaart"                
+                "urlname": "topo_wm_zw"                
             },
             {
-                "name": "grijs",
-                "urlname": "brtachtergrondkaartgrijs"
-            },
-            {
-                "name": "pastel",
-                "urlname": "brtachtergrondkaartpastel"
-            },{
-                "name": "luchtfoto",
-                "urlname": "2016_ortho25",
-                "url": "https://geodata.nationaalgeoregister.nl/luchtfoto/rgb",
-                "format": "jpeg"
+                "name": "licht",
+                "urlname": "topo_wm_light"
             }
         ]
     },
     "wms": {
         "defaults": {
-            "url": "https://geodata.nationaalgeoregister.nl/{workSpaceName}/wms?",            
-            "version": "1.1.1",
+            "url": "https://map.data.amsterdam.nl/maps",            
+            "version": "1.1.0",
             "transparent": true,
             "format": "image/png",
             "minZoom": 0,
@@ -41,57 +32,24 @@ export default {
         },
         "layers": [
             {
-                "name": "foobar",
-                "workSpaceName": "bash",
-                "layerName": "peachy"
-            },
-            {
-                "name": "gebouwen",
-                "workSpaceName": "bag",
-                "layerName": "pand"
-            },
-            {
-                "name": "percelen",
-                "workSpaceName": "bkadastralekaartv3ag",
-                "layerName": "kadastralekaart"
-            },
-            {
-                "name": "drone-no-fly-zones",
-                "workSpaceName": "dronenoflyzones",
-                "layerName": "luchtvaartgebieden,landingsite"
-            },
-            {
-                "name": "hoogte",
-                "workSpaceName": "ahn2",
-                "layerName": "ahn2_05m_int",
-                "styleName": "ahn2:ahn2_05m_detail"
-            },
-            {
-                "name": "gemeenten",
-                "workSpaceName": "bestuurlijkegrenzen",
-                "layerName": "gemeenten",
-                "styleName": "bestuurlijkegrenzen:bestuurlijkegrenzen_gemeentegrenzen"
-            },
-            {
-                "name": "provincies",
-                "workSpaceName": "bestuurlijkegrenzen",
-                "layerName": "provincies",
-                "styleName": "bestuurlijkegrenzen:bestuurlijkegrenzen_provinciegrenzen"
+                "name": "tram",                
+                "layerName": "trm",
+                "url": "https://map.data.amsterdam.nl/maps/trm?"
             }
         ]
     },
     "geocoder": {
-        "suggestUrl": "https://geodata.nationaalgeoregister.nl/locatieserver/v3/suggest?",
-        "lookupUrl": "https://geodata.nationaalgeoregister.nl/locatieserver/v3/lookup?"
+        "suggestUrl": "https://geodata.nationaalgeoregister.nl/locatieserver/v3/suggest?fq=gemeentenaam:amsterdam&",
+        "lookupUrl": "https://geodata.nationaalgeoregister.nl/locatieserver/v3/lookup?fq=gemeentenaam:amsterdam&"
     },
     "map": {
         "style": 'standaard',
         "center": {
-            "latitude": 52.093249,
-            "longitude": 5.111994
+            "latitude": 52.37,
+            "longitude": 4.8952
         },
         "zoom": 8,
         "attribution": true,
-        "extent": [-180,-90,180,90]
+        "extent":  [ 4.7283, 52.2771, 5.0799, 52.4324 ]
     }
 }
