@@ -16,6 +16,7 @@
     "eslint-plugin-node": "^6.0.1",
     "eslint-plugin-promise": "^3.7.0",
     "eslint-plugin-standard": "^3.0.1",
+    "http-server": "^0.11.1",
     "live-server": "^1.2.0",
     "live-server-https": "0.0.2",
     "nodemon": "^1.17.3",
@@ -27,7 +28,8 @@
   "scripts": {
     "test": "node scripts/serve",
     "watch-test": "nodemon --watch scripts --watch test -e js,html scripts/serve.js",
-    "lint": "eslint test scripts"
+    "lint": "eslint test scripts",
+    "serve": "http-server test"
   },
   "repository": {
     "type": "git",
