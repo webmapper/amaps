@@ -4,7 +4,7 @@ pipeline {
     timeout(time: 1, unit: 'HOURS')
   }
   environment {
-    IMAGE_BASE = "build.datapunt.amsterdam.nl:5000/amaps/app"
+    IMAGE_BASE = "build.datapunt.amsterdam.nl:5000/amaps/embedkaart"
     IMAGE_BUILD = "${IMAGE_BASE}:${BUILD_NUMBER}"
     IMAGE_ACCEPTANCE = "${IMAGE_BASE}:acceptance"
     IMAGE_PRODUCTION = "${IMAGE_BASE}:production"
@@ -60,7 +60,7 @@ pipeline {
         sh "docker push ${IMAGE_ACCEPTANCE}"
         build job: 'Subtask_Openstack_Playbook', parameters: [
           [$class: 'StringParameterValue', name: 'INVENTORY', value: 'acceptance'],
-          [$class: 'StringParameterValue', name: 'PLAYBOOK', value: 'deploy-client.yml']
+          [$class: 'StringParameterValue', name: 'PLAYBOOK', value: 'deploy-embedkaart.yml']
         ]
       }
     }
@@ -74,15 +74,6 @@ pipeline {
         sh "docker tag ${IMAGE_PRODUCTION} ${IMAGE_LATEST}"
         sh "docker push ${IMAGE_PRODUCTION}"
         sh "docker push ${IMAGE_LATEST}"
-      }
-    }
-    stage('Deploy pre P (Master)') {
-      when { branch 'master' }
-      steps {
-        build job: 'Subtask_Openstack_Playbook', parameters: [
-          [$class: 'StringParameterValue', name: 'INVENTORY', value: 'acceptance'],
-          [$class: 'StringParameterValue', name: 'PLAYBOOK', value: 'deploy-client-pre.yml']
-        ]
       }
     }
     stage('Waiting for approval (Master)') {
@@ -104,7 +95,7 @@ pipeline {
       steps {
         build job: 'Subtask_Openstack_Playbook', parameters: [
           [$class: 'StringParameterValue', name: 'INVENTORY', value: 'production'],
-          [$class: 'StringParameterValue', name: 'PLAYBOOK', value: 'deploy-client.yml']
+          [$class: 'StringParameterValue', name: 'PLAYBOOK', value: 'deploy-embedkaart.yml']
         ]
       }
     }
