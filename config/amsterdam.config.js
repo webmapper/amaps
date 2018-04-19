@@ -2,13 +2,12 @@ export default {
     "version": 0.1,    
     "basemaps": {
         "defaults": {
-            "crs": "EPSG:3857",
             "attr": "Kaartgegevens &copy; <a href='https://data.amsterdam.nl'>Datapunt Amsterdam</a>",
             "minZoom": 6,
             "maxZoom": 19,
-            "type": "wmts",
+            "type": "tms",
             "format": "png",
-            "url": "https://t{s}.data.amsterdam.nl/"
+            "url": "https://t1.data.amsterdam.nl"
         },
         "layers": [
             {
@@ -48,7 +47,7 @@ export default {
             "latitude": 52.37,
             "longitude": 4.8952
         },
-        "zoom": 8,
+        "zoom": 12,
         "attribution": true,
         "extent":  [ 4.7283, 52.2771, 5.0799, 52.4324 ]
     }
