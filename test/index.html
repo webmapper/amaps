@@ -18,6 +18,10 @@
         marker: true,
         search: true
       });
+      
+      let singleMarker = nlmaps.singleMarker(map);
+      let clicks = nlmaps.clickprovider(map);
+      clicks.subscribe(singleMarker);
     </script>
   </body>
 </html>
