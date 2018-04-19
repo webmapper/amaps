@@ -15,7 +15,7 @@ async function runTests(server) {
     // map call occurs in browser context
     /* eslint-disable-next-line no-undef */
     const mapCenter = await page.evaluate(() => map.getCenter());
-    await t.assert(mapCenter.lng === 5.9699 && mapCenter.lat === 52.2112, 'map is centered as expected');
+    await t.assert(mapCenter.lng === 5.111994 && mapCenter.lat === 52.093249, 'map is centered as expected');
     await browser.close();
     t.end();
   });
@@ -33,7 +33,7 @@ async function runTests(server) {
     /* eslint-enable no-undef */
 
     /* eslint-disable-next-line max-len */
-    await t.assert(urlForStandard === 'https://geodata.nationaalgeoregister.nl/tiles/service/wmts/brtachtergrondkaart/EPSG:3857/{z}/{x}/{y}.jpeg', 'url for created layer is as expected');
+    await t.assert(urlForStandard === 'https://t1.data.amsterdam.nl/{z}/{x}/{y}.png', 'url for created layer is as expected');
     /* no-underscore-dangle */
     await browser.close();
     t.end();
