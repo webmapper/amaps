@@ -43,5 +43,7 @@ services:
       - build-nlmaps
     volumes:
       - nlmapsbuild:/app/test/nlmaps
+    expose:
+      - 80
 volumes:
   nlmapsbuild:
