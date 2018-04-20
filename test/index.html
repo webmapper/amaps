@@ -19,9 +19,11 @@
         search: true
       });
       
-      let singleMarker = nlmaps.singleMarker(map);
-      let clicks = nlmaps.clickprovider(map);
-      clicks.subscribe(singleMarker);
+      let click = nlmaps.clickprovider(map);
+      let singleMarker = nlmaps.singleClick(map);
+      let query = nlmaps.queryFeatures();
+      let queryResults = query(click);
+      queryResults(0, singleMarker);
     </script>
   </body>
 </html>
