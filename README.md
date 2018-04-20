@@ -19,7 +19,7 @@ The primary way to run the tests is with `docker-compose`.
 
 First build nlmaps with the `build-nlmaps` container. The results are put in a volume which will be shared to the test containers.
 
-    docker-compose up --build nlmaps
+    docker-compose up --build build-nlmaps
 
 now you can run the tests:
 
