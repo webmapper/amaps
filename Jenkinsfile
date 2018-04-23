@@ -16,7 +16,7 @@ pipeline {
       steps {
         sh "docker ps"
         sh "docker-compose -p ${env.BRANCH_NAME} down -v || true"
-        sh "docker network rm `docker network ls | ack ${env.BRANCH_NAME} | awk -F" " '{a[$1];}END{for (i in a) b = b" "i; print b;}'`"
+        sh "docker network rm `docker network ls | ack ${env.BRANCH_NAME} | awk -F" " '{a[\$1];}END{for (i in a) b = b" "i; print b;}'`"
         sh "docker-compose -p ${env.BRANCH_NAME} up --build build-nlmaps"
       }
     }
@@ -25,20 +25,20 @@ pipeline {
       parallel {
         stage('Linting') {
           steps {
-            sh "docker network rm `docker network ls | ack ${env.BRANCH_NAME} | awk -F" " '{a[$1];}END{for (i in a) b = b" "i; print b;}'`"
+            sh "docker network rm `docker network ls | ack ${env.BRANCH_NAME} | awk -F" " '{a[\$1];}END{for (i in a) b = b" "i; print b;}'`"
             sh "docker-compose -p ${env.BRANCH_NAME} up --build --exit-code-from lint lint"
           }
         }
         stage('Testing') {
           steps {
-            sh "docker network rm `docker network ls | ack ${env.BRANCH_NAME} | awk -F" " '{a[$1];}END{for (i in a) b = b" "i; print b;}'`"
+            sh "docker network rm `docker network ls | ack ${env.BRANCH_NAME} | awk -F" " '{a[\$1];}END{for (i in a) b = b" "i; print b;}'`"
             sh "docker-compose -p ${env.BRANCH_NAME} up --build --exit-code-from test test"
           }
         }
       }
       post {
         always {
-          sh "docker network rm `docker network ls | ack ${env.BRANCH_NAME} | awk -F" " '{a[$1];}END{for (i in a) b = b" "i; print b;}'`"
+          sh "docker network rm `docker network ls | ack ${env.BRANCH_NAME} | awk -F" " '{a[\$1];}END{for (i in a) b = b" "i; print b;}'`"
           sh "docker-compose -p ${env.BRANCH_NAME} down -v || true"
         }
       }
@@ -105,7 +105,7 @@ pipeline {
     always {
       echo 'Cleaning'
       sh "docker-compose -p ${env.BRANCH_NAME} down -v || true"
-      sh "docker network rm `docker network ls | ack ${env.BRANCH_NAME} | awk -F" " '{a[$1];}END{for (i in a) b = b" "i; print b;}'`"
+      sh "docker network rm `docker network ls | ack ${env.BRANCH_NAME} | awk -F" " '{a[\$1];}END{for (i in a) b = b" "i; print b;}'`"
     }
 
     success {
