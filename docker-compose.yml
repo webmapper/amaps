@@ -1,4 +1,4 @@
-version: "3"
+version: '3.5'
 services:
   build-nlmaps:
     build:
@@ -10,14 +10,17 @@ services:
     build:
       context: ./
       dockerfile: ./Dockerfile
+      target: build-deps
     volumes:
       - nlmapsbuild:/app/test/nlmaps
     ports:
       - 8092:8080
+    command: npm run test
   watch-test:
     build:
       context: ./
       dockerfile: ./Dockerfile
+      target: build-deps
     depends_on:
       - build-nlmaps
     volumes:
@@ -29,6 +32,7 @@ services:
     build:
       context: ./
       dockerfile: ./Dockerfile
+      target: build-deps
     command: npm run lint
     depends_on:
       - build-nlmaps
@@ -38,12 +42,12 @@ services:
     build:
       context: ./
       dockerfile: ./Dockerfile
-    command: npm run serve -- -p 80
     depends_on:
       - build-nlmaps
     volumes:
-      - nlmapsbuild:/app/test/nlmaps
+      - nlmapsbuild:/usr/share/nginx/html/nlmaps
     expose:
       - 80
+    ipc: host
 volumes:
   nlmapsbuild:
