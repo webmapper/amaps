@@ -18,6 +18,12 @@
         marker: true,
         search: true
       });
+      
+      let click = nlmaps.clickprovider(map);
+      let singleMarker = nlmaps.singleClick(map);
+      let query = nlmaps.queryFeatures();
+      let queryResults = query(click);
+      queryResults(0, singleMarker);
     </script>
   </body>
 </html>
