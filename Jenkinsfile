@@ -13,7 +13,7 @@ pipeline {
   stages {
     stage('Clean') {
       steps {
-        sh "docker-compose -p ${env.BRANCH_NAME}${env.GIT_COMMIT} down -v || true"
+        sh "docker-compose -p ${BUILD_NUMBER} down -v || true"
       }
     }
     stage('Test') {
@@ -21,20 +21,20 @@ pipeline {
       parallel {
         stage('Linting') {
           steps {
-            // sh "docker-compose -p ${env.BRANCH_NAME}${env.GIT_COMMIT} up --build --exit-code-from lint lint"
+            // sh "docker-compose -p ${BUILD_NUMBER} up --build --exit-code-from lint lint"
             echo 'Linting disabled'
           }
         }
         stage('Testing') {
           steps {
-            // sh "docker-compose -p ${env.BRANCH_NAME}${env.GIT_COMMIT} up --build --exit-code-from test test"
+            // sh "docker-compose -p ${BUILD_NUMBER} up --build --exit-code-from test test"
             echo 'Testing disabled'
           }
         }
       }
       post {
         always {
-          sh "docker-compose -p ${env.BRANCH_NAME}${env.GIT_COMMIT} down -v || true"
+          sh "docker-compose -p ${BUILD_NUMBER} down -v || true"
         }
       }
     }
@@ -100,7 +100,7 @@ pipeline {
   post {
     always {
       echo 'Cleaning'
-      sh "docker-compose -p ${env.BRANCH_NAME}${env.GIT_COMMIT} down -v || true"
+      sh "docker-compose -p ${BUILD_NUMBER} down -v || true"
     }
 
     success {
