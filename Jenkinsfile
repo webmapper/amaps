@@ -14,10 +14,9 @@ pipeline {
     stage('Clean') {
       steps {
         sh "docker-compose -p ${env.BRANCH_NAME}${env.GIT_COMMIT} down -v || true"
-        sh "docker-compose -p ${env.BRANCH_NAME}${env.GIT_COMMIT} up --build build-nlmaps"
       }
     }
-    stage('Test & Bakkie') {
+    stage('Test') {
       // failFast true // fail if one of the parallel stages fail
       parallel {
         stage('Linting') {
@@ -38,9 +37,10 @@ pipeline {
       }
     }
     stage('Build A (Master)') {
-      when { branch 'master' }
+      when { branch 'build-serve' }
       steps {
         sh "docker build -t ${IMAGE_BUILD} " +
+          "--file Dockerfile-prod " +
           "--shm-size 1G " +
           "--build-arg BUILD_ENV=acc " +
           "."
@@ -48,7 +48,7 @@ pipeline {
       }
     }
     stage('Deploy A (Master)') {
-      when { branch 'master' }
+      when { branch 'build-serve' }
       steps {
         sh "docker pull ${IMAGE_BUILD}"
         sh "docker tag ${IMAGE_BUILD} ${IMAGE_ACCEPTANCE}"
