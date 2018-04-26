@@ -20,7 +20,7 @@ pipeline {
             PROJECT = "${PROJECT_PREFIX}lint"
           }
           steps {
-            sh "docker-compose -p ${PROJECT} up --build --exit-code-from test-lint test-lint"
+            sh "docker-compose -p ${PROJECT} up --build --exit-code-from lint lint"
           }
           post {
             always {
