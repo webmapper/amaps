@@ -17,18 +17,15 @@ pipeline {
       }
     }
     stage('Test') {
-      // failFast true // fail if one of the parallel stages fail
       parallel {
         stage('Linting') {
           steps {
-            // sh "docker-compose -p ${BUILD_NUMBER} up --build --exit-code-from lint lint"
-            echo 'Linting disabled'
+            sh "docker-compose -p ${BUILD_NUMBER} up --build --exit-code-from lint lint"
           }
         }
         stage('Testing') {
           steps {
-            // sh "docker-compose -p ${BUILD_NUMBER} up --build --exit-code-from test test"
-            echo 'Testing disabled'
+            sh "docker-compose -p ${BUILD_NUMBER} up --build --exit-code-from test test"
           }
         }
       }
