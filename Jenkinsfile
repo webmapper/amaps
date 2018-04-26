@@ -4,6 +4,8 @@ pipeline {
     timeout(time: 1, unit: 'HOURS')
   }
   environment {
+    COMMIT_HASH = GIT_COMMIT.substring(0, 8)
+    PROJECT_PREFIX = "${BRANCH_NAME}_${COMMIT_HASH}_${BUILD_NUMBER}_"
     IMAGE_BASE = "build.datapunt.amsterdam.nl:5000/amaps/embedkaart"
     IMAGE_BUILD = "${IMAGE_BASE}:${BUILD_NUMBER}"
     IMAGE_ACCEPTANCE = "${IMAGE_BASE}:acceptance"
@@ -11,27 +13,33 @@ pipeline {
     IMAGE_LATEST = "${IMAGE_BASE}:latest"
   }
   stages {
-    stage('Clean') {
-      steps {
-        sh "docker-compose -p ${BUILD_NUMBER} down -v || true"
-      }
-    }
     stage('Test') {
       parallel {
         stage('Linting') {
+          environment {
+            PROJECT = "${PROJECT_PREFIX}lint"
+          }
           steps {
-            sh "docker-compose -p ${BUILD_NUMBER} up --build --exit-code-from lint lint"
+            sh "docker-compose -p ${PROJECT} up --build --exit-code-from test-lint test-lint"
+          }
+          post {
+            always {
+              sh "docker-compose -p ${PROJECT} down -v || true"
+            }
           }
         }
-        stage('Testing') {
-          steps {
-            sh "docker-compose -p ${BUILD_NUMBER} up --build --exit-code-from test test"
+        stage('Unit') {
+          environment {
+            PROJECT = "${PROJECT_PREFIX}unit"
           }
-        }
-      }
-      post {
-        always {
-          sh "docker-compose -p ${BUILD_NUMBER} down -v || true"
+          steps {
+            sh "docker-compose -p ${PROJECT} up --build --exit-code-from test test"
+          }
+          post {
+            always {
+              sh "docker-compose -p ${PROJECT} down -v || true"
+            }
+          }
         }
       }
     }
@@ -75,7 +83,7 @@ pipeline {
         branch 'master'
       }
       options {
-        timeout(time:5, unit:'DAYS')
+        timeout(time: 5, unit: 'DAYS')
       }
       steps {
         script {
@@ -95,11 +103,6 @@ pipeline {
     }
   }
   post {
-    always {
-      echo 'Cleaning'
-      sh "docker-compose -p ${BUILD_NUMBER} down -v || true"
-    }
-
     success {
       echo 'Pipeline success'
     }
@@ -109,7 +112,7 @@ pipeline {
       slackSend(
         channel: 'ci-channel',
         color: 'danger',
-        message: "${env.JOB_NAME}: failure ${env.BUILD_URL}"
+        message: "${JOB_NAME}: failure ${BUILD_URL}"
       )
     }
   }
