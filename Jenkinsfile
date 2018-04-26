@@ -12,33 +12,29 @@ pipeline {
   }
   stages {
     stage('Clean') {
-      // TODO remove this stage when jenkins jobs run in isolation
       steps {
-        sh "docker ps"
-        sh "docker-compose down -v || true"
-        sh "docker network prune -f"
-        sh "docker-compose -p ${env.BRANCH_NAME} up --build build-nlmaps"
+        sh "docker-compose -p ${BUILD_NUMBER} down -v || true"
       }
     }
-    stage('Test & Bakkie') {
+    stage('Test') {
       // failFast true // fail if one of the parallel stages fail
       parallel {
         stage('Linting') {
           steps {
-            sh "docker network prune -f"
-            sh "docker-compose -p ${env.BRANCH_NAME} up --build --exit-code-from lint lint"
+            // sh "docker-compose -p ${BUILD_NUMBER} up --build --exit-code-from lint lint"
+            echo 'Linting disabled'
           }
         }
         stage('Testing') {
           steps {
-            sh "docker network prune -f"
-            sh "docker-compose -p ${env.BRANCH_NAME} up --build --exit-code-from test test"
+            // sh "docker-compose -p ${BUILD_NUMBER} up --build --exit-code-from test test"
+            echo 'Testing disabled'
           }
         }
       }
       post {
         always {
-          sh "docker-compose -p ${env.BRANCH_NAME} down -v || true"
+          sh "docker-compose -p ${BUILD_NUMBER} down -v || true"
         }
       }
     }
@@ -46,6 +42,7 @@ pipeline {
       when { branch 'master' }
       steps {
         sh "docker build -t ${IMAGE_BUILD} " +
+          "--file Dockerfile-prod " +
           "--shm-size 1G " +
           "--build-arg BUILD_ENV=acc " +
           "."
@@ -103,8 +100,7 @@ pipeline {
   post {
     always {
       echo 'Cleaning'
-      sh "docker-compose -p ${env.BRANCH_NAME} down -v || true"
-      sh "docker network prune -f"
+      sh "docker-compose -p ${BUILD_NUMBER} down -v || true"
     }
 
     success {
