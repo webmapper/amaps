@@ -39,7 +39,7 @@ pipeline {
       }
     }
     stage('Build A (Master)') {
-      when { branch 'build-serve' }
+      when { branch 'master' }
       steps {
         sh "docker build -t ${IMAGE_BUILD} " +
           "--file Dockerfile-prod " +
@@ -50,7 +50,7 @@ pipeline {
       }
     }
     stage('Deploy A (Master)') {
-      when { branch 'build-serve' }
+      when { branch 'master' }
       steps {
         sh "docker pull ${IMAGE_BUILD}"
         sh "docker tag ${IMAGE_BUILD} ${IMAGE_ACCEPTANCE}"
