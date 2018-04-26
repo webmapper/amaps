@@ -6,11 +6,22 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
     <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/openlayers/4.1.1/ol.css" />-->
     <link rel="stylesheet" href="nlmaps/dist/assets/css/nlmaps.css"/>
-    <style> #mapdiv{height:300px}</style>
+    <style>
+      #mapdiv{height:300px};
+      #results{
+        max-width: 400px;
+      }
+      .loading {
+        opacity: 0.3;
+      }
+    
+    </style>
   </head>
   <body>
     <div id="mapdiv"></div>
+    <div id="queryresults"></div>
     <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.4.4/proj4.js"></script>
     <script src="nlmaps/dist/nlmaps.iife.js"></script>
     <script>
       let map = nlmaps.createMap({target: 'mapdiv',
@@ -19,11 +30,77 @@
         search: true
       });
       
-      let click = nlmaps.clickprovider(map);
-      let singleMarker = nlmaps.singleClick(map);
-      let query = nlmaps.queryFeatures();
-      let queryResults = query(click);
-      queryResults(0, singleMarker);
+      function myHandler(t, d) {
+        if (t === 1 ){
+          console.log('The click happened at: ' + d)
+            console.log(d)
+        }
+      }
+
+      let clicks = nlmaps.clickprovider(map);
+
+      /* eslint-disable-next-line max-len */
+      proj4.defs("EPSG:28992","+proj=sterea +lat_0=52.15616055555555 +lon_0=5.38763888888889 +k=0.9999079 +x_0=155000 +y_0=463000 +ellps=bessel +towgs84=565.417,50.3319,465.552,-0.398957,0.343988,-1.8774,4.0725 +units=m +no_defs");
+      const transformCoords = proj4(proj4.defs('EPSG:4326'), proj4.defs('EPSG:28992'));
+
+      //user-provided function for featureQuery to format request URL
+      //featureQuery will call this function with the following arguments:
+      // baseUrl string: the base url of the API (from config)
+      // xy: the x,y of the clicked point on the map (longitude, latitude).
+      function requestFormatter(baseUrl, xy) {
+        let xyRD = transformCoords.forward(xy);
+        return `${baseUrl}${xyRD.x},${xyRD.y},10`
+      }
+
+      //user-provided function for featureQuery to parse Ajax response
+      function responseFormatter(res) {
+        let filtered = res.results.filter(x => x.hoofdadres === true);
+        return filtered.length > 0 ? filtered[0] : null;
+      }
+
+
+      let singleMarker =  nlmaps.singleMarker(map);
+      let featureQuery = nlmaps.queryFeatures(clicks, requestFormatter, responseFormatter);
+      featureQuery.subscribe(singleMarker);
+
+      //log the query results
+      featureQuery.subscribe(myHandler);
+
+
+      //write the search results to the page
+      let div = document.getElementById('queryresults');
+      let latlngText = document.createElement('p');
+      let queryResultText = document.createElement('p');
+      div.append(latlngText);
+      div.append(queryResultText);
+      let resblock = document.createElement('pre'); 
+      resblock.setAttribute('id', 'results');
+      div.append(resblock)
+      function writeQueryResults(t, d) {
+        if (t === 1) {
+          latlngText.innerText = 'Latitude: '+ d.latlng.lat + ', Longitude: ' + d.latlng.lng;
+          if (d.queryResult) {
+            queryResultText.innerText = 'Query results:';
+            resblock.innerText = JSON.stringify(d.queryResult, null, 2)
+            div.append(resblock);
+
+          } else {
+            queryResultText.innerText = 'Query results: no results for this location.';
+            resblock.innerText = '';
+          }
+          div.className = '';
+        }
+      
+      }
+
+      featureQuery.subscribe(writeQueryResults);
+
+      clicks.subscribe((t, d) => {
+        if (t === 1) {
+          div.className = 'loading'; 
+        }
+      })
+
     </script>
   </body>
 </html>
