@@ -29,6 +29,7 @@
     "test": "node scripts/serve",
     "watch-test": "nodemon --watch scripts --watch test -e js,html scripts/serve.js",
     "lint": "eslint test scripts",
+    "build": "./build-nlmaps.sh",
     "serve": "http-server test"
   },
   "repository": {

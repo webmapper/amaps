@@ -35,6 +35,10 @@ In order to run the tests directly without `docker-compose`, you need to provide
 
     ln -s /path/to/nlmaps
 
+3. run:
+
+    npm run build
+
 Now you can run the tests from the root directory:
 
     npm run test
@@ -46,6 +50,10 @@ During development, to rerun the tests on changes to your test files, run:
 To lint the code:
 
     npm run lint
+
+To launch a development server:
+
+    npm run serve
 
 
 Todo
