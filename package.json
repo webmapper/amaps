@@ -31,7 +31,7 @@
     "watch-test": "nodemon --watch scripts --watch test -e js,html scripts/test.js",
     "watch-docker-test": "nodemon --watch scripts --watch test -e js,html scripts/docker-test.js",
     "lint": "eslint test scripts",
-    "build": "./build-nlmaps.sh",
+    "build": "./build-nlmaps.sh && ln -s ../nlmaps test/nlmaps",
     "serve": "http-server test"
   },
   "repository": {
