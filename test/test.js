@@ -3,12 +3,12 @@ const { test } = require('tap');
 const pa11y = require('pa11y');
 
 
-async function runTests(server) {
+async function runTests(host) {
   // General browser tests
   await test('The map is loaded', async (t) => {
     const browser = await puppeteer.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox'] });
     const page = await browser.newPage();
-    await page.goto('http://localhost:8123/index.html');
+    await page.goto(`http://${host}/index.html`);
     const div = await page.$eval('#mapdiv', el => Boolean(el));
     await t.assert(div === true, 'div is present');
 
@@ -22,7 +22,7 @@ async function runTests(server) {
   await test('correct config is loaded', async (t) => {
     const browser = await puppeteer.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox'] });
     const page = await browser.newPage();
-    await page.goto('http://localhost:8123/index.html');
+    await page.goto(`http://${host}/index.html`);
 
     /* eslint-disable no-undef */
     /* eslint-disable no-underscore-dangle */
@@ -39,7 +39,7 @@ async function runTests(server) {
   });
   // ARIA tests
   await test('there are no accessibility issues', async (t) => {
-    const ariares = await pa11y('http://localhost:8123/index.html', {
+    const ariares = await pa11y(`http://${host}/index.html`, {
       allowedStandards: 'WCAG2AA',
       level: 'error',
       chromeLaunchConfig: {
@@ -52,7 +52,6 @@ async function runTests(server) {
     await t.assert(ariares.issues.length === 0, 'length ofissue list is 0');
     t.end();
   });
-  server.close();
 }
 
 module.exports = runTests;

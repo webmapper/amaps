@@ -4,6 +4,8 @@ pipeline {
     timeout(time: 1, unit: 'HOURS')
   }
   environment {
+    COMMIT_HASH = GIT_COMMIT.substring(0, 8)
+    PROJECT_PREFIX = "${BRANCH_NAME}_${COMMIT_HASH}_${BUILD_NUMBER}_"
     IMAGE_BASE = "build.datapunt.amsterdam.nl:5000/amaps/embedkaart"
     IMAGE_BUILD = "${IMAGE_BASE}:${BUILD_NUMBER}"
     IMAGE_ACCEPTANCE = "${IMAGE_BASE}:acceptance"
@@ -11,34 +13,33 @@ pipeline {
     IMAGE_LATEST = "${IMAGE_BASE}:latest"
   }
   stages {
-    stage('Clean') {
-      // TODO remove this stage when jenkins jobs run in isolation
-      steps {
-        sh "docker ps"
-        sh "docker-compose down -v || true"
-        sh "docker network prune -f"
-        sh "docker-compose -p ${env.BRANCH_NAME} up --build build-nlmaps"
-      }
-    }
-    stage('Test & Bakkie') {
-      // failFast true // fail if one of the parallel stages fail
+    stage('Test') {
       parallel {
         stage('Linting') {
+          environment {
+            PROJECT = "${PROJECT_PREFIX}lint"
+          }
           steps {
-            sh "docker network prune -f"
-            sh "docker-compose -p ${env.BRANCH_NAME} up --build --exit-code-from lint lint"
+            sh "docker-compose -p ${PROJECT} up --build --exit-code-from lint lint"
+          }
+          post {
+            always {
+              sh "docker-compose -p ${PROJECT} down -v || true"
+            }
           }
         }
-        stage('Testing') {
-          steps {
-            sh "docker network prune -f"
-            sh "docker-compose -p ${env.BRANCH_NAME} up --build --exit-code-from test test"
+        stage('Unit') {
+          environment {
+            PROJECT = "${PROJECT_PREFIX}unit"
           }
-        }
-      }
-      post {
-        always {
-          sh "docker-compose -p ${env.BRANCH_NAME} down -v || true"
+          steps {
+            sh "docker-compose -p ${PROJECT} up --build --exit-code-from test test"
+          }
+          post {
+            always {
+              sh "docker-compose -p ${PROJECT} down -v || true"
+            }
+          }
         }
       }
     }
@@ -46,6 +47,7 @@ pipeline {
       when { branch 'master' }
       steps {
         sh "docker build -t ${IMAGE_BUILD} " +
+          "--file Dockerfile-prod " +
           "--shm-size 1G " +
           "--build-arg BUILD_ENV=acc " +
           "."
@@ -81,7 +83,7 @@ pipeline {
         branch 'master'
       }
       options {
-        timeout(time:5, unit:'DAYS')
+        timeout(time: 5, unit: 'DAYS')
       }
       steps {
         script {
@@ -101,12 +103,6 @@ pipeline {
     }
   }
   post {
-    always {
-      echo 'Cleaning'
-      sh "docker-compose -p ${env.BRANCH_NAME} down -v || true"
-      sh "docker network prune -f"
-    }
-
     success {
       echo 'Pipeline success'
     }
@@ -116,7 +112,7 @@ pipeline {
       slackSend(
         channel: 'ci-channel',
         color: 'danger',
-        message: "${env.JOB_NAME}: failure ${env.BUILD_URL}"
+        message: "${JOB_NAME}: failure ${BUILD_URL}"
       )
     }
   }
