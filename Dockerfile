@@ -8,6 +8,8 @@ COPY scripts /app/scripts
 COPY test /app/test
 COPY .eslintrc.js /app/.eslintrc.js
 COPY .eslintignore /app/.eslintignore
+#build amaps library which is used by test.html
+RUN npm run build-dev
 
 
 # Web server image
