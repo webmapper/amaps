@@ -4,7 +4,7 @@ export default {
         "defaults": {
             "attr": "Kaartgegevens &copy; <a href='https://data.amsterdam.nl'>Datapunt Amsterdam</a>",
             "minZoom": 11,
-            "maxZoom": 19,
+            "maxZoom": 21,
             "type": "tms",
             "format": "png",
             "url": "https://t1.data.amsterdam.nl"
