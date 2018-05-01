@@ -6,17 +6,25 @@ services:
       dockerfile: ./Dockerfile-nlmaps
     volumes:
       - nlmapsbuild:/app/nlmaps
+  build-amaps:
+    build:
+      context: .
+      dockerfile: ./Dockerfile-amaps
+    volumes:
+      - amapsbuild:/app/dist 
   serve:
     build: .
     depends_on:
       - build-nlmaps
     volumes:
       - nlmapsbuild:/usr/share/nginx/html/nlmaps
+    ports:
+      - 8095:80
   test:
     build:
       context: .
       target: build-deps
-    command: npm run test
+    command: npm run docker-test
     depends_on:
       - serve
     volumes:
@@ -25,7 +33,7 @@ services:
     build:
       context: .
       target: build-deps
-    command: npm run watch-test
+    command: npm run watch-docker-test
     depends_on:
       - serve
     volumes:
@@ -41,3 +49,4 @@ services:
       - nlmapsbuild:/app/test/nlmaps
 volumes:
   nlmapsbuild:
+  amapsbuild:

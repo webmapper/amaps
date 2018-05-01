@@ -1,0 +1,7 @@
+FROM node:8.9
+MAINTAINER hans@webmapper.net
+WORKDIR /app
+COPY package.json rollup.config.js /app/
+COPY src /app/src/
+RUN npm install
+CMD npm run build-amaps
