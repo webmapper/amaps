@@ -11,7 +11,6 @@ async function runTests(host) {
     await page.goto(`http://${host}/index.html`);
     const div = await page.$eval('#mapdiv', el => Boolean(el));
     await t.assert(div === true, 'div is present');
-    await t.assert('foo' === 'bar', 'impossible');
 
     // map call occurs in browser context
     /* eslint-disable-next-line no-undef */
