@@ -38,7 +38,7 @@
     "docker-test": "node scripts/docker-test",
     "watch-test": "nodemon --watch scripts --watch test -e js,html scripts/test.js",
     "watch-docker-test": "nodemon --watch scripts --watch test -e js,html scripts/docker-test.js",
-    "lint": "eslint test scripts",
+    "lint": "eslint test scripts && eslint -c .eslintrc-amaps.js src",
     "build-amaps": "shx mkdir -p dist && NODE_ENV=production rollup -c rollup.config.js",
     "build-amaps-dev": "NODE_ENV=development rollup -c rollup.config.js",
     "watch-build-amaps-dev": "NODE_ENV=development rollup -w -c rollup.config.js",
