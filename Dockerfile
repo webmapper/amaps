@@ -11,7 +11,7 @@ COPY .eslintrc.js /app/.eslintrc.js
 COPY .eslintignore /app/.eslintignore
 COPY rollup.config.js /app/rollup.config.js
 #build amaps library which is used by test.html
-RUN npm run build-dev
+RUN npm run build-amaps-dev
 
 
 # Web server image
