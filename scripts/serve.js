@@ -1,1 +1,1 @@
-require('../test/test.js')('localhost:8080');
+require('../test/test.js')('serve');
