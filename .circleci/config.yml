@@ -50,5 +50,10 @@ jobs:
       # lint
       - run: npm run lint
 
+      # build amaps
+      - run: npm run build-amaps-dev
+
+      # serve
+      - run: npm run serve
       # test
       - run: npm run test
