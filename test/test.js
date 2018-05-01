@@ -15,7 +15,7 @@ async function runTests() {
     // map call occurs in browser context
     /* eslint-disable-next-line no-undef */
     const mapCenter = await page.evaluate(() => map.getCenter());
-    await t.assert(mapCenter.lng === 4.8952 && mapCenter.lat ===  52.37, 'map is centered as expected');
+    await t.assert(mapCenter.lng === 5.111994 && mapCenter.lat ===  52.093249, 'map is centered as expected');
     await browser.close();
     t.end();
   });
@@ -47,7 +47,6 @@ async function runTests() {
     /* eslint-disable no-undef */
     /* eslint-disable no-underscore-dangle */
     const amaps = await page.evaluate(() => {
-      let mymaps = amaps;
       return amaps;
     });
     await t.equals(typeof amaps, 'object', 'amaps is an object');
@@ -80,6 +79,8 @@ async function runTests() {
         ],
       },
     });    
+    /* eslint-disable-next-line no-console */
+    //console.log(ariares.issues.length);
     await t.assert(ariares.issues.length === 0, 'length ofissue list is 0');
     t.end();
   });
