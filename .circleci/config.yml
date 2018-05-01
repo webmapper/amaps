@@ -54,6 +54,4 @@ jobs:
       - run: npm run build-amaps-dev
 
       # serve and test
-      - run: |
-            npm run serve &
-            npm run test
+      - run: npm run test
