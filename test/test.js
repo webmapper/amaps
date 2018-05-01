@@ -14,8 +14,8 @@ async function runTests(host) {
 
     // map call occurs in browser context
     /* eslint-disable-next-line no-undef */
-    //const mapCenter = await page.evaluate(() => map.getCenter());
-    //await t.assert(mapCenter.lng === 5.111994 && mapCenter.lat ===  52.093249, 'map is centered as expected');
+    const mapCenter = await page.evaluate(() => map.getCenter());
+    await t.assert(mapCenter.lng === 5.111994 && mapCenter.lat ===  52.093249, 'map is centered as expected');
     await browser.close();
     t.end();
   });
@@ -84,7 +84,6 @@ async function runTests(host) {
     await t.assert(ariares.issues.length === 0, 'length ofissue list is 0');
     t.end();
   });
-  test.end();
   return 'tests completed';
 }
 
