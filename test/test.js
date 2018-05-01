@@ -84,6 +84,7 @@ async function runTests(host) {
     await t.assert(ariares.issues.length === 0, 'length ofissue list is 0');
     t.end();
   });
+  test.end();
   return 'tests completed';
 }
 
