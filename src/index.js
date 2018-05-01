@@ -21,4 +21,5 @@ const amaps = {
   BagApiRequestFormatter: requestFormatter,
   BagApiResponseFormatter: responseFormatter
 }
-export default amaps;
+
+export default amaps
