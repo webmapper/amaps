@@ -8,5 +8,7 @@ const server = http.createServer(app).listen(8123, async () => {
   /*eslint-disable-next-line no-console*/
   console.log(result)
   server.close()
+  /*eslint-disable-next-line no-console*/
+  console.log('everything is done!')
 
 })
