@@ -16,7 +16,7 @@ services:
     build:
       context: .
       target: build-deps
-    command: npm run test
+    command: npm run docker-test
     depends_on:
       - serve
     volumes:
@@ -25,7 +25,7 @@ services:
     build:
       context: .
       target: build-deps
-    command: npm run watch-test
+    command: npm run watch-docker-test
     depends_on:
       - serve
     volumes:
