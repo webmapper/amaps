@@ -44,6 +44,9 @@ export default {
     "featureQuery": {
         "baseUrl": "https://api.data.amsterdam.nl/bag/nummeraanduiding/?format=json&locatie=",
     },
+    "marker" : {
+      "url": './assets/img/marker_icon.svg'
+    },
     "map": {
         "style": 'standaard',
         "center": {
