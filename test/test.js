@@ -15,7 +15,7 @@ async function runTests(host) {
     // map call occurs in browser context
     /* eslint-disable-next-line no-undef */
     const mapCenter = await page.evaluate(() => map.getCenter());
-    await t.assert(mapCenter.lng === 5.111994 && mapCenter.lat ===  52.093249, 'map is centered as expected');
+    await t.assert(mapCenter.lng === 4.8952 && mapCenter.lat ===  52.37, 'map is centered as expected');
     await browser.close();
     t.end();
   });
