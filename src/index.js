@@ -18,8 +18,8 @@ function responseFormatter(res) {
   return filtered.length > 0 ? filtered[0] : null;
 }
 const amaps = {
-  BagApiRequestFormatter: requestFormatter,
-  BagApiResponseFormatter: responseFormatter
+  bagApiRequestFormatter: requestFormatter,
+  bagApiResponseFormatter: responseFormatter
 }
 
 export default amaps

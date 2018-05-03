@@ -42,7 +42,7 @@
 
 
       let singleMarker =  nlmaps.singleMarker(map);
-      let featureQuery = nlmaps.queryFeatures(clicks, amaps.BagApiRequestFormatter, amaps.BagApiResponseFormatter);
+      let featureQuery = nlmaps.queryFeatures(clicks, amaps.bagApiRequestFormatter, amaps.bagApiResponseFormatter);
       clicks.subscribe(singleMarker);
 
       //log the query results
