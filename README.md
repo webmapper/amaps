@@ -3,21 +3,69 @@ implementation of nlmaps for Amsterdam (for testing)
 
 This repo contains a reference implementation of nlmaps with Amsterdam's extensions and styling, for testing purposes. The goal is to demonstrate correct working of nlmaps in an application using browser tests. For code unit testing, see the [nlmaps](https://github.com/webmapper/nlmaps) repository.
 
+The repo also contains a small library of functions to ease Amsterdam's specific usage of `nlmaps`. This is found in `src`.
+
 in `test/index.html` is a simple webpage which loads the latest release of `nlmaps` (currently this is by pulling the browser js release from github.com/webmapper/nlmaps. It could also install `nlmaps` from npm.) The tests are defined or loaded in `test/test.js`. The tests include:
 
+* unit testing of `amaps` library code
 * testing for successful loading of map with nlmaps
 * ARIA testing using pa11y.
 
-The test runner is in `scripts/serve.js`. This serves index.html with a simple web server, and then runs tests from test.js.
+The test runner is in `scripts/test.js`. This serves index.html with a simple web server, and then runs tests from test.js.
 
-Usage
------
+
+Usage summary
+-------------
+from a fresh install with no `build_nlmaps` docker image on your machine:
+
+    docker-compose up --build build-nlmaps
+    docker-compose up --build --exit-code-from build-amaps build-amaps
+    docker-compose up --build --exit-code-from lint
+    docker-compose up --build -d serve
+    docker-compose up --build --exit-code-from test
+    #after tests are done:
+    docker-compose stop serve
+    
+or with npm:
+
+    npm run build #depends on symbolic linking: see below for making nlmaps available without symlinking.
+    npm run build-amaps-dev
+    npm run lint
+    npm run serve
+    #in new terminal:
+    npm run test
+
+for more detail, read on.
+
+Building amaps
+--------------
+
+There are two outputs and two build scripts. One builds for production and puts the file in `dist/`; the other builds for testing and puts the file in `test/`.
+
+### with `docker-compose`
+
+With docker-compose, only the production build is available. The test build gets run automatically by the `test` container.
+
+run `docker-compose up --build build-amaps`
+
+### Running directly
+
+run `npm run build-amaps`
+
+or for testing: `npm run build-amaps-dev`
+
+You probably want to lint the code first (`docker-compose up --build lint` or `npm run lint`).
+
+Testing
+-------
 
 ### with `docker-compose`
 
 The primary way to run the tests is with `docker-compose`.
 
 First build nlmaps with the `build-nlmaps` container. The results are put in a volume which will be shared to the test containers.
+
+If you have run the build before, make sure to remove the docker _image_ because the nlmaps build happens at docker build time. This means if you don't remove the image, docker will reuse the existing one even if you tell docker-compose to build. Find the image name with `docker image ls` or `docker ps -a` and remove the image, e.g. : `docker rmi nlmaps_build`. Then:
 
     docker-compose up --build build-nlmaps
 
@@ -35,7 +83,11 @@ In order to run the tests directly without `docker-compose`, you need to provide
 
     ln -s /path/to/nlmaps
 
-Now you can run the tests from the root directory:
+Now you can run the tests from the root directory. First start the local server:
+
+    npm run serve
+
+and then you can run the tests:
 
     npm run test
 
@@ -43,13 +95,11 @@ During development, to rerun the tests on changes to your test files, run:
 
     npm run watch-test
 
-To lint the code:
+To lint the code (both `amaps` and integration test code):
 
     npm run lint
-
 
 Todo
 ----
 * Tests are currently very basic. They will be expanded as new features are developed.
 * install nlmaps from npm instead of loading from Github? (would require JS compile step).
-
