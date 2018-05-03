@@ -69,7 +69,7 @@ async function runTests(host) {
 
   // ARIA tests
   await test('there are no accessibility issues', async (t) => {
-    const ariares = await pa11y(`${host}/index.html`, {
+    const ariares = await pa11y(`http://${host}/index.html`, {
       allowedStandards: 'WCAG2AA',
       level: 'error',
       chromeLaunchConfig: {

@@ -78,8 +78,8 @@ now you can run the tests:
 ### Running directly
 In order to run the tests directly without `docker-compose`, you need to provide the compiled `nlmaps` code since the test html file expects to load it from the test server. You have two options:
 
-1. modify `test/index.html` to load `nlmaps.iife.js` from a server somewhere (e.g. if you have built it with a custom config in a repo on Github)
-2. clone and build nlmaps (optionally with a custom config), and then symlink the nlmaps directory into the `test` directory. First build nlmaps somewhere, and then you can symlink it. In the `test` directory:
+1. `npm run build` to build `nlmaps` and symlink it into the `test` directory
+2. If that isn't possible because your platform doesn't support symlinks, modify `test/index.html` to load `nlmaps.iife.js` from a server somewhere (e.g. if you have built it with a custom config in a repo on Github)
 
     ln -s /path/to/nlmaps
 
