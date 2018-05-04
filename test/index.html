@@ -37,12 +37,12 @@
         }
       }
 
-      let clicks = nlmaps.clickprovider(map);
+      let clicks = nlmaps.clickProvider(map);
 
 
 
       let singleMarker =  nlmaps.singleMarker(map);
-      let featureQuery = nlmaps.queryFeatures(clicks, amaps.bagApiRequestFormatter, amaps.bagApiResponseFormatter);
+      let featureQuery = nlmaps.queryFeatures(clicks, "https://api.data.amsterdam.nl/bag/nummeraanduiding/?format=json&locatie=", amaps.bagApiRequestFormatter, amaps.bagApiResponseFormatter);
       clicks.subscribe(singleMarker);
 
       //log the query results
