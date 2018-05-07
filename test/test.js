@@ -14,7 +14,7 @@ async function runTests(host) {
 
     // map call occurs in browser context
     /* eslint-disable-next-line no-undef */
-    const mapCenter = await page.evaluate(() => map.getCenter());
+    const mapCenter = await page.evaluate(() => map.getCenter()).catch(e => e);
     await t.assert(mapCenter.lng === 4.8952 && mapCenter.lat ===  52.37, 'map is centered as expected');
     await browser.close();
     t.end();
@@ -29,7 +29,7 @@ async function runTests(host) {
     const urlForStandard = await page.evaluate(() => {
       const layer = nlmaps.leaflet.bgLayer('standaard');      
       return layer._url;
-    });
+    }).catch(e => e);
     /* eslint-enable no-undef */    
     /* eslint-disable-next-line max-len */
     await t.assert(urlForStandard === 'https://t1.data.amsterdam.nl/topo_wm_zw/{z}/{x}/{y}.png', 'url for created layer is as expected');
@@ -48,18 +48,18 @@ async function runTests(host) {
     /* eslint-disable no-underscore-dangle */
     const amaps = await page.evaluate(() => {
       return amaps;
-    });
+    }).catch(e => e);
     await t.equals(typeof amaps, 'object', 'amaps is an object');
-    await t.equals(typeof amaps.BagApiRequestFormatter, 'object', 'amaps has request formatter function');
-    await t.equals(typeof amaps.BagApiResponseFormatter, 'object', 'amaps has response formatter function');
+    await t.equals(typeof amaps.bagApiRequestFormatter, 'object', 'amaps has request formatter function');
+    await t.equals(typeof amaps.bagApiResponseFormatter, 'object', 'amaps has response formatter function');
 
     const testBaseUrl = 'http://example.com/api?locatie=';
     const expectedUrl = 'http://example.com/api?locatie=162659.33058684267,501372.87854900945,50';
     const inputCoords = {x:5.5,y:52.5};
 
     const outputUrl = await page.evaluate((testBaseUrl, inputCoords) => {
-      return amaps.BagApiRequestFormatter(testBaseUrl, inputCoords);
-    },testBaseUrl, inputCoords)
+      return amaps.bagApiRequestFormatter(testBaseUrl, inputCoords);
+    },testBaseUrl, inputCoords).catch(e => e);
 
     await t.equals(outputUrl, expectedUrl, 'amaps request formatter transforms Lat/Lon to RD and formats URL');
     /* no-underscore-dangle */
@@ -78,7 +78,7 @@ async function runTests(host) {
           '--disable-setuid-sandbox',
         ],
       },
-    });    
+    }).catch(e => e);    
     /* eslint-disable-next-line no-console */
     //console.log(ariares.issues.length);
     await t.assert(ariares.issues.length === 0, 'length ofissue list is 0');
