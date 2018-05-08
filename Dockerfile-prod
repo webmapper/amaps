@@ -25,4 +25,4 @@ FROM nginx:1.12.2-alpine
 COPY --from=build-nlmaps /app/nlmaps /usr/share/nginx/html/nlmaps
 COPY --from=build-amaps /app/scripts /usr/share/nginx/html
 COPY --from=build-amaps /app/test /usr/share/nginx/html
-COPY --from=build-amaps /app/dist /usr/share/nginx/html
+COPY --from=build-amaps /app/dist /usr/share/nginx/html/dist
