@@ -13,12 +13,16 @@ RUN apt-get update && apt-get install -yq gconf-service libasound2 libatk1.0-0 l
 COPY package.json package.json
 RUN npm install
 COPY scripts /app/scripts
+copy rollup.config.js /app/
+COPY src /app/src/
 COPY test /app/test
 COPY .eslintrc.js /app/.eslintrc.js
 COPY .eslintignore /app/.eslintignore
+RUN NODE_ENV=production npm run build-amaps
 
 # Web server image
 FROM nginx:1.12.2-alpine
 COPY --from=build-nlmaps /app/nlmaps /usr/share/nginx/html/nlmaps
 COPY --from=build-amaps /app/scripts /usr/share/nginx/html
 COPY --from=build-amaps /app/test /usr/share/nginx/html
+COPY --from=build-amaps /dist /usr/share/nginx/html
