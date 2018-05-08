@@ -45,7 +45,9 @@ export default {
         "baseUrl": "https://api.data.amsterdam.nl/bag/nummeraanduiding/?format=json&locatie=",
     },
     "marker" : {
-      "url": 'nlmaps/dist/assets/img/marker_icon.svg'
+      "url": './dist/images/svg/marker.svg',
+      "iconSize": [40,40],
+      "iconAnchor": [20, 39]
     },
     "map": {
         "style": 'standaard',
@@ -54,7 +56,15 @@ export default {
             "longitude": 4.8952
         },
         "zoom": 12,
-        "attribution": true,
-        "extent":  [ 4.7283, 52.2771, 5.0799, 52.4324 ]
+        "attribution": false,
+        "extent":  [ 4.7283, 52.2771, 5.0799, 52.4324 ],
+        "zoomposition": "bottomright"
+    },
+    "classnames": {
+        'geocoderContainer': ['embed-search'],
+        'geocoderSearch': ['invoer'],
+        'geocoderButton': ['primary','action','embed-search__button'],
+        'geocoderResultList': ['embed-search__auto-suggest'],
+        'geocoderResultItem' : ['embed-search__auto-suggest__item']
     }
 }
