@@ -8,7 +8,8 @@
     "test": "test"
   },
   "dependencies": {
-    "proj4": "^2.4.4"
+    "proj4": "^2.4.4",
+    "stijl": "git+https://git@github.com/Amsterdam/stijl.git"
   },
   "devDependencies": {
     "connect": "^3.6.6",
@@ -38,8 +39,8 @@
     "watch-test": "nodemon --watch scripts --watch test -e js,html scripts/serve.js",
     "serve": "http-server test",
     "lint": "eslint test scripts src",
-    "build-amaps": "shx mkdir -p dist && NODE_ENV=production rollup -c rollup.config.js",
-    "build-amaps-dev": "NODE_ENV=development rollup -c rollup.config.js",
+    "build-amaps": "shx mkdir -p dist && NODE_ENV=production rollup -c rollup.config.js && shx cp -r node_modules/stijl/dist/* dist/",
+    "build-amaps-dev": "NODE_ENV=development rollup -c rollup.config.js && cp -r node_modules/stijl/dist test/dist",
     "watch-build-amaps-dev": "NODE_ENV=development rollup -w -c rollup.config.js",
     "docker-test": "node scripts/docker-test",
     "watch-docker-test": "nodemon --watch scripts --watch test -e js,html scripts/docker-test.js",
