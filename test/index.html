@@ -28,7 +28,7 @@
     <div id="queryresults"></div>
     <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
     <script src="nlmaps/dist/nlmaps.iife.js"></script>
-    <script src="amaps.iife.js"></script>
+    <script src="dist/amaps.iife.js"></script>
     <script>
       let map = nlmaps.createMap({target: 'mapdiv',
         layer: 'standaard',
@@ -36,7 +36,7 @@
         search: true,
         zoom: 12
       });
-      
+
       function myHandler(t, d) {
         if (t === 1 ){
           console.log('The click happened at: ' + d)
@@ -62,7 +62,7 @@
       let queryResultText = document.createElement('p');
       div.append(latlngText);
       div.append(queryResultText);
-      let resblock = document.createElement('pre'); 
+      let resblock = document.createElement('pre');
       resblock.setAttribute('id', 'results');
       div.append(resblock)
       function writeQueryResults(t, d) {
@@ -79,14 +79,14 @@
           }
           div.className = '';
         }
-      
+
       }
 
       featureQuery.subscribe(writeQueryResults);
 
       clicks.subscribe((t, d) => {
         if (t === 1) {
-          div.className = 'loading'; 
+          div.className = 'loading';
         }
       })
 
