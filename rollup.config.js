@@ -7,13 +7,13 @@ export default {
   input: 'src/index.js',
   output: {
     name: 'amaps',
-    file: process.env.NODE_ENV === 'production' ? pkg.browser : 'test/amaps.iife.js',
+    file: process.env.NODE_ENV === 'production' ? pkg.browser : 'test/dist/amaps.iife.js',
     format: 'iife',
     sourcemap: true
   },
   plugins: [
     json(),
-    resolve(), 
-    commonjs() 
+    resolve(),
+    commonjs()
   ]
 }
