@@ -13,7 +13,9 @@ services:
     volumes:
       - amapsbuild:/app/dist 
   serve:
-    build: .
+    build:
+      context: .
+      dockerfile: ./Dockerfile-dev
     depends_on:
       - build-nlmaps
     volumes:
@@ -23,6 +25,7 @@ services:
   test:
     build:
       context: .
+      dockerfile: ./Dockerfile-dev
       target: build-deps
     command: npm run docker-test
     depends_on:
@@ -32,6 +35,7 @@ services:
   watch-test:
     build:
       context: .
+      dockerfile: ./Dockerfile-dev
       target: build-deps
     command: npm run watch-docker-test
     depends_on:
@@ -43,6 +47,7 @@ services:
   lint:
     build:
       context: .
+      dockerfile: ./Dockerfile-dev
       target: build-deps
     command: npm run lint
     volumes:
