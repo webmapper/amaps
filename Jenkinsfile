@@ -46,8 +46,7 @@ pipeline {
     stage('Build A (Master)') {
       when { branch 'master' }
       steps {
-        sh "docker build -t ${IMAGE_BUILD} " +
-          "--file Dockerfile-prod " +
+        sh "docker build -t ${IMAGE_BUILD} " +          
           "--shm-size 1G " +
           "--build-arg BUILD_ENV=acc " +
           "."
