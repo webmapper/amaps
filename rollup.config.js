@@ -2,6 +2,7 @@ import resolve from 'rollup-plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
 import json from 'rollup-plugin-json';
 import pkg from './package.json';
+import babel from 'rollup-plugin-babel';
 
 export default {
   input: 'src/index.js',
@@ -13,7 +14,17 @@ export default {
   },
   plugins: [
     json(),
+    babel({
+      exclude: 'node_modules/**',
+      presets: [[
+        'env',
+        {
+          modules: false
+        }
+      ]],
+      plugins: 'external-helpers'
+    }),
     resolve(),
-    commonjs()
+    commonjs(),
   ]
 }
