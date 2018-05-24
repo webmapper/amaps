@@ -84,7 +84,7 @@
 
       featureQuery.subscribe(writeQueryResults);
 
-      clicks.subscribe((t, d) => {
+      clicks.subscribe(function(t, d){
         if (t === 1) {
           div.className = 'loading';
         }
