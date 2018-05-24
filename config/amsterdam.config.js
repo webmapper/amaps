@@ -1,5 +1,5 @@
 export default {
-    "version": 0.1,    
+    "version": 0.2,
     "basemaps": {
         "defaults": {
             "attr": "Kaartgegevens &copy; <a href='https://data.amsterdam.nl'>Datapunt Amsterdam</a>",
@@ -12,26 +12,27 @@ export default {
         "layers": [
             {
                 "name": "standaard",
-                "urlname": "topo_wm_zw"                
+                "layerName": "topo_wm_zw"
             },
             {
                 "name": "licht",
-                "urlname": "topo_wm_light"
+                "layerName": "topo_wm_light"
             }
         ]
     },
     "wms": {
         "defaults": {
-            "url": "https://map.data.amsterdam.nl/maps",            
+            "url": "https://map.data.amsterdam.nl/maps",
             "version": "1.1.0",
             "transparent": true,
             "format": "image/png",
             "minZoom": 0,
-            "maxZoom": 24
+            "maxZoom": 24,
+            "styleName": ""
         },
         "layers": [
             {
-                "name": "tram",                
+                "name": "tram",
                 "layerName": "trm",
                 "url": "https://map.data.amsterdam.nl/maps/trm?"
             }
