@@ -4,6 +4,7 @@
   "description": "implementation of nlmaps for Amsterdam",
   "main": "src/index.js",
   "browser": "dist/amaps.iife.js",
+  "nlmaps-version": "2.3.17",
   "directories": {
     "test": "test"
   },
