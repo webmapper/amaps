@@ -42,6 +42,7 @@
   "scripts": {
     "test": "node scripts/test",
     "watch-test": "nodemon --watch scripts --watch test -e js,html scripts/serve.js",
+    "watch-local-test": "nodemon --watch scripts --watch test -e js,html scripts/test.js",
     "serve": "http-server test",
     "lint": "eslint test scripts src",
     "build-amaps": "shx mkdir -p dist && NODE_ENV=production rollup -c rollup.config.js && shx cp -r node_modules/stijl/dist/* dist/",
