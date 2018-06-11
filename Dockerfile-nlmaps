@@ -2,6 +2,11 @@ FROM node:8.9
 MAINTAINER hans@webmapper.net
 RUN apt-get update && apt-get install -yq git
 WORKDIR /app
-COPY build-nlmaps.sh build-nlmaps.sh
+COPY package.json /app/package.json
+RUN npm install
+COPY scripts /app/scripts/
+RUN mkdir /app/test
+COPY test/index.html /app/test/index.html
+COPY test/test.js /app/test/test.js
 COPY config/amsterdam.config.js config/amsterdam.config.js
-RUN sh build-nlmaps.sh
+RUN npm run nlmaps
