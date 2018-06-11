@@ -1,10 +1,10 @@
 {
   "name": "amaps",
-  "version": "1.0.0",
+  "version": "1.2.0",
   "description": "implementation of nlmaps for Amsterdam",
   "main": "src/index.js",
   "browser": "dist/amaps.iife.js",
-  "nlmaps_version": "2.3.17",
+  "nlmaps_version": "2.3.23",
   "directories": {
     "test": "test"
   },
@@ -50,7 +50,7 @@
     "watch-build-amaps-dev": "NODE_ENV=development rollup -w -c rollup.config.js",
     "docker-test": "node scripts/docker-test",
     "watch-docker-test": "nodemon --watch scripts --watch test -e js,html scripts/docker-test.js",
-    "get-nlmaps": "shx rm -rf nlmaps && git clone --depth=1 --branch v$npm_package_nlmaps_version https://github.com/webmapper/nlmaps && shx ln -sf ../nlmaps test/nlmaps",
+    "get-nlmaps": "shx rm -rf nlmaps && git clone --depth=1 --branch v$npm_package_nlmaps_version https://github.com/webmapper/nlmaps && shx ln -s ../nlmaps test/nlmaps",
     "install-nlmaps": "node scripts/install-nlmaps.js",
     "build-nlmaps": "node scripts/build-nlmaps.js",
     "watch-nlmaps": "nodemon --watch config --exec npm run build-nlmaps",
