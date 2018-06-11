@@ -4,7 +4,7 @@ implementation of nlmaps for Amsterdam
 This repository builds `nlmaps` with a configuration file for Amsterdam, specifying Amsterdam's map styling and map layers. In addition, this repository contains several wrapper scripts which bundle the resulting `nlmaps` build with functionality for specific use cases, like querying certain API's when the map is clicked. These specific cases are:
 
 * MORA (meldingen openbare ruimte)
-* TVM (tijdelijke parkeersmaatregelen).
+* TVM (tijdelijke verkeersmaatregelen).
 
 in `test/index.html` is a simple webpage which loads the latest release of `nlmaps` (currently this is by pulling the browser js release from github.com/webmapper/nlmaps. It could also install `nlmaps` from npm.) The tests are defined or loaded in `test/test.js`. The tests include:
 
