@@ -1,4 +1,3 @@
-const shell = require('shelljs');
 const { execSync } = require('child_process');
 
 process.env.NODE_ENV = 'production';
