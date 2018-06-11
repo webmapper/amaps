@@ -2,7 +2,7 @@ export default {
     "version": 0.2,
     "basemaps": {
         "defaults": {
-            "attr": "Kaartgegevens &copy; <a href='https://data.amsterdam.nl'>Datapunt Amsterdam</a>",
+            "attribution": "Kaartgegevens &copy; <a href='https://data.amsterdam.nl'>Datapunt Amsterdam</a>",
             "minZoom": 12,
             "maxZoom": 21,
             "type": "tms",
@@ -57,7 +57,7 @@ export default {
             "longitude": 4.8952
         },
         "zoom": 14,
-        "attribution": false,
+        "attribution": true,
         "extent":  [52.25168, 4.64034, 52.50536, 5.10737],
         "zoomposition": "bottomright"
     },
