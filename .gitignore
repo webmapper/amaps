@@ -1,6 +1,5 @@
 node_modules
 test/amaps.iife.*
 dist
-
 test/nlmaps
 nlmaps

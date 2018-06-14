@@ -58,7 +58,7 @@ export default {
         },
         "zoom": 14,
         "attribution": true,
-        "extent":  [52.25168, 4.64034, 52.50536, 5.10737],
+        "extent":  [ 52.25168, 4.64034, 52.50536, 5.10737 ],
         "zoomposition": "bottomright"
     },
     "classnames": {
