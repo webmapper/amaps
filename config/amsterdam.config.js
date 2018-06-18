@@ -2,7 +2,7 @@ export default {
     "version": 0.2,
     "basemaps": {
         "defaults": {
-            "attribution": "Kaartgegevens &copy; <a href='https://data.amsterdam.nl'>Datapunt Amsterdam</a>",
+            "attribution": "Kaartgegevens CC-BY-4.0 Gemeente Amsterdam",
             "minZoom": 12,
             "maxZoom": 21,
             "type": "tms",
