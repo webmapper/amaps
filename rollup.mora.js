@@ -1,21 +1,20 @@
 import resolve from 'rollup-plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
 import json from 'rollup-plugin-json';
-import pkg from './package.json';
 import babel from 'rollup-plugin-babel';
 
 export default {
-  input: 'src/index.js',
+  input: 'src/mora.js',
   output: {
-    name: 'amaps',
-    file: process.env.NODE_ENV === 'production' ? pkg.browser : 'test/dist/amaps.iife.js',
+    name: 'mora',
+    file: process.env.NODE_ENV === 'production' ? 'dist/mora.iife.js' : 'test/dist/mora.iife.js',
     format: 'iife',
     sourcemap: true
   },
   plugins: [
     json(),
     babel({
-      exclude: ['**/node_modules/**', '**/nlmaps/**'],
+      exclude: 'node_modules/**',
       babelrc: false,
       presets: [[
         'env',
