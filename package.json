@@ -25,6 +25,7 @@
     "eslint-plugin-node": "^6.0.1",
     "eslint-plugin-promise": "^3.7.0",
     "eslint-plugin-standard": "^3.1.0",
+    "esm": "^3.0.49",
     "http-server": "^0.11.1",
     "live-server": "^1.2.0",
     "live-server-https": "0.0.2",
@@ -38,12 +39,17 @@
     "rollup-plugin-node-resolve": "^3.3.0",
     "serve-static": "^1.13.2",
     "shx": "^0.2.2",
-    "tap": "^11.1.4"
+    "tap": "^11.1.4",
+    "tape": "^4.9.1",
+    "tape-catch": "^1.0.6"
   },
   "scripts": {
-    "test": "node scripts/test",
+    "dev": "npm-run-all --parallel serve watch-local-browser-test watch-local-unit-test watch-build-amaps-dev watch-nlmaps",
+    "browser-test": "node scripts/browser-test",
+    "unit-test": "./node_modules/tape/bin/tape -r esm test/unit-test.js",
     "watch-test": "nodemon --watch scripts --watch test -e js,html scripts/serve.js",
-    "watch-local-test": "nodemon --watch scripts --watch test -e js,html scripts/test.js",
+    "watch-local-browser-test": "nodemon --watch scripts --watch test -e js,html scripts/browser-test.js",
+    "watch-local-unit-test": "nodemon --watch scripts --watch test -e js,html scripts/unit-test.js",
     "serve": "http-server test",
     "lint": "eslint test scripts src",
     "build-amaps": "NODE_ENV=production node scripts/build-amaps.js",

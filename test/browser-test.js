@@ -29,7 +29,7 @@ async function runTests(host) {
     /* eslint-disable no-undef */
     /* eslint-disable no-underscore-dangle */
     const urlForStandard = await page.evaluate(() => {
-      const layer = nlmaps.leaflet.bgLayer('standaard');      
+      const layer = amaps.leaflet.bgLayer('standaard');      
       return layer._url;
     }).catch(e => e);
     /* eslint-enable no-undef */    

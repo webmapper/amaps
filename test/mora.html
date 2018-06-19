@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Testing MORA app</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
+    <link rel="stylesheet" href="nlmaps/dist/assets/css/nlmaps.css"/>
+    <link rel="stylesheet" href="dist/css/ams-stijl.css"/>
+    <style>
+      #mapdiv{height:300px};
+      #results{
+        max-width: 400px;
+      }
+      .loading {
+        opacity: 0.3;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="mapdiv"></div>
+    <div id="queryresults"></div>
+    <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
+    <script src="dist/mora.iife.js"></script>
+    <script>
+
+      //container to display search results
+      let div = document.getElementById('queryresults');
+      let latlngText = document.createElement('p');
+      let queryResultText = document.createElement('p');
+      div.append(latlngText);
+      div.append(queryResultText);
+      let resblock = document.createElement('pre');
+      resblock.setAttribute('id', 'results');
+      div.append(resblock)
+
+      //handler to write query results to page
+      function writeQueryResults(t, d) {
+        if (t === 1) {
+          latlngText.innerText = 'Latitude: '+ d.latlng.lat + ', Longitude: ' + d.latlng.lng;
+          if (d.queryResult) {
+            queryResultText.innerText = 'Query results:';
+            resblock.innerText = JSON.stringify(d.queryResult, null, 2)
+            div.append(resblock);
+
+          } else {
+            queryResultText.innerText = 'Query results: no results for this location.';
+            resblock.innerText = '';
+          }
+          //remove loading style
+          div.className = '';
+        }
+
+      }
+
+      //handler to fade results display between click and XHR return
+      function fadeResultsLoading(t, d){
+        if (t === 1) {
+          div.className = 'loading';
+        }
+      }
+
+      //create map and register event handlers
+      let map = mora.createMap({target: 'mapdiv',
+        layer: 'standaard',
+        marker: false,
+        search: true,
+        zoom: 14,
+	clickHandlers: fadeResultsLoading,
+	featureHandlers: writeQueryResults
+      });
+
+    </script>
+  </body>
+</html>
+
+
+
