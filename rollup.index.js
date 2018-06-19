@@ -4,7 +4,7 @@ import json from 'rollup-plugin-json';
 import pkg from './package.json';
 import babel from 'rollup-plugin-babel';
 
-export default {
+export default [{
   input: 'src/index.js',
   output: {
     name: 'amaps',
@@ -28,4 +28,28 @@ export default {
     resolve(),
     commonjs()
   ]
-}
+},{
+  input: 'src/index.js',
+  output: {
+    name: 'amaps',
+    file: process.env.NODE_ENV === 'production' ? pkg.module : 'test/dist/amaps.es.js',
+    format: 'es',
+    sourcemap: true
+  },
+  plugins: [
+    json(),
+    babel({
+      exclude: '**/node_modules/**',
+      babelrc: false,
+      presets: [[
+        'env',
+        {
+          modules: false
+        }
+      ]],
+      plugins: 'external-helpers'
+    }),
+    resolve(),
+    commonjs()
+  ]
+}]

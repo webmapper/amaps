@@ -3,7 +3,7 @@ import commonjs from 'rollup-plugin-commonjs';
 import json from 'rollup-plugin-json';
 import babel from 'rollup-plugin-babel';
 
-export default {
+export default [{
   input: 'src/mora.js',
   output: {
     name: 'mora',
@@ -27,4 +27,28 @@ export default {
     resolve(),
     commonjs()
   ]
-}
+},{
+  input: 'src/mora.js',
+  output: {
+    name: 'mora',
+    file: process.env.NODE_ENV === 'production' ? 'dist/mora.es.js' : 'test/dist/mora.es.js',
+    format: 'es',
+    sourcemap: true
+  },
+  plugins: [
+    json(),
+    babel({
+      exclude: 'node_modules/**',
+      babelrc: false,
+      presets: [[
+        'env',
+        {
+          modules: false
+        }
+      ]],
+      plugins: 'external-helpers'
+    }),
+    resolve(),
+    commonjs()
+  ]
+}]
