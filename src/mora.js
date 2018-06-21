@@ -1,22 +1,7 @@
 import { nlmaps } from '../nlmaps/dist/nlmaps.es.js';
-import {flatten as flatten1,
-  pipe,
-  map as map1,
-  forEach as cForEach,
-  fromPromise } from 'callbag-basics';
-import { getFoo, requestFormatter, responseFormatter } from './mora/index.js';
-
-//utility function
-function query(url) {
-  const promise = new Promise((resolve, reject) => {
-    fetch(url)
-      .then(res => resolve(res.json()))
-      .catch(err => reject(err))
-  })
-  return promise;
-
-}
-
+import {callchain, requestFormatter, responseFormatter } from './mora/index.js';
+import { apiCallChainer } from './utils.js';
+import {forEach as cForEach} from 'callbag-basics';
 
 //amaps is really going to be 'amaps-mora'.
 const mora = {};
@@ -40,16 +25,7 @@ mora.createMap = function(config) {
   );
 
 
-  console.log(getFoo('me')); 
-
-  //this is a callbag-stream of all requests, in order.
-  const finalQueryResults = pipe(
-    featureQuery,
-    map1(d => fromPromise(getFoo(d))),
-    flatten1
-  );
-  cForEach(x => console.log(x))(finalQueryResults);
-  
+ cForEach(x => console.log(x))(apiCallChainer(featureQuery, callchain)); 
 
 
   if (typeof config.clickHandlers === 'function') {
