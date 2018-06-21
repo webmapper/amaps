@@ -43,7 +43,6 @@ function apiCallChainer (source, callchain) {
 
 function chainWrapper (source, callchain) {
   const querier =  apiCallChainer(source, callchain);
-  console.log(querier);
   querier.subscribe = function(callback) {
     querier(0, callback)
   }

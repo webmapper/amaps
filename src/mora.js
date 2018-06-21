@@ -1,8 +1,6 @@
 import { nlmaps } from '../nlmaps/dist/nlmaps.es.js';
 import {callchain, requestFormatter, responseFormatter } from './mora/index.js';
 import { chainWrapper } from './utils.js';
-import {forEach as cForEach} from 'callbag-basics';
-
 //amaps is really going to be 'amaps-mora'.
 const mora = {};
 
