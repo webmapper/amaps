@@ -3,6 +3,8 @@ const { spawn } = require('child_process')
 
 const tasks = ['index', 'mora'];
 
+/* eslint-disable no-console */
+
 //run each package's rollup command from the package's directory
 //and capture/log output
 tasks.forEach(task => {
@@ -15,14 +17,14 @@ tasks.forEach(task => {
   const build = spawn('node_modules/rollup/bin/rollup', rollup_args, {env: process.env});
   
   build.stdout.on('data', (data) => {
-  	console.log(`${data}`);
+    console.log(`${data}`);
   });
   
   build.stderr.on('data', (data) => {
-  	console.log(`${data}`);
+    console.log(`${data}`);
   });
   
   build.on('close', (code) => {
-  	console.log(`child process for ${task} exited with code ${code}`);
+    console.log(`child process for ${task} exited with code ${code}`);
   });
 })

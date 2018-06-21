@@ -1,2 +1,2 @@
 test/nlmaps
-test/dist/amaps.iife.js
+test/dist/*.js

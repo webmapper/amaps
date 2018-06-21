@@ -7,6 +7,6 @@ RUN npm install
 COPY scripts /app/scripts/
 RUN mkdir /app/test
 COPY test/index.html /app/test/index.html
-COPY test/test.js /app/test/test.js
+COPY test/browser-test.js /app/test/browser-test.js
 COPY config/amsterdam.config.js config/amsterdam.config.js
 RUN npm run nlmaps
