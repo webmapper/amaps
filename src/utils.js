@@ -40,4 +40,14 @@ function apiCallChainer (source, callchain) {
   )
 }
 
-export { apiCallChainer, query, wrapApiCall };
+
+function chainWrapper (source, callchain) {
+  const querier =  apiCallChainer(source, callchain);
+  console.log(querier);
+  querier.subscribe = function(callback) {
+    querier(0, callback)
+  }
+  return querier;
+}
+
+export { apiCallChainer, query, wrapApiCall, chainWrapper };

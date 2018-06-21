@@ -1,6 +1,6 @@
 import { nlmaps } from '../nlmaps/dist/nlmaps.es.js';
 import {callchain, requestFormatter, responseFormatter } from './mora/index.js';
-import { apiCallChainer } from './utils.js';
+import { chainWrapper } from './utils.js';
 import {forEach as cForEach} from 'callbag-basics';
 
 //amaps is really going to be 'amaps-mora'.
@@ -25,7 +25,7 @@ mora.createMap = function(config) {
   );
 
 
- cForEach(x => console.log(x))(apiCallChainer(featureQuery, callchain)); 
+  const finalResponse = chainWrapper(featureQuery, callchain);
 
 
   if (typeof config.clickHandlers === 'function') {
@@ -42,7 +42,7 @@ mora.createMap = function(config) {
   } else if (Array.isArray(config.featureHandlers)) {
     config.featureHandlers.forEach((f) =>{
       if (typeof f === 'function') {
-        featureQuery.subscribe(f)
+        finalResponse.subscribe(f)
       }
     })
   }
