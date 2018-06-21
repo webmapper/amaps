@@ -36,10 +36,10 @@
       //handler to write query results to page
       function writeQueryResults(t, d) {
         if (t === 1) {
-          latlngText.innerText = 'Latitude: '+ d.latlng.lat + ', Longitude: ' + d.latlng.lng;
-          if (d.queryResult) {
+          latlngText.innerText = 'Latitude: '+ d.data.latlng.lat + ', Longitude: ' + d.data.latlng.lng;
+          if (d.data.queryResult) {
             queryResultText.innerText = 'Query results:';
-            resblock.innerText = JSON.stringify(d.queryResult, null, 2)
+            resblock.innerText = JSON.stringify(d.data.queryResult, null, 2)
             div.append(resblock);
 
           } else {
@@ -59,6 +59,12 @@
         }
       }
 
+      function myHandler(t, d) {
+        if (t === 1) {
+          console.log(d)
+        }
+      }
+
       //create map and register event handlers
       let map = mora.createMap({target: 'mapdiv',
         layer: 'standaard',
@@ -66,7 +72,7 @@
         search: true,
         zoom: 14,
 	clickHandlers: fadeResultsLoading,
-	featureHandlers: writeQueryResults
+	featureHandlers: [writeQueryResults, myHandler]
       });
 
     </script>
