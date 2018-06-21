@@ -51,7 +51,7 @@
     "unit-test": "./node_modules/tape/bin/tape -r esm test/unit-test.js",
     "watch-unit-test": "nodemon --watch scripts --watch test -e js,html --exec npm run unit-test",
     "watch-browser-test": "nodemon --watch scripts --watch test -e js,html --exec npm run browser-test",
-    "serve": "http-server test",
+    "serve": "node scripts/devserver.js",
     "lint": "eslint test scripts src",
     "build-amaps": "node scripts/build-amaps.js && shx mkdir -p test/nlmaps/dist/assets && cp -rf nlmaps/packages/assets/* test/nlmaps/dist/assets/",
     "watch-build-amaps": "NODE_ENV=development node scripts/build-amaps.js -w",
