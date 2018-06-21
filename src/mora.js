@@ -1,5 +1,21 @@
 import { nlmaps } from '../nlmaps/dist/nlmaps.es.js';
-import { requestFormatter, responseFormatter } from './mora/index.js';
+import {flatten as flatten1,
+  pipe,
+  map as map1,
+  forEach as cForEach,
+  fromPromise } from 'callbag-basics';
+import { getFoo, requestFormatter, responseFormatter } from './mora/index.js';
+
+//utility function
+function query(url) {
+  const promise = new Promise((resolve, reject) => {
+    fetch(url)
+      .then(res => resolve(res.json()))
+      .catch(err => reject(err))
+  })
+  return promise;
+
+}
 
 
 //amaps is really going to be 'amaps-mora'.
@@ -22,6 +38,19 @@ mora.createMap = function(config) {
     requestFormatter,
     responseFormatter
   );
+
+
+  console.log(getFoo('me')); 
+
+  //this is a callbag-stream of all requests, in order.
+  const finalQueryResults = pipe(
+    featureQuery,
+    map1(d => fromPromise(getFoo(d))),
+    flatten1
+  );
+  cForEach(x => console.log(x))(finalQueryResults);
+  
+
 
   if (typeof config.clickHandlers === 'function') {
     clicks.subscribe(config.clickHandlers);

@@ -1,6 +1,5 @@
 let test = require('tape-catch');
-
-
+global.fetch = require('node-fetch');
 test('test query formatter functions', function(t) {
   const mora = require('../src/mora/index.js');
   t.equals(typeof mora.requestFormatter, 'function', 'requestFormatter is a function');
@@ -14,6 +13,14 @@ test('test query formatter functions', function(t) {
   t.equals(outputUrl, expectedUrl, 'amaps request formatter transforms Lat/Lon to RD and formats URL');
 
   //todo: test the response formatter. Also add parse error handling and reporting to it.
+  t.end();
+
+})
+
+test('test upstream API formatters', async function(t) {
+  const mora = require('../src/mora/index.js');
+  const res = await mora.getFoo(1);
+  t.equals(res.res.name, 'Leanne Graham', 'correct user is fetched');
   t.end();
 
 })
