@@ -45,7 +45,7 @@
     "tape-catch": "^1.0.6"
   },
   "scripts": {
-    "dev": "npm-run-all --parallel serve watch-local-browser-test watch-local-unit-test watch-build-amaps-dev watch-nlmaps",
+    "dev": "npm-run-all --parallel serve watch-browser-test watch-unit-test watch-build-amaps watch-nlmaps",
     "test": "npm-run-all browser-test unit-test",
     "browser-test": "node scripts/browser-test",
     "unit-test": "./node_modules/tape/bin/tape -r esm test/unit-test.js",
@@ -53,9 +53,8 @@
     "watch-browser-test": "nodemon --watch scripts --watch test -e js,html scripts/browser-test.js",
     "serve": "http-server test",
     "lint": "eslint test scripts src",
-    "build-amaps": "NODE_ENV=production node scripts/build-amaps.js",
-    "build-amaps-dev": "NODE_ENV=development node scripts/build-amaps.js",
-    "watch-build-amaps-dev": "NODE_ENV=development node scripts/build-amaps.js -w",
+    "build-amaps": "node scripts/build-amaps.js && shx mkdir -p test/nlmaps/dist/assets && cp -rf nlmaps/packages/assets/* test/nlmaps/dist/assets/",
+    "watch-build-amaps": "NODE_ENV=development node scripts/build-amaps.js -w",
     "get-nlmaps": "shx rm -rf nlmaps && git clone --depth=1 --branch v$npm_package_nlmaps_version https://github.com/webmapper/nlmaps",
     "install-nlmaps": "node scripts/install-nlmaps.js",
     "build-nlmaps": "node scripts/build-nlmaps.js",

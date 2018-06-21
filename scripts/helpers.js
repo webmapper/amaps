@@ -14,6 +14,15 @@ parser.addArgument(
   }
 );
 
+parser.addArgument(
+  [ '-p', '--production' ],
+  {
+    action: 'storeTrue',
+    defaultValue: false,
+    help: 'production build'
+  }
+);
+
 const args = parser.parseArgs();
 
 module.exports = {

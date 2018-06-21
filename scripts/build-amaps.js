@@ -3,6 +3,11 @@ const { spawn } = require('child_process')
 
 const tasks = ['index', 'mora'];
 
+
+if (helpers.args.production) {
+    process.env.NODE_ENV = 'production';
+}
+
 /* eslint-disable no-console */
 
 //run each package's rollup command from the package's directory

@@ -24,11 +24,9 @@ COPY .eslintignore /app/.eslintignore
 COPY rollup.index.js /app/rollup.index.js
 COPY rollup.mora.js /app/rollup.mora.js
 #build amaps library which is used by test.html
-RUN npm run build-amaps-dev
+RUN npm run build-amaps
 
 
 # Web server image
 FROM nginx:1.12.2-alpine
 COPY --from=build-deps /app/test /usr/share/nginx/html
-COPY --from=build-nlmaps /app/nlmaps /usr/share/nginx/html
-
