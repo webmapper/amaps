@@ -8,20 +8,63 @@ import { wrapApiCall, query } from '../utils.js';
 
 //chain of API requests for single-click
 //1. feature/bag adres query comes from nlmaps.featureQuery.
-async function getFullObjectData(d) {
-  const res = await query(d.queryResult._links.self.href);
+//2. after that, we need to get the full object data.
+//   we'll request this from another api, and reformat
+//   our queryResult with new data.
+async function getFullObjectData(data) {
+  //d: {
+  //  latlng: {},
+  //  queryResult: {},
+  //}
+  let dichtsbijzijnd_adres = {};
+  if (data.queryResult !== null) {
+    const res = {};
+    try {
+        const res = await query(data.queryResult._links.self.href);
+        dichtsbijzijnd_adres = {
+          openbare_ruimte: res.openbare_ruimte._display,
+          huisnummer: res.huisnummer,
+          huisletter: res.huisletter,
+          huisnummer_toevoeging: res.huisnummer_toevoeging,
+          postcode: res.postcode,
+          woonplaats: res.woonplaats._display
+        }
+    } catch (e) {
+        console.log('error!');
+        console.log(e)
+    }
+  } else {
+    dichtsbijzijnd_adres = null;
+  }
   return {
-    data: d,
-    res: res
+    query: {
+      latitude: data.latlng.lat,
+      longitude: data.latlng.lng
+    },
+    dichtsbijzijnd_adres: dichtsbijzijnd_adres,
+    object: null, //no object for an address search
+
   }
 }
 
-async function getOmgevingInfo(d) {
-  const res = await query(`https://api.data.amsterdam.nl/geosearch/bag/?lat=${d.data.latlng.lat}&lon=${d.data.latlng.lng}&radius=50`);
-  return {
-    data: d.data,
-    res: res
+
+function findOmgevingFeature(features, type) {
+  let feature = features.find(feat => feat.properties.type === type);
+  if (feature === undefined) return null;
+  return feature.properties;
+}
+
+async function getOmgevingInfo(data) {
+  const res = await query(`https://api.data.amsterdam.nl/geosearch/bag/?lat=${data.query.latitude}&lon=${data.query.longitude}&radius=50`);
+  let buurtinfo = findOmgevingFeature(res.features, 'gebieden/buurt');
+  let stadsdeelinfo = findOmgevingFeature(res.features, 'gebieden/stadsdeel');
+  data.omgevingsinfo = {
+      buurtnaam: buurtinfo !== undefined ? buurtinfo.display : null,
+    buurtcode: buurtinfo !== undefined ? buurtinfo.vollcode : null,
+    stadsdeelnaam: stadsdeelinfo !== undefined ? stadsdeelinfo.display : null,
+    stadsdeelcode: stadsdeelinfo !== undefined ? stadsdeelinfo.code : null
   }
+  return data;
 }
 
 

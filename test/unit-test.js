@@ -30,12 +30,10 @@ test('test upstream API formatters', async function(t) {
     queryResult: firstQuery.results[0]
   }
   const res = await mora.getFullObjectData(obj);
-  t.equals(res.res.openbare_ruimte._display, 'Beursplein', 'expected openbareruimtenaam for this location');
+  t.equals(res.dichtsbijzijnd_adres.openbare_ruimte, 'Beursplein', 'expected openbareruimtenaam for this location');
   const res2 = await mora.getOmgevingInfo(res);
-  const openbareRuimte = res2.res.features.find(x => x.properties.type === 'bag/openbareruimte')
-  t.equals(openbareRuimte.properties.type, 'bag/openbareruimte', 'result has an element with bag/openbareruimte');
-  const stadsdeel = res2.res.features.find(x => x.properties.type === 'gebieden/stadsdeel');
-  t.equals(stadsdeel.properties.display, 'Centrum', 'results stadsdeel is Centrum');
+  t.equals(res2.omgevingsinfo.buurtnaam, 'Oude Kerk e.o.', 'result has buurtnaam as expected');
+  t.equals(res2.omgevingsinfo.stadsdeelcode, 'A', 'result has stadsdeelcode as expected');
   t.end();
 
 })
