@@ -36,16 +36,11 @@
       //handler to write query results to page
       function writeQueryResults(t, d) {
         if (t === 1) {
-          latlngText.innerText = 'Latitude: '+ d.data.latlng.lat + ', Longitude: ' + d.data.latlng.lng;
-          if (d.data.queryResult) {
-            queryResultText.innerText = 'Query results:';
-            resblock.innerText = JSON.stringify(d.data.queryResult, null, 2)
-            div.append(resblock);
+          latlngText.innerText = 'Latitude: '+ d.query.latitude + ', Longitude: ' + d.query.longitude;
+          queryResultText.innerText = 'Query results:';
+          resblock.innerText = JSON.stringify(d, null, 2)
+          div.append(resblock);
 
-          } else {
-            queryResultText.innerText = 'Query results: no results for this location.';
-            resblock.innerText = '';
-          }
           //remove loading style
           div.className = '';
         }
