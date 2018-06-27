@@ -18,7 +18,6 @@ async function getFullObjectData(data) {
   //}
   let dichtsbijzijnd_adres = {};
   if (data.queryResult !== null) {
-    const res = {};
     try {
         const res = await query(data.queryResult._links.self.href);
         dichtsbijzijnd_adres = {
@@ -30,8 +29,10 @@ async function getFullObjectData(data) {
           woonplaats: res.woonplaats._display
         }
     } catch (e) {
+      /* eslint-disable no-console */
         console.log('error!');
         console.log(e)
+      /* eslint-enable no-console */
     }
   } else {
     dichtsbijzijnd_adres = null;
