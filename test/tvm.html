@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Testing TVM app</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
+    <link rel="stylesheet" href="nlmaps/dist/assets/css/nlmaps.css"/>
+    <link rel="stylesheet" href="dist/css/ams-stijl.css"/>
+    <style>
+      #mapdiv{height:300px};
+      #results{
+        max-width: 400px;
+      }
+      .loading {
+        opacity: 0.3;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="mapdiv"></div>
+    <div id="queryresults"></div>
+    <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
+    <script src="dist/tvm.iife.js"></script>
+    <script>
+
+      //create map and register event handlers
+      let map = tvm.createMap({target: 'mapdiv',
+        layer: 'standaard',
+        marker: false,
+        search: true,
+        zoom: 14
+      });
+
+    </script>
+  </body>
+</html>
+
+
+
+

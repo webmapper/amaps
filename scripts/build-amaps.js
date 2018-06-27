@@ -1,7 +1,7 @@
 const helpers = require('./helpers');
 const { spawn } = require('child_process')
 
-const tasks = ['index', 'mora'];
+const tasks = ['index', 'mora', 'tvm'];
 
 
 if (helpers.args.production) {
