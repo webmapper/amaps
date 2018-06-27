@@ -1,28 +1,38 @@
 import { nlmaps } from '../nlmaps/dist/nlmaps.es.js';
 //import {callchain, requestFormatter, responseFormatter } from './tvm/index.js';
 import { chainWrapper } from './utils.js';
+/* eslint-disable-next-line max-len */
 const URL = 'https://map.data.amsterdam.nl/maps/parkeervakken?REQUEST=GetFeature&SERVICE=wfs&OUTPUTFORMAT=application/json;%20subtype=geojson;%20charset=utf-8&Typename=fiscaal_parkeervakken&version=1.1.0&srsname=urn:ogc:def:crs:EPSG::4326';
 const tvm = {};
 
 function parkeerVakken() {
   let parkeervakken = L.geoJson(null, {
-   // style: styleParkeerVakken,
+    style: defaultStyleParkeerVakken,
     onEachFeature: parkeerVakkenEach
 
   })
   return parkeervakken;
 }
 
-function styleParkeerVakken(feature) {
-  return {
-    "color": "#ff7800",
-    "weight": 5,
-    "opacity": 0.65
-  };
+const defaultStyleParkeerVakken = {
+  "color": "#000",
+  "weight": 2,
+  "opacity": 1,
+  "fillOpacity": 0
+};
+
+const hoverStyleParkeerVakken = {
+  "color": "#000",
+  "weight": 3,
+  "opacity": 1,
+  "fillOpacity": 1,
+  "fillColor": '#ccc'
 
 }
+
 function parkeerVakkenEach(feature, layer) {
-  //layer.on('click', console.log(layer));
+  layer.on('mouseover', e => layer.setStyle(hoverStyleParkeerVakken));
+  layer.on('mouseout', e => layer.setStyle(defaultStyleParkeerVakken));
 }
 
 function formatWfsUrl(bounds) {
@@ -32,12 +42,18 @@ function formatWfsUrl(bounds) {
 }
 
 async function reloadWfs() {
-  const bounds = this.map.getBounds();
-  const data = await fetch(formatWfsUrl(bounds)).then(res => res.json());
+  const zoom = map.getZoom();
   let layers = this.parkeervakken.getLayers();
-  layers.forEach(lyr => lyr.remove());
-  this.parkeervakken.clearLayers();
-  this.parkeervakken.addData(data);
+  if (zoom > 16) {
+    const bounds = this.map.getBounds();
+    const data = await fetch(formatWfsUrl(bounds)).then(res => res.json());
+    layers.forEach(lyr => lyr.remove());
+    this.parkeervakken.clearLayers();
+    this.parkeervakken.addData(data);
+  } else {
+    layers.forEach(lyr => lyr.remove());
+    this.parkeervakken.clearLayers();
+  }
 }
 
 tvm.createMap = function(config) {
@@ -59,7 +75,6 @@ tvm.createMap = function(config) {
     map.off('moveend', reloadWfs, this);
   })
   return map;
-
 }
 
 export default tvm;
