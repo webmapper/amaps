@@ -60,7 +60,7 @@
     "watch-browser-test": "nodemon --watch scripts --watch test -e js,html --exec npm run browser-test",
     "serve": "node scripts/devserver.js",
     "lint": "eslint test scripts src",
-    "build-amaps": "node scripts/build-amaps.js && shx mkdir -p test/nlmaps/dist/assets && cp -rf nlmaps/packages/assets/* test/nlmaps/dist/assets/",
+    "build-amaps": "node scripts/build-amaps.js && shx mkdir -p test/nlmaps/dist/assets && shx cp -rf nlmaps/packages/assets/* test/nlmaps/dist/assets/ && shx cp -rf node_modules/stijl/dist/* test/dist/",
     "watch-build-amaps": "NODE_ENV=development node scripts/build-amaps.js -w",
     "get-nlmaps": "shx rm -rf nlmaps && git clone --depth=1 --branch v$npm_package_nlmaps_version https://github.com/webmapper/nlmaps",
     "install-nlmaps": "node scripts/install-nlmaps.js",
