@@ -19,9 +19,9 @@
 
 
       //example handler function
-      //function handler(features){
-      //  console.log(features)
-      //}
+      function handler(features){
+        console.log(features)
+      }
 
       //create map and register event handlers
       let map = tvm.createMap({target: 'mapdiv',
@@ -29,7 +29,7 @@
         marker: false,
         search: true,
         zoom: 14,
-        //featureHandlers: handler
+        featureHandlers: handler
       });
 
     </script>

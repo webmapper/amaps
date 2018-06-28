@@ -23,40 +23,40 @@
     <script src="dist/mora.iife.js"></script>
     <script>
 
-      //container to display search results
-      let div = document.getElementById('queryresults');
-      let latlngText = document.createElement('p');
-      let queryResultText = document.createElement('p');
-      div.append(latlngText);
-      div.append(queryResultText);
-      let resblock = document.createElement('pre');
-      resblock.setAttribute('id', 'results');
-      div.append(resblock)
+      ////container to display search results
+      //let div = document.getElementById('queryresults');
+      //let latlngText = document.createElement('p');
+      //let queryResultText = document.createElement('p');
+      //div.append(latlngText);
+      //div.append(queryResultText);
+      //let resblock = document.createElement('pre');
+      //resblock.setAttribute('id', 'results');
+      //div.append(resblock)
 
-      //handler to write query results to page
-      function writeQueryResults(d) {
-        latlngText.innerText = 'Latitude: '+ d.query.latitude + ', Longitude: ' + d.query.longitude;
-        queryResultText.innerText = 'Query results:';
-        resblock.innerText = JSON.stringify(d, null, 2)
-        div.append(resblock);
+      ////handler to write query results to page
+      //function writeQueryResults(d) {
+      //  latlngText.innerText = 'Latitude: '+ d.query.latitude + ', Longitude: ' + d.query.longitude;
+      //  queryResultText.innerText = 'Query results:';
+      //  resblock.innerText = JSON.stringify(d, null, 2)
+      //  div.append(resblock);
 
-        //remove loading style
-        div.className = '';
-      }
+      //  //remove loading style
+      //  div.className = '';
+      //}
 
-      //handler to fade results display between click and XHR return
-      function fadeResultsLoading(d){
-        div.className = 'loading';
-      }
+      ////handler to fade results display between click and XHR return
+      //function fadeResultsLoading(d){
+      //  div.className = 'loading';
+      //}
 
       //create map and register event handlers
       let map = mora.createMap({target: 'mapdiv',
         layer: 'standaard',
         marker: false,
         search: true,
-        zoom: 14,
-	clickHandlers: fadeResultsLoading,
-	featureHandlers: [writeQueryResults, myHandler]
+        zoom: 14
+	//clickHandlers: fadeResultsLoading,
+	//featureHandlers: writeQueryResults
       });
 
     </script>
