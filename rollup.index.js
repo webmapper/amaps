@@ -15,6 +15,12 @@ export default [{
   },
   plugins: [
     json(),
+    resolve({
+      jsnext: true,
+      commonjs: true,
+      browser: true
+    }),
+    commonjs(),
     babel({
       exclude: '**/node_modules/**',
       babelrc: false,
@@ -26,9 +32,7 @@ export default [{
       ]],
       plugins: 'external-helpers'
     }),
-    resolve(),
     (process.env.NODE_ENV === 'production' && uglify()),
-    commonjs()
   ]
 },{
   input: 'src/index.js',
@@ -40,6 +44,12 @@ export default [{
   },
   plugins: [
     json(),
+    resolve({
+      jsnext: true,
+      commonjs: true,
+      browser: true
+    }),
+    commonjs(),
     babel({
       exclude: '**/node_modules/**',
       babelrc: false,
@@ -51,8 +61,6 @@ export default [{
       ]],
       plugins: 'external-helpers'
     }),
-    resolve(),
     (process.env.NODE_ENV === 'production' && uglify()),
-    commonjs()
   ]
 }]

@@ -14,8 +14,14 @@ export default [{
   },
   plugins: [
     json(),
+    resolve({
+      jsnext: true,
+      commonjs: true,
+      browser: true
+    }),
+    commonjs(),
     babel({
-      exclude: 'node_modules/(?!callbag)**',
+      exclude: 'node_modules/(?!callbag)',
       babelrc: false,
       presets: [[
         'env',
@@ -25,9 +31,7 @@ export default [{
       ]],
       plugins: 'external-helpers'
     }),
-    resolve(),
     (process.env.NODE_ENV === 'production' && uglify()),
-    commonjs()
   ]
 },{
   input: 'src/tvm.js',
@@ -39,6 +43,12 @@ export default [{
   },
   plugins: [
     json(),
+    resolve({
+      jsnext: true,
+      commonjs: true,
+      browser: true
+    }),
+    commonjs(),
     babel({
       exclude: 'node_modules/(?!callbag)**',
       babelrc: false,
@@ -50,8 +60,6 @@ export default [{
       ]],
       plugins: 'external-helpers'
     }),
-    resolve(),
     (process.env.NODE_ENV === 'production' && uglify()),
-    commonjs()
   ]
 }]
