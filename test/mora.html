@@ -34,30 +34,23 @@
       div.append(resblock)
 
       //handler to write query results to page
-      function writeQueryResults(t, d) {
-        if (t === 1) {
-          latlngText.innerText = 'Latitude: '+ d.query.latitude + ', Longitude: ' + d.query.longitude;
-          queryResultText.innerText = 'Query results:';
-          resblock.innerText = JSON.stringify(d, null, 2)
-          div.append(resblock);
+      function writeQueryResults(d) {
+        latlngText.innerText = 'Latitude: '+ d.query.latitude + ', Longitude: ' + d.query.longitude;
+        queryResultText.innerText = 'Query results:';
+        resblock.innerText = JSON.stringify(d, null, 2)
+        div.append(resblock);
 
-          //remove loading style
-          div.className = '';
-        }
-
+        //remove loading style
+        div.className = '';
       }
 
       //handler to fade results display between click and XHR return
-      function fadeResultsLoading(t, d){
-        if (t === 1) {
-          div.className = 'loading';
-        }
+      function fadeResultsLoading(d){
+        div.className = 'loading';
       }
 
-      function myHandler(t, d) {
-        if (t === 1) {
-          console.log(d)
-        }
+      function myHandler(d) {
+        console.log(d)
       }
 
       //create map and register event handlers

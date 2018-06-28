@@ -1,8 +1,11 @@
 import { nlmaps } from '../nlmaps/dist/nlmaps.es.js';
 import {callchain, requestFormatter, responseFormatter } from './mora/index.js';
 import { chainWrapper } from './utils.js';
+import emitonoff from 'emitonoff';
+import observe from 'callbag-observe';
 //amaps is really going to be 'amaps-mora'.
 const mora = {};
+emitonoff(mora);
 
 mora.createMap = function(config) {
   let nlmapsconf = {
@@ -13,6 +16,8 @@ mora.createMap = function(config) {
     zoom: config.zoom
   };
   let map = nlmaps.createMap(nlmapsconf);
+
+  //setup click and feature handlers
   let clicks = nlmaps.clickProvider(map);
   let singleMarker =  nlmaps.singleMarker(map);
   let featureQuery = nlmaps.queryFeatures(
@@ -21,26 +26,26 @@ mora.createMap = function(config) {
     requestFormatter,
     responseFormatter
   );
-
-
   const finalResponse = chainWrapper(featureQuery, callchain);
+  observe(data => mora.emit('query-results', data))(finalResponse);
+  observe(data => mora.emit('mapclick', data))(clicks);
 
 
   if (typeof config.clickHandlers === 'function') {
-    clicks.subscribe(config.clickHandlers);
+    mora.on('mapclick', config.clickHandlers);
   } else if (Array.isArray(config.clickHandlers)) {
     config.clickHandlers.forEach((f) =>{
       if (typeof f === 'function') {
-        clicks.subscribe(f)
+        mora.on('mapclick', f);
       }
     })
   }
   if (typeof config.featureHandlers === 'function') {
-    featureQuery.subscribe(config.featureHandlers);
+   mora.on('query-results', config.featureHandlers);
   } else if (Array.isArray(config.featureHandlers)) {
     config.featureHandlers.forEach((f) =>{
       if (typeof f === 'function') {
-        finalResponse.subscribe(f)
+        mora.on('query-results', f);
       }
     })
   }

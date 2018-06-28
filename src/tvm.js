@@ -74,6 +74,7 @@ function formatWfsUrl(bounds) {
   return `${URL}&bbox=${ll.x},${ll.y},${ur.x},${ur.y}`
 }
 
+
 async function reloadWfs() {
   const zoom = map.getZoom();
   let layers = this.parkeervakken.getLayers();
@@ -117,12 +118,10 @@ const featureQuery = nlmaps.queryFeatures(clickSource,
     requestFormatter,
     responseFormatter
 );
-tvm.response = chainWrapper(featureQuery, callchain)
+const response = chainWrapper(featureQuery, callchain)
 
 const subject = makeSubject();
-const result =  toAwaitable(combine(tvm.response, subject));
-
-
+const result =  toAwaitable(combine(response, subject));
 
 tvm.store = {
   store: [],
@@ -152,6 +151,8 @@ tvm.store = {
   }
 }
 
+
+
 tvm.createMap = function(config) {
   let nlmapsconf = {
     target: config.target,
@@ -173,6 +174,20 @@ tvm.createMap = function(config) {
 
   tvm.selection = selectionLayer();
   tvm.selection.addTo(map);
+
+  if (typeof config.featureHandlers === 'function') {
+    tvm.on('feature', data => {
+      config.featureHandlers(data.features);
+    });
+  } else if (Array.isArray(config.featureHandlers)) {
+    config.featureHandlers.forEach((f) =>{
+      if (typeof f === 'function') {
+        tvm.on('feature', data => {
+          f(data.features);
+        });
+      }
+    })
+  }
 
   return map;
 }
