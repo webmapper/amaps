@@ -30,7 +30,7 @@ test('test upstream API formatters', async function(t) {
     queryResult: firstQuery.results[0]
   }
   const res = await mora.getFullObjectData(obj);
-  t.equals(res.dichtsbijzijnd_adres.openbare_ruimte, 'Beursplein', 'expected openbareruimtenaam for this location');
+  t.equals(res.dichtsbijzijnd_adres.openbare_ruimte, 'Warmoesstraat', 'expected openbareruimtenaam for this location');
   const res2 = await mora.getOmgevingInfo(res);
   t.equals(res2.omgevingsinfo.buurtnaam, 'Oude Kerk e.o.', 'result has buurtnaam as expected');
   t.equals(res2.omgevingsinfo.stadsdeelcode, 'A', 'result has stadsdeelcode as expected');

@@ -3,6 +3,7 @@ import commonjs from 'rollup-plugin-commonjs';
 import json from 'rollup-plugin-json';
 import pkg from './package.json';
 import babel from 'rollup-plugin-babel';
+import uglify from 'rollup-plugin-uglify-es';
 
 export default [{
   input: 'src/index.js',
@@ -10,7 +11,7 @@ export default [{
     name: 'amaps',
     file: process.env.NODE_ENV === 'production' ? pkg.browser : 'test/dist/amaps.iife.js',
     format: 'iife',
-    sourcemap: true
+    sourcemap: process.env.NODE_ENV === 'production' ? false : true
   },
   plugins: [
     json(),
@@ -26,6 +27,7 @@ export default [{
       plugins: 'external-helpers'
     }),
     resolve(),
+    (process.env.NODE_ENV === 'production' && uglify()),
     commonjs()
   ]
 },{
@@ -34,7 +36,7 @@ export default [{
     name: 'amaps',
     file: process.env.NODE_ENV === 'production' ? pkg.module : 'test/dist/amaps.es.js',
     format: 'es',
-    sourcemap: true
+    sourcemap: process.env.NODE_ENV === 'production' ? false : true
   },
   plugins: [
     json(),
@@ -50,6 +52,7 @@ export default [{
       plugins: 'external-helpers'
     }),
     resolve(),
+    (process.env.NODE_ENV === 'production' && uglify()),
     commonjs()
   ]
 }]

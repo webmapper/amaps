@@ -1,5 +1,6 @@
 const helpers = require('./helpers');
 const { spawn } = require('child_process')
+const shell = require('shelljs');
 
 const tasks = ['index', 'mora', 'tvm'];
 
@@ -33,3 +34,13 @@ tasks.forEach(task => {
     console.log(`child process for ${task} exited with code ${code}`);
   });
 })
+
+const assetdest = helpers.args.production ? 'dist' : 'test';
+function fmtDst(path) {
+  return assetdest + '/' + path;
+}
+
+shell.mkdir('-p', fmtDst('nlmaps/dist/assets'));
+shell.mkdir('-p', fmtDst('dist'));
+shell.cp( '-rf', 'nlmaps/packages/assets/*', fmtDst('nlmaps/dist/assets/'));
+shell.cp( '-rf', 'node_modules/stijl/dist/*', fmtDst('dist/'));
