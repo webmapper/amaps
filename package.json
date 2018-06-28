@@ -5,7 +5,7 @@
   "main": "src/index.js",
   "browser": "dist/amaps.iife.js",
   "module": "dist/amaps.es.js",
-  "nlmaps_version": "2.3.32",
+  "nlmaps_version": "2.3.34",
   "directories": {
     "test": "test"
   },
