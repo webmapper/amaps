@@ -23,8 +23,7 @@
     "callbag-to-awaitable": "^1.0.0",
     "emitonoff": "^0.1.1",
     "proj4": "^2.4.4",
-    "stijl": "git+https://git@github.com/Amsterdam/stijl.git",
-    "whatwg-fetch": "^2.0.4"
+    "stijl": "git+https://git@github.com/Amsterdam/stijl.git"
   },
   "devDependencies": {
     "argparse": "^1.0.10",
