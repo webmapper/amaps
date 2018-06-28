@@ -1,13 +1,14 @@
+import 'babel-polyfill';
 import { nlmaps } from '../nlmaps/dist/nlmaps.es.js';
 import {callchain, requestFormatter, responseFormatter } from './mora/index.js';
 import { chainWrapper } from './utils.js';
 import emitonoff from 'emitonoff';
 import observe from 'callbag-observe';
-//amaps is really going to be 'amaps-mora'.
 const mora = {};
 emitonoff(mora);
 
 mora.createMap = function(config) {
+  //create map
   let nlmapsconf = {
     target: config.target,
     layer: config.layer,
@@ -31,6 +32,7 @@ mora.createMap = function(config) {
   observe(data => mora.emit('mapclick', data))(clicks);
 
 
+  //attach user-supplied event handlers
   if (typeof config.clickHandlers === 'function') {
     mora.on('mapclick', config.clickHandlers);
   } else if (Array.isArray(config.clickHandlers)) {
@@ -49,7 +51,7 @@ mora.createMap = function(config) {
       }
     })
   }
-  //this is the only subscription we do here, since it belongs to the map viewport.
+  //this is the only private subscription we do here, since it belongs to the map viewport.
   clicks.subscribe(singleMarker);
   return map;
 }

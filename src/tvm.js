@@ -1,3 +1,4 @@
+import 'babel-polyfill';
 import { nlmaps } from '../nlmaps/dist/nlmaps.es.js';
 import { callchain, requestFormatter, responseFormatter } from './mora/index.js';
 import { chainWrapper } from './utils.js';

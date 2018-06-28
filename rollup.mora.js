@@ -15,7 +15,7 @@ export default [{
   plugins: [
     json(),
     babel({
-      exclude: 'node_modules/**',
+      exclude: 'node_modules/(?!callbag)**',
       babelrc: false,
       presets: [[
         'env',
@@ -40,7 +40,7 @@ export default [{
   plugins: [
     json(),
     babel({
-      exclude: 'node_modules/**',
+      exclude: 'node_modules/(?!callbag)**',
       babelrc: false,
       presets: [[
         'env',
