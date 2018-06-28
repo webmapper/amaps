@@ -5,11 +5,12 @@
   "main": "src/index.js",
   "browser": "dist/amaps.iife.js",
   "module": "dist/amaps.es.js",
-  "nlmaps_version": "2.3.30",
+  "nlmaps_version": "2.3.32",
   "directories": {
     "test": "test"
   },
   "dependencies": {
+    "babel-polyfill": "^6.26.0",
     "callbag-basics": "^3.0.0",
     "callbag-combine": "^1.1.0",
     "callbag-for-each": "^1.0.1",
