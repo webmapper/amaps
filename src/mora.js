@@ -43,10 +43,10 @@ mora.createMap = function(config) {
       }
     })
   }
-  if (typeof config.featureHandlers === 'function') {
-   mora.on('query-results', config.featureHandlers);
-  } else if (Array.isArray(config.featureHandlers)) {
-    config.featureHandlers.forEach((f) =>{
+  if (typeof config.onQueryResult === 'function') {
+   mora.on('query-results', config.onQueryResult);
+  } else if (Array.isArray(config.onQueryResult)) {
+    config.onQueryResult.forEach((f) =>{
       if (typeof f === 'function') {
         mora.on('query-results', f);
       }

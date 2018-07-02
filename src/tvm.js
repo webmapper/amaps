@@ -177,12 +177,12 @@ tvm.createMap = function(config) {
   tvm.selection = selectionLayer();
   tvm.selection.addTo(map);
 
-  if (typeof config.featureHandlers === 'function') {
+  if (typeof config.onFeatures === 'function') {
     tvm.on('feature', data => {
-      config.featureHandlers(data.features);
+      config.onFeatures(data.features);
     });
-  } else if (Array.isArray(config.featureHandlers)) {
-    config.featureHandlers.forEach((f) =>{
+  } else if (Array.isArray(config.onFeatures)) {
+    config.onFeatures.forEach((f) =>{
       if (typeof f === 'function') {
         tvm.on('feature', data => {
           f(data.features);
