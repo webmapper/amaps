@@ -6,6 +6,8 @@ This repository builds `nlmaps` with a configuration file for Amsterdam, specify
 * MORA (meldingen openbare ruimte)
 * TVM (tijdelijke verkeersmaatregelen).
 
+see [`src/README.md`](examples/README.md) for explanation on usage. Below is documentation on the build/development setup.
+
 ## How it works
 This repo installs a local copy of `nlmaps`, then compiles it with the custom configuration file at `config/amsterdam.config.js`. In `test/` are html and js files for testing:
 
@@ -38,26 +40,29 @@ To test: `npm run test`
 
 To lint: `npm run lint`
 
+
+#### development server
 Instead of running the above commands separately, you can run a live-reloading development server: `npm run dev`. This watches `src/` and the config file in `config/amsterdam.config.js`, rebuilds and runs tests on changes. You can access the demo html pages at:
 
-  localhost:8080/index.html
-  localhost:8080/mora.html
-  localhost:8080/tvm.html
+    localhost:8080/index.html
+    localhost:8080/mora.html
+    localhost:8080/tvm.html
 
-If you want to serve and test without using the `dev` command, the server
+If you want to serve and test without using the `dev` command, the server needs to be running in a separate terminal window.
 
 #### production build
 
-to build for production, which puts output in `dist/` instead of `test/`, run:
+to build for production, which puts output in `dist/` instead of `test/dist/`, run:
 
 
 `npm run build-amaps -- --production`
+
 
 ### with docker (used by Jenkins CI)
 
 from a fresh install with no `build_nlmaps` docker image on your machine:
 
-To run the http server in Docker: `docker-compose up --build -d serve`
+To run the http server in Docker: `docker-compose up --build -d serve` (accessible on port 8095)
 
 To run tests and lint:
 
