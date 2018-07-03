@@ -20,32 +20,36 @@
     <script src="dist/mora.iife.js"></script>
     <script>
 
-      ////container to display search results
-      //let div = document.getElementById('queryresults');
-      //let latlngText = document.createElement('p');
-      //let queryResultText = document.createElement('p');
-      //div.append(latlngText);
-      //div.append(queryResultText);
-      //let resblock = document.createElement('pre');
-      //resblock.setAttribute('id', 'results');
-      //div.append(resblock)
+      //example handler for click query results. Replace the following
+      //with your own handler logic.
 
-      ////handler to write query results to page
-      //function writeQueryResults(d) {
-      //  latlngText.innerText = 'Latitude: '+ d.query.latitude + ', Longitude: ' + d.query.longitude;
-      //  queryResultText.innerText = 'Query results:';
-      //  resblock.innerText = JSON.stringify(d, null, 2)
-      //  div.append(resblock);
-      //}
+      //Example container to display search results
+      let div = document.getElementById('queryresults');
+      let latlngText = document.createElement('p');
+      let queryResultText = document.createElement('p');
+      div.append(latlngText);
+      div.append(queryResultText);
+      let resblock = document.createElement('pre');
+      resblock.setAttribute('id', 'results');
+      div.append(resblock)
+
+      //Example handler to write query results to page
+      function writeQueryResults(d) {
+        latlngText.innerText = 'Latitude: '+ d.query.latitude + ', Longitude: ' + d.query.longitude;
+        queryResultText.innerText = 'Query results:';
+        resblock.innerText = JSON.stringify(d, null, 2)
+        div.append(resblock);
+      }
 
 
+      //use the following to create a map and attach handlers
       //create map and register event handlers
       let map = mora.createMap({target: 'mapdiv',
         layer: 'standaard',
         marker: false,
         search: true,
         zoom: 14
-	//onQueryResult: writeQueryResults
+	onQueryResult: writeQueryResults
       });
 
     </script>

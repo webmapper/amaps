@@ -1,10 +1,7 @@
 import 'babel-polyfill';
 import 'whatwg-fetch';
 import { nlmaps } from '../nlmaps/dist/nlmaps.es.js';
-import { pointQueryChain, requestFormatter, responseFormatter, getFullObjectData, getOmgevingInfo } from './utils.js';
-import makeSubject from 'callbag-subject';
-import { combine } from 'callbag-basics';
-import toAwaitable from 'callbag-to-awaitable';
+import { pointQueryChain } from './lib.js';
 import emitonoff from 'emitonoff';
 /* eslint-disable-next-line max-len */
 const URL = 'https://map.data.amsterdam.nl/maps/parkeervakken?REQUEST=GetFeature&SERVICE=wfs&OUTPUTFORMAT=application/json;%20subtype=geojson;%20charset=utf-8&Typename=fiscaal_parkeervakken&version=1.1.0&srsname=urn:ogc:def:crs:EPSG::4326';
@@ -34,16 +31,23 @@ const hoverStyleParkeerVakken = {
   "opacity": 1,
   "fillOpacity": 1,
   "fillColor": '#ccc'
-
 }
 
-const selectionStyle = {
+const defaultStyleSelection = {
   "color": "#ec0000",
   "weight": 2,
   "opacity": 1,
   "fillOpacity": 0.5,
   "fillColor": "#ec0000"
 };
+
+const hoverStyleSelection = {
+  "color": "#ec0000",
+  "weight": 3,
+  "opacity": 1,
+  "fillOpacity": 0.3,
+  "fillColor": '#ec0000'
+}
 
 function selectionLayer() {
   let selection = L.geoJson(null, {
@@ -54,6 +58,8 @@ function selectionLayer() {
 }
 
 function selectionEach(feature, layer) {
+  layer.on('mouseover', () => layer.setStyle(hoverStyleSelection));
+  layer.on('mouseout', () => layer.setStyle(defaultStyleSelection));
   layer.on('click', e => {
     e.originalEvent.preventDefault();
     tvm.store.removeFeature(feature, layer);

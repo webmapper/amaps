@@ -1,7 +1,7 @@
 import 'babel-polyfill';
 import 'whatwg-fetch';
 import { nlmaps } from '../nlmaps/dist/nlmaps.es.js';
-import { pointQueryChain, requestFormatter, responseFormatter, query, getBagInfo, getFullObjectData, getOmgevingInfo  } from './utils.js';
+import { pointQueryChain } from './lib.js';
 import emitonoff from 'emitonoff';
 import observe from 'callbag-observe';
 const mora = {};

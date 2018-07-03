@@ -172,4 +172,4 @@ async function pointQueryChain (click) {
   }
 }
 
-export {  pointQueryChain, query, requestFormatter, responseFormatter, getBagInfo, getFullObjectData, getOmgevingInfo };
+export {  pointQueryChain, getBagInfo, getFullObjectData, getOmgevingInfo, requestFormatter, responseFormatter };
