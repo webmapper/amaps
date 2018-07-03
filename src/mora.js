@@ -20,15 +20,18 @@ mora.createMap = async function(config) {
   };
   let map = nlmaps.createMap(nlmapsconf);
   //subscribe chain of API calls to the nlmaps click event
-  mora.on('mapclick', pointQueryChain);
+ nlmaps.on('mapclick', async function(click) {
+    const result = await pointQueryChain(click);
+    mora.emit('query-results', result);
+  });
 
   //attach user-supplied event handlers
   if (typeof config.clickHandlers === 'function') {
-    mora.on('mapclick', config.clickHandlers);
+    nlmaps.on('mapclick', config.clickHandlers);
   } else if (Array.isArray(config.clickHandlers)) {
     config.clickHandlers.forEach((f) =>{
       if (typeof f === 'function') {
-        mora.on('mapclick', f);
+        nlmaps.on('mapclick', f);
       }
     })
   }

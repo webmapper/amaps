@@ -1,8 +1,7 @@
 import 'babel-polyfill';
 import 'whatwg-fetch';
 import { nlmaps } from '../nlmaps/dist/nlmaps.es.js';
-import { callchain, requestFormatter, responseFormatter } from './mora/index.js';
-import { chainWrapper } from './utils.js';
+import { pointQueryChain, requestFormatter, responseFormatter, getFullObjectData, getOmgevingInfo } from './utils.js';
 import makeSubject from 'callbag-subject';
 import { combine } from 'callbag-basics';
 import toAwaitable from 'callbag-to-awaitable';
@@ -78,7 +77,7 @@ function formatWfsUrl(bounds) {
 
 
 async function reloadWfs() {
-  const zoom = map.getZoom();
+  const zoom = this.map.getZoom();
   let layers = this.parkeervakken.getLayers();
   if (zoom > 16) {
     const bounds = this.map.getBounds();
@@ -93,52 +92,20 @@ async function reloadWfs() {
   }
 }
 
-const ClickProvider = function() {
-  const sinks = [];
-  return function(type, data) {
-    if (type === 1) {
-      sinks.forEach(sink => sink(1, data));
-      return;
-    }
-    const clickSource = function (start, sink) {
-      if (start !== 0) return;
-      sinks.push(sink);
-      const talkback = () => {};
-      sink(0, talkback);
-    };
-
-    clickSource.subscribe = function (callback) {
-      clickSource(0, callback)
-    }
-    return clickSource;
-  }
+async function combinePointAndFeatureInfo(click, feature){
+  const result = await pointQueryChain(click, tvm);
+  result.object = feature;
+  return result;
 }
-const clickProvider = ClickProvider();
-const clickSource = clickProvider(0);
-const featureQuery = nlmaps.queryFeatures(clickSource,
-    "https://api.data.amsterdam.nl/bag/nummeraanduiding/?format=json&locatie=",
-    requestFormatter,
-    responseFormatter
-);
-const response = chainWrapper(featureQuery, callchain)
 
-const subject = makeSubject();
-const result =  toAwaitable(combine(response, subject));
 
 tvm.store = {
   store: [],
   addFeature: async function(feature, e) {
     tvm.selection.addData(feature);
-    clickProvider(1, {latlng: e.latlng});
-    subject(1, feature);
-    const res = await(result);
-    res[0].object = {
-      type: 'parkeervak',
-      id: res[1].properties.id,
-      geometry: res[1].geometry
-    };
-    this.store.push(res[0]);
-    tvm.emit('feature',{features: this.store, type: 'added', added: res[0]});
+    const result = await combinePointAndFeatureInfo({latlng: e.latlng}, feature);
+    this.store.push(result);
+    tvm.emit('feature',{features: this.store, type: 'added', added: result});
   },
   removeFeature: function(feature, layer) {
     const idx = this.store.findIndex(item => item.object.id === feature.properties.id);
@@ -155,7 +122,7 @@ tvm.store = {
 
 
 
-tvm.createMap = function(config) {
+tvm.createMap = async function(config) {
   let nlmapsconf = {
     target: config.target,
     layer: config.layer,

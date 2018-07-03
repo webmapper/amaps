@@ -166,7 +166,7 @@ async function pointQueryChain (click) {
     const result = await getBagInfo(click) 
     .then(getFullObjectData)
     .then(getOmgevingInfo);
-    mora.emit('query-results', result);
+    return result;
   } catch (e) {
     console.log(e);
   }
