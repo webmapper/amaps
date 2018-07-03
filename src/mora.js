@@ -1,14 +1,40 @@
 import 'babel-polyfill';
 import 'whatwg-fetch';
 import { nlmaps } from '../nlmaps/dist/nlmaps.es.js';
-import {callchain, requestFormatter, responseFormatter } from './mora/index.js';
-import { chainWrapper } from './utils.js';
+import { requestFormatter, responseFormatter } from './mora/index.js';
+import { chainWrapper, query, getFullObjectData, getOmgevingInfo  } from './utils.js';
 import emitonoff from 'emitonoff';
 import observe from 'callbag-observe';
 const mora = {};
 emitonoff(mora);
 
-mora.createMap = function(config) {
+async function getBagInfo(click) {
+  const xy = {
+    x: click.latlng.lng,
+    y: click.latlng.lat
+  }
+  const url = requestFormatter("https://api.data.amsterdam.nl/bag/nummeraanduiding/?format=json&locatie=", xy);
+  return await  query(url).then(res => {
+      let output =  {
+        queryResult: responseFormatter(res),
+        latlng: click.latlng
+      }
+      return output;
+  })
+}
+
+async function chain (click) {
+  try {
+    const result = await getBagInfo(click) 
+    .then(getFullObjectData)
+    .then(getOmgevingInfo);
+    mora.emit('query-results', result);
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+mora.createMap = async function(config) {
   //create map
   let nlmapsconf = {
     target: config.target,
@@ -18,19 +44,9 @@ mora.createMap = function(config) {
     zoom: config.zoom
   };
   let map = nlmaps.createMap(nlmapsconf);
-
-  //setup click and feature handlers
   let clicks = nlmaps.clickProvider(map);
-  let singleMarker =  nlmaps.singleMarker(map);
-  let featureQuery = nlmaps.queryFeatures(
-    clicks,
-    "https://api.data.amsterdam.nl/bag/nummeraanduiding/?format=json&locatie=",
-    requestFormatter,
-    responseFormatter
-  );
-  const finalResponse = chainWrapper(featureQuery, callchain);
-  observe(data => mora.emit('query-results', data))(finalResponse);
-  observe(data => mora.emit('mapclick', data))(clicks);
+  //subscribe chain of API calls to the nlmaps click event
+  observe(chain)(clicks);
 
 
   //attach user-supplied event handlers
@@ -53,6 +69,8 @@ mora.createMap = function(config) {
     })
   }
   //this is the only private subscription we do here, since it belongs to the map viewport.
+  //setup click and feature handlers
+  let singleMarker =  nlmaps.singleMarker(map);
   clicks.subscribe(singleMarker);
   return map;
 }
