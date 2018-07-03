@@ -1,38 +1,13 @@
 import 'babel-polyfill';
 import 'whatwg-fetch';
 import { nlmaps } from '../nlmaps/dist/nlmaps.es.js';
-import { requestFormatter, responseFormatter } from './mora/index.js';
-import { chainWrapper, query, getFullObjectData, getOmgevingInfo  } from './utils.js';
+import { pointQueryChain, requestFormatter, responseFormatter, query, getBagInfo, getFullObjectData, getOmgevingInfo  } from './utils.js';
 import emitonoff from 'emitonoff';
 import observe from 'callbag-observe';
 const mora = {};
 emitonoff(mora);
 
-async function getBagInfo(click) {
-  const xy = {
-    x: click.latlng.lng,
-    y: click.latlng.lat
-  }
-  const url = requestFormatter("https://api.data.amsterdam.nl/bag/nummeraanduiding/?format=json&locatie=", xy);
-  return await  query(url).then(res => {
-      let output =  {
-        queryResult: responseFormatter(res),
-        latlng: click.latlng
-      }
-      return output;
-  })
-}
 
-async function chain (click) {
-  try {
-    const result = await getBagInfo(click) 
-    .then(getFullObjectData)
-    .then(getOmgevingInfo);
-    mora.emit('query-results', result);
-  } catch (e) {
-    console.log(e);
-  }
-}
 
 mora.createMap = async function(config) {
   //create map
@@ -44,10 +19,8 @@ mora.createMap = async function(config) {
     zoom: config.zoom
   };
   let map = nlmaps.createMap(nlmapsconf);
-  let clicks = nlmaps.clickProvider(map);
   //subscribe chain of API calls to the nlmaps click event
-  observe(chain)(clicks);
-
+  mora.on('mapclick', pointQueryChain);
 
   //attach user-supplied event handlers
   if (typeof config.clickHandlers === 'function') {
@@ -70,6 +43,7 @@ mora.createMap = async function(config) {
   }
   //this is the only private subscription we do here, since it belongs to the map viewport.
   //setup click and feature handlers
+  let clicks = nlmaps.clickProvider(map);
   let singleMarker =  nlmaps.singleMarker(map);
   clicks.subscribe(singleMarker);
   return map;
