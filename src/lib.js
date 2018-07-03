@@ -100,7 +100,16 @@ function requestFormatter(baseUrl, xy) {
 }
 
 function responseFormatter(res) {
-  let filtered = res.results.filter(x => x.hoofdadres === true);
+  let filtered;
+  try {
+    filtered = res.results.filter(x => x.hoofdadres === true);
+  } catch (e) {
+    throw {
+      error: 'no results property found on query response.',
+      response: res,
+      originalError: e
+    }
+  }
   return filtered.length > 0 ? filtered[0] : null;
 }
 
@@ -172,4 +181,4 @@ async function pointQueryChain (click) {
   }
 }
 
-export {  pointQueryChain, getBagInfo, getFullObjectData, getOmgevingInfo, requestFormatter, responseFormatter };
+export {  pointQueryChain, getBagInfo, getFullObjectData, getOmgevingInfo, requestFormatter, responseFormatter, query };
