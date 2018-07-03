@@ -16,11 +16,11 @@ async function getFullObjectData(data) {
   //  latlng: {},
   //  queryResult: {},
   //}
-  let dichtsbijzijnd_adres = {};
+  let dichtstbijzijnd_adres = {};
   if (data.queryResult !== null) {
     try {
         const res = await query(data.queryResult._links.self.href);
-        dichtsbijzijnd_adres = {
+        dichtstbijzijnd_adres = {
           openbare_ruimte: res.openbare_ruimte._display,
           huisnummer: res.huisnummer,
           huisletter: res.huisletter,
@@ -35,14 +35,14 @@ async function getFullObjectData(data) {
       /* eslint-enable no-console */
     }
   } else {
-    dichtsbijzijnd_adres = null;
+    dichtstbijzijnd_adres = null;
   }
   return {
     query: {
       latitude: data.latlng.lat,
       longitude: data.latlng.lng
     },
-    dichtsbijzijnd_adres: dichtsbijzijnd_adres,
+    dichtstbijzijnd_adres: dichtstbijzijnd_adres,
     object: null, //no object for an address search
 
   }
@@ -74,31 +74,11 @@ const callchain = [
   wrapApiCall(getOmgevingInfo)
 ]
 
-//user-provided function for featureQuery to format request URL
-//featureQuery will call this function with the following arguments:
-// baseUrl string: the base url of the API (from config)
-// xy: the x,y of the clicked point on the map (longitude, latitude).
 function requestFormatter(baseUrl, xy) {
   let xyRD = transformCoords.forward(xy);
   return `${baseUrl}${xyRD.x},${xyRD.y},50`
 }
 
-//user-provided function for featureQuery to parse Ajax response
-//we need:
-//* query (lat/lon)
-//* object
-//* omgeving:
-//  * dichtsbijzijnd adres
-//  * buurtnaam
-//  * buurtcode
-//  * stadsdeelnaam
-//  * stadsdeelcode
-//  * buurtcombinatienaam
-//  * buurtcombinatiecode
-//
-
-//So we need several of these request/responseformatter things.
-//And then we chain them together.
 function responseFormatter(res) {
   let filtered = res.results.filter(x => x.hoofdadres === true);
   return filtered.length > 0 ? filtered[0] : null;
