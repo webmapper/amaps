@@ -1,3 +1,4 @@
+/*eslint-disable max-len */
 let test = require('tape-catch');
 global.fetch = require('node-fetch');
 

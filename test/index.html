@@ -12,6 +12,8 @@
   </head>
   <body>
     <div id="mapdiv"></div>
+    <p> <a href="pointquery.html">Point Query Example</a></p>
+    <p> <a href="multiselect.html">Multi-feature Select Example</a></p>
     <div id="queryresults"></div>
     <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
     <script src="dist/amaps.iife.js"></script>
@@ -23,16 +25,9 @@
         zoom: 14
       });
 
-      function myHandler(t, d) {
-        if (t === 1 ){
-          console.log('The click happened at: ' + d)
-            console.log(d)
-        }
-      }
       let clicks = amaps.clickProvider(map);
       let singleMarker = amaps.singleMarker(map);
       clicks.subscribe(singleMarker);
-      clicks.subscribe(myHandler);
 
     </script>
   </body>

@@ -18,18 +18,32 @@
     <script>
 
 
-      //example handler function
-      function handler(features){
-        console.log(features)
+      //example handler for click query results. Replace the following
+      //with your own handler logic.
+
+      //Example container to display search results
+      let div = document.getElementById('queryresults');
+      let countText = document.createElement('p');
+      div.append(countText);
+      let resblock = document.createElement('pre');
+      resblock.setAttribute('id', 'results');
+      div.append(resblock)
+
+      //Example handler to write query results to page
+      function writeQueryResults(d) {
+        countText.innerText = 'Aantal geselecteerde features: ' + d.length; 
+        resblock.innerText = JSON.stringify(d, null, 2)
+        div.append(resblock);
       }
 
+      //use the following to create a map and attach handlers
       //create map and register event handlers
       let map = tvm.createMap({target: 'mapdiv',
         layer: 'standaard',
         marker: false,
         search: true,
         zoom: 14,
-        onFeatures: handler
+        onFeatures: writeQueryResults
       });
 
     </script>

@@ -51,7 +51,7 @@ const hoverStyleSelection = {
 
 function selectionLayer() {
   let selection = L.geoJson(null, {
-    style: selectionStyle,
+    style: defaultStyleSelection,
     onEachFeature: selectionEach
   })
   return selection;

@@ -113,62 +113,8 @@ function responseFormatter(res) {
   return filtered.length > 0 ? filtered[0] : null;
 }
 
-async function getFullObjectData(data) {
-  //d: {
-  //  latlng: {},
-  //  queryResult: {},
-  //}
-  let dichtstbijzijnd_adres = {};
-  if (data.queryResult !== null) {
-    try {
-        const res = await query(data.queryResult._links.self.href);
-        dichtstbijzijnd_adres = {
-          openbare_ruimte: res.openbare_ruimte._display,
-          huisnummer: res.huisnummer,
-          huisletter: res.huisletter,
-          huisnummer_toevoeging: res.huisnummer_toevoeging,
-          postcode: res.postcode,
-          woonplaats: res.woonplaats._display
-        }
-    } catch (e) {
-      /* eslint-disable no-console */
-        console.log('error!');
-        console.log(e)
-      /* eslint-enable no-console */
-    }
-  } else {
-    dichtstbijzijnd_adres = null;
-  }
-  return {
-    query: {
-      latitude: data.latlng.lat,
-      longitude: data.latlng.lng
-    },
-    dichtstbijzijnd_adres: dichtstbijzijnd_adres,
-    object: null, //no object for an address search
-
-  }
-}
 
 
-function findOmgevingFeature(features, type) {
-  let feature = features.find(feat => feat.properties.type === type);
-  if (feature === undefined) return null;
-  return feature.properties;
-}
-
-async function getOmgevingInfo(data) {
-  const res = await query(`https://api.data.amsterdam.nl/geosearch/bag/?lat=${data.query.latitude}&lon=${data.query.longitude}&radius=50`);
-  let buurtinfo = findOmgevingFeature(res.features, 'gebieden/buurt');
-  let stadsdeelinfo = findOmgevingFeature(res.features, 'gebieden/stadsdeel');
-  data.omgevingsinfo = {
-      buurtnaam: buurtinfo !== undefined ? buurtinfo.display : null,
-    buurtcode: buurtinfo !== undefined ? buurtinfo.vollcode : null,
-    stadsdeelnaam: stadsdeelinfo !== undefined ? stadsdeelinfo.display : null,
-    stadsdeelcode: stadsdeelinfo !== undefined ? stadsdeelinfo.code : null
-  }
-  return data;
-}
 
 async function pointQueryChain (click) {
   try {
@@ -177,7 +123,7 @@ async function pointQueryChain (click) {
     .then(getOmgevingInfo);
     return result;
   } catch (e) {
-    console.log(e);
+    throw (e);
   }
 }
 
