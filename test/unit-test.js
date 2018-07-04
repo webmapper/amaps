@@ -53,7 +53,7 @@ test('test upstream API formatters', async function(t) {
     queryResult: bagData.results[0]
   }
   const resObjData = await lib.getFullObjectData(obj);
-  t.equals(resObjData.dichtstbijzijnd_adres.openbare_ruimte, 'Warmoesstraat', 'expected openbareruimtenaam for this location');
+  t.equals(resObjData.dichtstbijzijnd_adres.openbare_ruimte, 'Beursplein', 'expected openbareruimtenaam for this location');
   const resOmgevInfo = await lib.getOmgevingInfo(resObjData);
   t.equals(resOmgevInfo.omgevingsinfo.buurtnaam, 'Oude Kerk e.o.', 'result has buurtnaam as expected');
   t.equals(resOmgevInfo.omgevingsinfo.stadsdeelcode, 'A', 'result has stadsdeelcode as expected');
