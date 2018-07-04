@@ -34,7 +34,7 @@ async function runTests(host) {
     }).catch(e => e);
     /* eslint-enable no-undef */    
     /* eslint-disable-next-line max-len */
-    await t.assert(urlForStandard === 'https://t1.data.amsterdam.nl/topo_wm_zw/{z}/{x}/{y}.png', 'url for created layer is as expected');
+    await t.assert(urlForStandard === 'https://t1.data.amsterdam.nl/topo_wm_light/{z}/{x}/{y}.png', 'url for created layer is as expected');
     /* no-underscore-dangle */
     await browser.close();
     t.end();
