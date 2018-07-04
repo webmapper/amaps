@@ -8,80 +8,26 @@
     <link rel="stylesheet" href="dist/css/ams-stijl.css"/>
     <style>
       #mapdiv{height:300px};
-      #results{
-        max-width: 400px;
-      }
-      .loading {
-        opacity: 0.3;
-      }
     </style>
   </head>
   <body>
     <div id="mapdiv"></div>
+    <p> <a href="pointquery.html">Point Query Example</a></p>
+    <p> <a href="multiselect.html">Multi-feature Select Example</a></p>
     <div id="queryresults"></div>
     <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
-    <script src="nlmaps/dist/nlmaps.iife.js"></script>
     <script src="dist/amaps.iife.js"></script>
     <script>
-      let map = nlmaps.createMap({target: 'mapdiv',
+      let map = amaps.createMap({target: 'mapdiv',
         layer: 'standaard',
         marker: false,
         search: true,
         zoom: 14
       });
 
-      function myHandler(t, d) {
-        if (t === 1 ){
-          console.log('The click happened at: ' + d)
-            console.log(d)
-        }
-      }
-
-      let clicks = nlmaps.clickProvider(map);
-
-
-
-      let singleMarker =  nlmaps.singleMarker(map);
-      let featureQuery = nlmaps.queryFeatures(clicks, "https://api.data.amsterdam.nl/bag/nummeraanduiding/?format=json&locatie=", amaps.bagApiRequestFormatter, amaps.bagApiResponseFormatter);
+      let clicks = amaps.clickProvider(map);
+      let singleMarker = amaps.singleMarker(map);
       clicks.subscribe(singleMarker);
-
-      //log the query results
-      featureQuery.subscribe(myHandler);
-
-
-      //write the search results to the page
-      let div = document.getElementById('queryresults');
-      let latlngText = document.createElement('p');
-      let queryResultText = document.createElement('p');
-      div.append(latlngText);
-      div.append(queryResultText);
-      let resblock = document.createElement('pre');
-      resblock.setAttribute('id', 'results');
-      div.append(resblock)
-      function writeQueryResults(t, d) {
-        if (t === 1) {
-          latlngText.innerText = 'Latitude: '+ d.latlng.lat + ', Longitude: ' + d.latlng.lng;
-          if (d.queryResult) {
-            queryResultText.innerText = 'Query results:';
-            resblock.innerText = JSON.stringify(d.queryResult, null, 2)
-            div.append(resblock);
-
-          } else {
-            queryResultText.innerText = 'Query results: no results for this location.';
-            resblock.innerText = '';
-          }
-          div.className = '';
-        }
-
-      }
-
-      featureQuery.subscribe(writeQueryResults);
-
-      clicks.subscribe(function(t, d){
-        if (t === 1) {
-          div.className = 'loading';
-        }
-      })
 
     </script>
   </body>

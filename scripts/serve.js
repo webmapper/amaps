@@ -1,1 +1,1 @@
-require('../test/test.js')('serve');
+require('../test/browser-test.js')('serve');

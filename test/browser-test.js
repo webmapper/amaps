@@ -29,7 +29,7 @@ async function runTests(host) {
     /* eslint-disable no-undef */
     /* eslint-disable no-underscore-dangle */
     const urlForStandard = await page.evaluate(() => {
-      const layer = nlmaps.leaflet.bgLayer('standaard');      
+      const layer = amaps.leaflet.bgLayer('standaard');      
       return layer._url;
     }).catch(e => e);
     /* eslint-enable no-undef */    
@@ -39,35 +39,6 @@ async function runTests(host) {
     await browser.close();
     t.end();
   });
-
-  //test amaps library
-  await test('amaps library is imported and has expected methods', async (t) => {
-    const browser = await puppeteer.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox'] });
-    const page = await browser.newPage();
-    await page.goto(`http://${host}/index.html`);
-
-    /* eslint-disable no-undef */
-    /* eslint-disable no-underscore-dangle */
-    const amaps = await page.evaluate(() => {
-      return amaps;
-    }).catch(e => e);
-    await t.equals(typeof amaps, 'object', 'amaps is an object');
-    await t.equals(typeof amaps.bagApiRequestFormatter, 'object', 'amaps has request formatter function');
-    await t.equals(typeof amaps.bagApiResponseFormatter, 'object', 'amaps has response formatter function');
-
-    const testBaseUrl = 'http://example.com/api?locatie=';
-    const expectedUrl = 'http://example.com/api?locatie=162659.33058684267,501372.87854900945,50';
-    const inputCoords = {x:5.5,y:52.5};
-
-    const outputUrl = await page.evaluate((testBaseUrl, inputCoords) => {
-      return amaps.bagApiRequestFormatter(testBaseUrl, inputCoords);
-    },testBaseUrl, inputCoords).catch(e => e);
-
-    await t.equals(outputUrl, expectedUrl, 'amaps request formatter transforms Lat/Lon to RD and formats URL');
-    /* no-underscore-dangle */
-    await browser.close();
-    t.end();
-  })
 
   // ARIA tests
   await test('there are no accessibility issues', async (t) => {

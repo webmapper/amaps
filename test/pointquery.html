@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Testing MORA app</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
+    <link rel="stylesheet" href="nlmaps/dist/assets/css/nlmaps.css"/>
+    <link rel="stylesheet" href="dist/css/ams-stijl.css"/>
+    <style>
+      #mapdiv{height:300px};
+      #results{
+        max-width: 400px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="mapdiv"></div>
+    <div id="queryresults"></div>
+    <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
+    <script src="dist/mora.iife.js"></script>
+    <script>
+
+      //example handler for click query results. Replace the following
+      //with your own handler logic.
+
+      //Example container to display search results
+      let div = document.getElementById('queryresults');
+      let latlngText = document.createElement('p');
+      let queryResultText = document.createElement('p');
+      div.append(latlngText);
+      div.append(queryResultText);
+      let resblock = document.createElement('pre');
+      resblock.setAttribute('id', 'results');
+      div.append(resblock)
+
+      //Example handler to write query results to page
+      function writeQueryResults(d) {
+        latlngText.innerText = 'Latitude: '+ d.query.latitude + ', Longitude: ' + d.query.longitude;
+        queryResultText.innerText = 'Query results:';
+        resblock.innerText = JSON.stringify(d, null, 2)
+        div.append(resblock);
+      }
+
+
+      //use the following to create a map and attach handlers
+      //create map and register event handlers
+      let map = mora.createMap({target: 'mapdiv',
+        layer: 'standaard',
+        marker: false,
+        search: true,
+        zoom: 14,
+	onQueryResult: writeQueryResults
+      });
+
+    </script>
+  </body>
+</html>
+
+
+
