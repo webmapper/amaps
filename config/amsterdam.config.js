@@ -23,7 +23,7 @@ export default {
                 "layerName": "topo_wm_light"
             },
             {
-                "name": "licht",
+                "name": "donker",
                 "layerName": "topo_wm"
             }
         ]
