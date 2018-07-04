@@ -21,7 +21,7 @@ export default [{
     }),
     commonjs(),
     babel({
-      exclude: 'node_modules/(?!callbag)',
+      exclude: 'node_modules/(?!callbag)**',
       babelrc: false,
       presets: [[
         'env',
