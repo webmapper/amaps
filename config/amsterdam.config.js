@@ -12,7 +12,7 @@ export default {
         "layers": [
             {
                 "name": "standaard",
-                "layerName": "topo_wm_light"
+                "layerName": "topo_wm"
             },
             {
                 "name": "zwartwit",
