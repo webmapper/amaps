@@ -24,6 +24,12 @@ mora.createMap = async function(config) {
     mora.emit('query-results', result);
   });
 
+  nlmaps.on('search-select',async function(e) {
+    let point = {latlng:{lat:e.latlng.coordinates[1],lng:e.latlng.coordinates[0]}}
+    const result = await pointQueryChain(point);
+    mora.emit('query-results', result);
+  });
+
   //attach user-supplied event handlers
   if (typeof config.clickHandlers === 'function') {
     nlmaps.on('mapclick', config.clickHandlers);
