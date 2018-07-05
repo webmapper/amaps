@@ -74,6 +74,7 @@ export default {
         'geocoderSearch': ['invoer'],
         'geocoderButton': ['primary','action','embed-search__button'],
         'geocoderResultList': ['embed-search__auto-suggest'],
-        'geocoderResultItem' : ['embed-search__auto-suggest__item']
+        'geocoderResultItem' : ['embed-search__auto-suggest__item'],
+        'geocoderResultSelected' : ['embed-search__auto-suggest__item--active']
     }
 }
