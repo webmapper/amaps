@@ -104,24 +104,21 @@ function requestFormatter(baseUrl, xy) {
 
 function responseFormatter(res) {
   let filtered;
-  try {
+  if(res.results) {
     filtered = res.results.filter(x => x.hoofdadres === true);
-  } catch (e) {
+  }
+  else {
     throw {
       error: 'no results property found on query response.',
-      response: res,
-      originalError: e
+      response: res
     }
   }
   return filtered.length > 0 ? filtered[0] : null;
 }
 
-
-
-
 async function pointQueryChain (click) {
   try {
-    const result = await getBagInfo(click) 
+    const result = await getBagInfo(click)
     .then(getFullObjectData)
     .then(getOmgevingInfo);
     return result;
