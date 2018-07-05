@@ -22,7 +22,7 @@ export default [{
     }),
     commonjs(),
     babel({
-      exclude: '**/node_modules/**',
+      exclude: 'node_modules/(?!callbag)**',
       babelrc: false,
       presets: [[
         'env',
@@ -51,7 +51,7 @@ export default [{
     }),
     commonjs(),
     babel({
-      exclude: '**/node_modules/**',
+      exclude: 'node_modules/(?!callbag)**',
       babelrc: false,
       presets: [[
         'env',
