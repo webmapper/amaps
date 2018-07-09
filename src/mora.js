@@ -6,8 +6,6 @@ import emitonoff from 'emitonoff';
 const mora = {};
 emitonoff(mora);
 
-
-
 mora.createMap = async function(config) {
   //create map
   let nlmapsconf = {
