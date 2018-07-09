@@ -57,7 +57,7 @@ to build for production, which puts output in `dist/` instead of `test/dist/`, r
 
 `npm run build-amaps -- --production`
 
-`dist/` will contain browser and Ecmascript builds of the javascript, as well as all the assets needed to run the demos, including css and icons for both Amaps and NL Maps.
+`dist/` will contain browser and Ecmascript builds of the Javascript for the `amaps` applications.
 
 To subsequently create a release, create a tag, push it to Github, and annotate the tag so that it shows up on the 'releases' tab.
 
