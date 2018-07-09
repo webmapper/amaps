@@ -1,7 +1,8 @@
 node_modules
 test/amaps.iife.*
-dist
 test/nlmaps
+dist/dist
+test/dist
 nlmaps
 
 test/amaps.es.js.map
