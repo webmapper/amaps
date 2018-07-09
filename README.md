@@ -50,12 +50,16 @@ Instead of running the above commands separately, you can run a live-reloading d
 
 If you want to serve and test without using the `dev` command, the server needs to be running in a separate terminal window.
 
-#### production build
+#### production build and releasing
 
 to build for production, which puts output in `dist/` instead of `test/dist/`, run:
 
 
 `npm run build-amaps -- --production`
+
+`dist/` will contain browser and Ecmascript builds of the javascript, as well as all the assets needed to run the demos, including css and icons for both Amaps and NL Maps.
+
+To subsequently create a release, create a tag, push it to Github, and annotate the tag so that it shows up on the 'releases' tab.
 
 
 ### with docker (used by Jenkins CI)
