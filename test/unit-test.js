@@ -43,12 +43,12 @@ test('test query response formatter function', async function(t) {
 
 test('test upstream API formatters', async function(t) {
   const lib = require('../src/lib.js');
-  const testUrl = 'https://api.data.amsterdam.nl/bag/nummeraanduiding/?format=json&locatie=121382.15683784202,487363.8792724314,50';
+  const testUrl = 'https://api.data.amsterdam.nl/bag/nummeraanduiding/?format=json&locatie=121509.7748003435,487489.09617943474,50';
   const bagData = await fetch(testUrl).then(res => res.json())
   const obj = {
     latlng: {
-      lat: 52.373120020295296,
-      lng: 4.8935455083847055
+      lat: 52.37425317904484,
+      lng: 4.89540696144104
     },
     queryResult: bagData.results[0]
   }
