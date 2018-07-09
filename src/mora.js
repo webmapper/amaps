@@ -6,8 +6,6 @@ import emitonoff from 'emitonoff';
 const mora = {};
 emitonoff(mora);
 
-
-
 mora.createMap = async function(config) {
   //create map
   let nlmapsconf = {
@@ -28,6 +26,8 @@ mora.createMap = async function(config) {
     let point = {latlng:{lat:e.latlng.coordinates[1],lng:e.latlng.coordinates[0]}}
     const result = await pointQueryChain(point);
     mora.emit('query-results', result);
+    //emit mapclick so we can place a marker
+    nlmaps.emit('mapclick', point);
   });
 
   //attach user-supplied event handlers
@@ -54,6 +54,13 @@ mora.createMap = async function(config) {
   let clicks = nlmaps.clickProvider(map);
   let singleMarker =  nlmaps.singleMarker(map);
   clicks.subscribe(singleMarker);
+
+  //partially apply singleMarker for search results listener
+  function markerFromSearch(click) {
+    singleMarker(1, click)
+  }
+
+  nlmaps.on('mapclick', markerFromSearch)
   return map;
 }
 
