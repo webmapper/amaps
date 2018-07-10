@@ -25,7 +25,10 @@ mora.createMap = async function(config) {
   mora.on('query-results', function(res) {
     if (res.dichtstbijzijnd_adres !== null) {
       let adres = res.dichtstbijzijnd_adres;
-      let display_string = `${adres.openbare_ruimte} ${adres.huisnummer}${adres.huisletter ? adres.huisletter : ''}${adres.huisnummer_toevoeging ? '-'+adres.huisnummer_toevoeging : ''}, ${adres.postcode} ${adres.woonplaats}`
+      let display_string = `${adres.openbare_ruimte} ${adres.huisnummer}
+${adres.huisletter ? adres.huisletter : ''}
+${adres.huisnummer_toevoeging ? '-'+adres.huisnummer_toevoeging : ''}
+, ${adres.postcode} ${adres.woonplaats}`
       document.getElementById('nlmaps-geocoder-control-input').value = display_string;
     }
   })
