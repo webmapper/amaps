@@ -1,4 +1,3 @@
-import 'babel-polyfill';
 import 'whatwg-fetch';
 import { nlmaps } from '../nlmaps/dist/nlmaps.es.js';
 import { pointQueryChain } from './lib.js';
