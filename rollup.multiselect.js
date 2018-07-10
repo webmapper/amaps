@@ -5,10 +5,10 @@ import babel from 'rollup-plugin-babel';
 import uglify from 'rollup-plugin-uglify-es';
 
 export default [{
-  input: 'src/mora.js',
+  input: 'src/multiselect.js',
   output: {
-    name: 'mora',
-    file: process.env.NODE_ENV === 'production' ? 'dist/mora.iife.js' : 'test/dist/mora.iife.js',
+    name: 'multiselect',
+    file: process.env.NODE_ENV === 'production' ? 'dist/multiselect.iife.js' : 'test/dist/multiselect.iife.js',
     format: 'iife',
     sourcemap: process.env.NODE_ENV === 'production' ? false : true
   },
@@ -34,10 +34,10 @@ export default [{
     (process.env.NODE_ENV === 'production' && uglify()),
   ]
 },{
-  input: 'src/mora.js',
+  input: 'src/multiselect.js',
   output: {
-    name: 'mora',
-    file: process.env.NODE_ENV === 'production' ? 'dist/mora.es.js' : 'test/dist/mora.es.js',
+    name: 'multiselect',
+    file: process.env.NODE_ENV === 'production' ? 'dist/multiselect.es.js' : 'test/dist/multiselect.es.js',
     format: 'es',
     sourcemap: process.env.NODE_ENV === 'production' ? false : true
   },
