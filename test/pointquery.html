@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Testing MORA app</title>
+    <title>Testing Pointquery app</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
     <link rel="stylesheet" href="nlmaps/dist/assets/css/nlmaps.css"/>
     <link rel="stylesheet" href="dist/css/ams-stijl.css"/>
@@ -15,7 +15,7 @@
     <div id="queryresults"></div>
     <script src="appendPolyfill.js"></script>
     <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
-    <script src="dist/mora.iife.js"></script>
+    <script src="dist/pointquery.iife.js"></script>
     <script>
       //example handler for click query results. Replace the following
       //with your own handler logic.
@@ -41,12 +41,12 @@
 
       //use the following to create a map and attach handlers
       //create map and register event handlers
-      let map = mora.createMap({target: 'mapdiv',
+      let map = pointquery.createMap({target: 'mapdiv',
         layer: 'standaard',
         marker: false,
         search: true,
         zoom: 14,
-	      onQueryResult: writeQueryResults
+        onQueryResult: writeQueryResults
       });
 
 
