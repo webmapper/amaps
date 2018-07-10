@@ -57,6 +57,24 @@ test('test upstream API formatters', async function(t) {
   const resOmgevInfo = await lib.getOmgevingInfo(resObjData);
   t.equals(resOmgevInfo.omgevingsinfo.buurtnaam, 'Oude Kerk e.o.', 'result has buurtnaam as expected');
   t.equals(resOmgevInfo.omgevingsinfo.stadsdeelcode, 'A', 'result has stadsdeelcode as expected');
+
+  const testUrl2 = 'https://api.data.amsterdam.nl/bag/nummeraanduiding/?format=json&locatie=106751,484766,50';
+  const resOutsideAmsterdam = await fetch(testUrl2).then(res => res.json())
+    .then(x => {
+      return {
+        queryResult: lib.responseFormatter(x),
+        latlng: {
+          lat: 4.67908,
+          lng: 52.34868
+        }
+      }
+    })
+    .then(lib.getFullObjectData)
+    .then(lib.getOmgevingInfo);
+  t.equals(resOutsideAmsterdam.dichtstbijzijnd_adres, null, 'null for dichtstbijzijnd_adres outside amsterdam');
+  t.equals(resOutsideAmsterdam.object, null, 'null for object outside amsterdam');
+  t.equals(resOutsideAmsterdam.omgevingsinfo, null, 'null for omgevingsinfo outside amsterdam');
+
   t.end();
 
 })
