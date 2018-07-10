@@ -29,7 +29,10 @@ ${adres.huisletter ? adres.huisletter : ''}
 ${adres.huisnummer_toevoeging ? '-'+adres.huisnummer_toevoeging : ''}
 , ${adres.postcode} ${adres.woonplaats}`
       document.getElementById('nlmaps-geocoder-control-input').value = display_string;
+    } else {
+      document.getElementById('nlmaps-geocoder-control-input').value = '';
     }
+
   })
 
   nlmaps.on('search-select',async function(e) {
