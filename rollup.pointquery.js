@@ -5,10 +5,10 @@ import babel from 'rollup-plugin-babel';
 import uglify from 'rollup-plugin-uglify-es';
 
 export default [{
-  input: 'src/tvm.js',
+  input: 'src/pointquery.js',
   output: {
-    name: 'tvm',
-    file: process.env.NODE_ENV === 'production' ? 'dist/tvm.iife.js' : 'test/dist/tvm.iife.js',
+    name: 'pointquery',
+    file: process.env.NODE_ENV === 'production' ? 'dist/pointquery.iife.js' : 'test/dist/pointquery.iife.js',
     format: 'iife',
     sourcemap: process.env.NODE_ENV === 'production' ? false : true
   },
@@ -34,10 +34,10 @@ export default [{
     (process.env.NODE_ENV === 'production' && uglify()),
   ]
 },{
-  input: 'src/tvm.js',
+  input: 'src/pointquery.js',
   output: {
-    name: 'tvm',
-    file: process.env.NODE_ENV === 'production' ? 'dist/tvm.es.js' : 'test/dist/tvm.es.js',
+    name: 'pointquery',
+    file: process.env.NODE_ENV === 'production' ? 'dist/pointquery.es.js' : 'test/dist/pointquery.es.js',
     format: 'es',
     sourcemap: process.env.NODE_ENV === 'production' ? false : true
   },

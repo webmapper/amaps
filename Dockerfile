@@ -22,8 +22,8 @@ COPY src /app/src
 COPY .eslintrc.js /app/.eslintrc.js
 COPY .eslintignore /app/.eslintignore
 COPY rollup.index.js /app/rollup.index.js
-COPY rollup.mora.js /app/rollup.mora.js
-COPY rollup.tvm.js /app/rollup.tvm.js
+COPY rollup.pointquery.js /app/rollup.pointquery.js
+COPY rollup.multiselect.js /app/rollup.multiselect.js
 #build amaps library which is used by test.html
 RUN npm run build-amaps
 

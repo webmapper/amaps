@@ -2,7 +2,7 @@ const helpers = require('./helpers');
 const { spawn } = require('child_process')
 const shell = require('shelljs');
 
-const tasks = ['index', 'mora', 'tvm'];
+const tasks = ['index', 'pointquery', 'multiselect'];
 
 
 if (helpers.args.production) {
