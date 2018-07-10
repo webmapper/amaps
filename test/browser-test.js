@@ -47,7 +47,8 @@ async function runTests(host) {
     await page.mouse.click(100,200);
     await page.waitFor(() => document.querySelector('#nlmaps-geocoder-control-input').value !== '');
     const res = await page.evaluate(() => document.querySelector('#nlmaps-geocoder-control-input').value)
-    t.equals(res, 'Van Reigersbergenstraat 826, 1052WN Amsterdam', 'expected adres in input box after click on map');
+    await t.equals(res, 'Van Reigersbergenstraat 826, 1052WN Amsterdam', 'expected adres in input box after click on map');
+    await browser.close();
     t.end();
     
 
