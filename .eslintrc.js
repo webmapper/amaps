@@ -7,19 +7,16 @@ module.exports = {
   "globals": {
     "ENV": true
   },
-  "extends": "eslint:recommended",
+  "extends": "airbnb",
   "parserOptions": {
     "sourceType": "module",
     "ecmaVersion": 2017
   },
   "rules": {
+    "arrow-parens": ["error", "always"],
+    "comma-dangle": ["error", "never"],
+    "no-nested-ternary": "off",
+    "no-underscore-dangle": ["error", { "allow": [] }],
     "linebreak-style": "off",
-    "comma-dangle": "off",
-    "max-len": ["error", { "code": 160 }],
-    "no-else-return": "off",
-    "eqeqeq": ["error", "always", { "null": "ignore" }],
-    "arrow-body-style": "off", 
-    "no-plusplus": "off",
-    "no-undef": "off" 
   }
 }
