@@ -21,6 +21,20 @@ mora.createMap = async function(config) {
     mora.emit('query-results', result);
   });
 
+  mora.on('query-results', function(res) {
+    if (res.dichtstbijzijnd_adres !== null) {
+      let adres = res.dichtstbijzijnd_adres;
+      let display_string = `${adres.openbare_ruimte} ${adres.huisnummer}
+${adres.huisletter ? adres.huisletter : ''}
+${adres.huisnummer_toevoeging ? '-'+adres.huisnummer_toevoeging : ''}
+, ${adres.postcode} ${adres.woonplaats}`
+      document.getElementById('nlmaps-geocoder-control-input').value = display_string;
+    } else {
+      document.getElementById('nlmaps-geocoder-control-input').value = '';
+    }
+
+  })
+
   nlmaps.on('search-select',async function(e) {
     let point = {latlng:{lat:e.latlng.coordinates[1],lng:e.latlng.coordinates[0]}}
     const result = await pointQueryChain(point);

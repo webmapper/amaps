@@ -83,17 +83,23 @@ function findOmgevingFeature(features, type) {
 
 async function getOmgevingInfo(data) {
   const res = await query(`https://api.data.amsterdam.nl/geosearch/bag/?lat=${data.query.latitude}&lon=${data.query.longitude}&radius=50`);
-  let buurtinfo = findOmgevingFeature(res.features, 'gebieden/buurt');
-  let wijkinfo = findOmgevingFeature(res.features, 'gebieden/buurtcombinatie');
-  let stadsdeelinfo = findOmgevingFeature(res.features, 'gebieden/stadsdeel');
-  data.omgevingsinfo = {
-    buurtnaam: buurtinfo !== undefined ? buurtinfo.display : null,
-    buurtcode: buurtinfo !== undefined ? buurtinfo.vollcode : null,
-    wijknaam: wijkinfo !== undefined ? wijkinfo.display : null,
-    wijkcode: wijkinfo !== undefined ? wijkinfo.vollcode : null,
-    stadsdeelnaam: stadsdeelinfo !== undefined ? stadsdeelinfo.display : null,
-    stadsdeelcode: stadsdeelinfo !== undefined ? stadsdeelinfo.code : null
-  }
+    let buurtinfo = findOmgevingFeature(res.features, 'gebieden/buurt');
+    let wijkinfo = findOmgevingFeature(res.features, 'gebieden/buurtcombinatie');
+    let stadsdeelinfo = findOmgevingFeature(res.features, 'gebieden/stadsdeel');
+    if (buurtinfo !== null && wijkinfo !== null && stadsdeelinfo !== null ) {
+      data.omgevingsinfo = {
+        buurtnaam: buurtinfo !== undefined ? buurtinfo.display : null,
+        buurtcode: buurtinfo !== undefined ? buurtinfo.vollcode : null,
+        wijknaam: wijkinfo !== undefined ? wijkinfo.display : null,
+        wijkcode: wijkinfo !== undefined ? wijkinfo.vollcode : null,
+        stadsdeelnaam: stadsdeelinfo !== undefined ? stadsdeelinfo.display : null,
+        stadsdeelcode: stadsdeelinfo !== undefined ? stadsdeelinfo.code : null
+      }
+    } else {
+      data.omgevingsinfo = null;
+    }
+
+
   return data;
 }
 

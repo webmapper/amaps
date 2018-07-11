@@ -40,6 +40,20 @@ async function runTests(host) {
     t.end();
   });
 
+  await test('searchbox filled on click', async(t) => {
+    const browser = await puppeteer.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox'] });
+    const page = await browser.newPage();
+    await page.goto(`http://${host}/pointquery.html`);
+    await page.mouse.click(100,200);
+    await page.waitFor(() => document.querySelector('#nlmaps-geocoder-control-input').value !== '');
+    const res = await page.evaluate(() => document.querySelector('#nlmaps-geocoder-control-input').value)
+    await t.equals(res, 'Van Reigersbergenstraat 826, 1052WN Amsterdam', 'expected adres in input box after click on map');
+    await browser.close();
+    t.end();
+    
+
+  })
+
   // ARIA tests
   await test('there are no accessibility issues', async (t) => {
     const ariares = await pa11y(`http://${host}/index.html`, {
