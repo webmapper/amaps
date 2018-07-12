@@ -16,7 +16,9 @@ module.exports = {
     "arrow-parens": ["error", "always"],
     "comma-dangle": ["error", "never"],
     "no-nested-ternary": "off",
-    "no-underscore-dangle": ["error", { "allow": [] }],
+    "no-underscore-dangle": ["error", { "allow": [
+      "_links"
+    ] }],
     "linebreak-style": "off",
   }
 }

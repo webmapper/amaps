@@ -32,9 +32,7 @@ test('test query response formatter function', async (t) => {
 
   // test throwing when no results property
   const resWithNoResults = { _links: { self: { href: 'https://api.data.amsterdam.nl/bag/nummeraanduiding/?format=json&locatie=121382.15683784202,487363.8792724314,50' }, next: { href: 'https://api.data.amsterdam.nl/bag/nummeraanduiding/?format=json&locatie=121382.15683784202%2C487363.8792724314%2C50&page=2' }, previous: { href: null } }, count: 27 };
-  const testFn = function () {
-    return lib.responseFormatter(resWithNoResults);
-  };
+  const testFn = () => lib.responseFormatter(resWithNoResults);
   await t.throws(testFn, 'responseFormatter throws when no results object in response');
 
   t.end();

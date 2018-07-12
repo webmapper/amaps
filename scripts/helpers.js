@@ -1,4 +1,4 @@
-const ArgumentParser = require('argparse').ArgumentParser;
+const { ArgumentParser } = require('argparse');
 
 const parser = new ArgumentParser({
   version: '0.0.1',

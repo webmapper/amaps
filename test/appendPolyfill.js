@@ -1,3 +1,4 @@
+/* eslint-disable */
 // Polyfill for div.append in IE11
 // Source: https://github.com/jserz/js_piece/blob/master/DOM/ParentNode/append()/append().md
 (function (arr) {
