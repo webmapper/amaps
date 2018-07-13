@@ -1,12 +1,12 @@
-const { ArgumentParser } = require('argparse');
+const ArgumentParser = require('argparse').ArgumentParser;
 
 const parser = new ArgumentParser({
   version: '0.0.1',
-  addHelp: true,
+  addHelp:true,
   description: 'Argparse example'
 });
 parser.addArgument(
-  ['-w', '--watch'],
+  [ '-w', '--watch' ],
   {
     action: 'storeTrue',
     defaultValue: false,
@@ -15,7 +15,7 @@ parser.addArgument(
 );
 
 parser.addArgument(
-  ['-p', '--production'],
+  [ '-p', '--production' ],
   {
     action: 'storeTrue',
     defaultValue: false,
@@ -26,5 +26,5 @@ parser.addArgument(
 const args = parser.parseArgs();
 
 module.exports = {
-  args
-};
+  args: args
+}
