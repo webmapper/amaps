@@ -7,14 +7,7 @@ emitonoff(mora);
 
 mora.createMap = async function(config) {
   //create map
-  let nlmapsconf = {
-    target: config.target,
-    layer: config.layer,
-    marker: config.marker,
-    search: config.search,
-    zoom: config.zoom
-  };
-  let map = nlmaps.createMap(nlmapsconf);
+  let map = nlmaps.createMap(config);
   //subscribe chain of API calls to the nlmaps click event
  nlmaps.on('mapclick', async function(click) {
     const result = await pointQueryChain(click);
