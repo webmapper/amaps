@@ -117,7 +117,7 @@ tvm.store = {
     const removed = this.store[idx];
     this.store.splice(idx, 1);
     tvm.selection.removeLayer(layer);
-    
+
     tvm.emit('feature', {features: this.store, type: 'removed', removed: removed});
   },
   getStore: function() {
@@ -128,20 +128,18 @@ tvm.store = {
 
 
 tvm.createMap = async function(config) {
-  let nlmapsconf = {
-    target: config.target,
-    layer: config.layer,
-    marker: config.marker,
-    search: config.search,
-    zoom: config.zoom
-  };
-  let map = nlmaps.createMap(nlmapsconf);
+  let map = nlmaps.createMap(config);
   this.map = map;
   let parkeervakken = parkeerVakken();
   this.parkeervakken = parkeervakken;
+
+  //workaround to trigger wfsreload since map.on('load' isn't available)
+  map.on('layeradd', reloadWfs, this);
   parkeervakken.addTo(map);
+  map.off('layeradd', reloadWfs, this);
+
   map.on('moveend', reloadWfs, this);
-  
+
   parkeervakken.on('remove', () => {
     map.off('moveend', reloadWfs, this);
   })
