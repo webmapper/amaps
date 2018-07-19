@@ -2,7 +2,7 @@
 // Polyfill for div.append in IE11
 // Source: https://github.com/jserz/js_piece/blob/master/DOM/ParentNode/append()/append().md
 (function (arr) {
-  arr.forEach((item) => {
+  arr.forEach(function(item) {
     if (item.hasOwnProperty('append')) {
       return;
     }
@@ -11,11 +11,11 @@
       enumerable: true,
       writable: true,
       value: function append() {
-        let argArr = Array.prototype.slice.call(arguments),
+        var argArr = Array.prototype.slice.call(arguments),
           docFrag = document.createDocumentFragment();
 
-        argArr.forEach((argItem) => {
-          const isNode = argItem instanceof Node;
+        argArr.forEach(function(argItem) {
+          var isNode = argItem instanceof Node;
           docFrag.appendChild(isNode ? argItem : document.createTextNode(String(argItem)));
         });
 
