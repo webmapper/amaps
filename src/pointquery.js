@@ -57,13 +57,13 @@ ${adres.huisnummer_toevoeging ? '-'+adres.huisnummer_toevoeging : ''}
   }
   //this is the only private subscription we do here, since it belongs to the map viewport.
   //setup click and feature handlers
-  let clicks = nlmaps.clickProvider(map);
+  //let clicks = nlmaps.clickProvider(map);
   let singleMarker =  nlmaps.singleMarker(map);
-  clicks.subscribe(singleMarker);
+  //clicks.subscribe(singleMarker);
 
   //partially apply singleMarker for search results listener
   function markerFromSearch(click) {
-    singleMarker(1, click)
+    singleMarker(1, click, false, true)
   }
 
   nlmaps.on('mapclick', markerFromSearch)
