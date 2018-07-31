@@ -103,22 +103,51 @@ async function combinePointAndFeatureInfo(click, feature){
   return result;
 }
 
+function debounce(func, wait = 100) {
+  let timeout;
+  return function(...args) {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => {
+      func.apply(this, args);
+    }, wait);
+  };
+}
 
 tvm.store = {
   store: [],
+  adding: false,
+  removing: false,
   addFeature: async function(feature, e) {
+    if (this.adding || this.removing) {
+      return;
+    }
+    this.adding = true;
     tvm.selection.addData(feature);
     const result = await combinePointAndFeatureInfo({latlng: e.latlng}, feature);
     this.store.push(result);
+    this.addedFeature(result);
+  },
+  addedFeature: function(result) {
+    this.adding = false;
     tvm.emit('feature',{features: this.store, type: 'added', added: result});
+    
   },
   removeFeature: function(feature, layer) {
+    if (this.adding || this.removing) {
+      return;
+    }
+    this.removing = true;
     const idx = this.store.findIndex(item => item.object.id === feature.properties.id);
     const removed = this.store[idx];
     this.store.splice(idx, 1);
     tvm.selection.removeLayer(layer);
+    debounce(this.removedFeature.bind(this,removed),300)()
     
+  },
+  removedFeature: function(removed) {
+    this.removing = false;
     tvm.emit('feature', {features: this.store, type: 'removed', removed: removed});
+    
   },
   getStore: function() {
     return this.store
