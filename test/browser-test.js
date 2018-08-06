@@ -40,6 +40,73 @@ async function runTests(host) {
     t.end();
   });
 
+  //Test feature clicks
+  await test('clicking to select/deselect multiple features', async (t) => {
+    const browser = await puppeteer.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox'], headless: false, slowMo: 250});
+    const page = await browser.newPage();
+    await page.setViewport({
+      width: 320,
+      height: 480
+    })
+    await page.goto(`http://${host}/multiselect.html`);
+
+
+    let results = [];
+    await page.exposeFunction('onMapClick', e => {
+      results.push( function(){
+        return () => Promise.resolve(e)
+      }())
+    })
+    //give map time to load
+    await page.waitFor(1000);
+    await page.evaluate(()=> {
+      multiselect.on('feature', e => {
+        window.onMapClick(e)
+      })
+    })
+
+    /* eslint-disable no-undef */
+    /* eslint-disable no-underscore-dangle */
+    await page.evaluate(() => {
+      multiselect.map.setZoom(19);
+    }).catch(e => console.log(e));
+
+    //give map time to load again
+    await page.waitFor(1000);
+
+    
+    await page.mouse.click(198,301).then(() => page.waitFor(1000));
+    const res1 = await results[0]();
+    //await t.equals(res1.type, 'added', 'the type of event is "added"');
+    const store = await page.evaluate(() => {
+      return multiselect.store.getStore()
+
+    })
+    await t.equals(store.length, 1, 'store length is 1 after single click');
+    await page.mouse.click(223,264).then(() => page.mouse.click(223,264));
+    const store2 = await page.evaluate(() => {
+      return multiselect.store.getStore()
+    })
+    await t.equals(store2.length, 1, 'store length is still 1 after two clicks on another object');
+    await  page.mouse.click(236,242);
+    //really sad but seems only easy way to wait for API call
+    await page.waitFor(1000);
+    const res3 = await results[3]();
+    const store3 = await page.evaluate(() => {
+      return multiselect.store.getStore()
+    })
+    await t.equals(res3.features.length, 2, 'store length is 2 after click on a third object');
+
+
+
+
+    /* eslint-enable no-undef */    
+    /* eslint-disable-next-line max-len */
+    /* no-underscore-dangle */
+    await browser.close();
+    t.end();
+  });
+
   // ARIA tests
   await test('there are no accessibility issues', async (t) => {
     const ariares = await pa11y(`http://${host}/index.html`, {
