@@ -104,16 +104,6 @@ async function combinePointAndFeatureInfo(click, feature){
   return result;
 }
 
-function debounce(func, wait = 100) {
-  let timeout;
-  return function(...args) {
-    clearTimeout(timeout);
-    timeout = setTimeout(() => {
-      func.apply(this, args);
-    }, wait);
-  };
-}
-
 
 //store uses a queue so that clicks on the map will be handled in order
 //and no race conditions will ensue in the store.
