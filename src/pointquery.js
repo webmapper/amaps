@@ -7,19 +7,26 @@ emitonoff(mora);
 
 mora.createMap = async function(config) {
   //create map
-  let nlmapsconf = {
-    target: config.target,
-    layer: config.layer,
-    marker: config.marker,
-    search: config.search,
-    zoom: config.zoom
-  };
-  let map = nlmaps.createMap(nlmapsconf);
+  let map = nlmaps.createMap(config);
   //subscribe chain of API calls to the nlmaps click event
  nlmaps.on('mapclick', async function(click) {
     const result = await pointQueryChain(click);
     mora.emit('query-results', result);
   });
+
+  mora.on('query-results', function(res) {
+    if (res.dichtstbijzijnd_adres !== null) {
+      let adres = res.dichtstbijzijnd_adres;
+      let display_string = `${adres.openbare_ruimte} ${adres.huisnummer}
+${adres.huisletter ? adres.huisletter : ''}
+${adres.huisnummer_toevoeging ? '-'+adres.huisnummer_toevoeging : ''}
+, ${adres.postcode} ${adres.woonplaats}`
+      document.getElementById('nlmaps-geocoder-control-input').value = display_string;
+    } else {
+      document.getElementById('nlmaps-geocoder-control-input').value = '';
+    }
+
+  })
 
   nlmaps.on('search-select',async function(e) {
     let point = {latlng:{lat:e.latlng.coordinates[1],lng:e.latlng.coordinates[0]}}
@@ -50,13 +57,13 @@ mora.createMap = async function(config) {
   }
   //this is the only private subscription we do here, since it belongs to the map viewport.
   //setup click and feature handlers
-  let clicks = nlmaps.clickProvider(map);
+  //let clicks = nlmaps.clickProvider(map);
   let singleMarker =  nlmaps.singleMarker(map);
-  clicks.subscribe(singleMarker);
+  //clicks.subscribe(singleMarker);
 
   //partially apply singleMarker for search results listener
   function markerFromSearch(click) {
-    singleMarker(1, click)
+    singleMarker(1, click, false, true)
   }
 
   nlmaps.on('mapclick', markerFromSearch)

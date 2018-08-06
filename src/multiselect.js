@@ -131,7 +131,6 @@ tvm.store = {
   },
   removeFeature: function(feature, layer) {
     this.queue.push({type: 'remove', feature: feature, layer: layer});
-    
   },
   getStore: function() {
     return this.store
@@ -141,20 +140,18 @@ tvm.store = {
 
 
 tvm.createMap = async function(config) {
-  let nlmapsconf = {
-    target: config.target,
-    layer: config.layer,
-    marker: config.marker,
-    search: config.search,
-    zoom: config.zoom
-  };
-  let map = nlmaps.createMap(nlmapsconf);
+  let map = nlmaps.createMap(config);
   this.map = map;
   let parkeervakken = parkeerVakken();
   this.parkeervakken = parkeervakken;
+
+  //workaround to trigger wfsreload since map.on('load' isn't available)
+  map.on('layeradd', reloadWfs, this);
   parkeervakken.addTo(map);
+  map.off('layeradd', reloadWfs, this);
+
   map.on('moveend', reloadWfs, this);
-  
+
   parkeervakken.on('remove', () => {
     map.off('moveend', reloadWfs, this);
   })

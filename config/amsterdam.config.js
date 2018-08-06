@@ -54,7 +54,7 @@ export default {
         "baseUrl": "https://api.data.amsterdam.nl/bag/nummeraanduiding/?format=json&locatie=",
     },
     "marker" : {
-      "url": './dist/images/svg/marker.svg',
+      "url": 'https://map.data.amsterdam.nl/dist/images/svg/marker.svg',
       "iconSize": [40,40],
       "iconAnchor": [20, 39]
     },
