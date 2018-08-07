@@ -107,20 +107,20 @@ async function runTests(host) {
     await page.waitFor(1000);
 
 
-    await page.mouse.click(208, 303).then(() => page.waitFor(1000));
+    await page.mouse.click(208, 308).then(() => page.waitFor(1000));
     const res1 = await results[0];
     await t.equals(res1.type, 'added', 'the type of event after one click is "added"');
     const store = await page.evaluate(() => multiselect.store.getStore());
     await t.equals(res1.features.length, 1, 'feature length in event data is 1 after single click');
     await t.equals(store.length, 1, 'store length  is 1 after single click');
-    await page.mouse.click(225, 273).then(() => page.mouse.click(225, 273));
+    await page.mouse.click(227,270).then(() => page.mouse.click(227,270));
     // wait for third click on a feature
     const res2 = await results[2];
     const store2 = await page.evaluate(() => multiselect.store.getStore());
     await t.equals(res2.type, 'removed', 'the type of event after two clicks on object is "removed"');
     await t.equals(res2.features.length, 1, 'feature list in event data is still 1 after two clicks on another object');
     await t.equals(store2.length, 1, 'store length is still 1 after two clicks on another object');
-    await page.mouse.click(242, 240);
+    await page.mouse.click(244,239);
     // wait for fourth click on a feature
     const res3 = await results[3];
     const store3 = await page.evaluate(() => multiselect.store.getStore());
