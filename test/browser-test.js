@@ -113,7 +113,9 @@ async function runTests(host) {
     const store = await page.evaluate(() => multiselect.store.getStore());
     await t.equals(res1.features.length, 1, 'feature length in event data is 1 after single click');
     await t.equals(store.length, 1, 'store length  is 1 after single click');
-    await page.mouse.click(227, 270).then(() => page.waitFor(50)).then(() => page.mouse.click(227, 270));
+    await page.mouse.click(227, 270)
+      .then(() => page.waitFor(50))
+      .then(() => page.mouse.click(227, 270));
     // wait for third click on a feature
     const res2 = await results[2];
     const store2 = await page.evaluate(() => multiselect.store.getStore());
