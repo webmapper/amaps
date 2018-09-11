@@ -1,4 +1,5 @@
 import 'whatwg-fetch';
+import tress from 'tress';
 import { nlmaps } from '../nlmaps/dist/nlmaps.es.js';
 import { pointQueryChain } from './lib.js';
 import emitonoff from 'emitonoff';
@@ -104,21 +105,32 @@ async function combinePointAndFeatureInfo(click, feature){
 }
 
 
+//store uses a queue so that clicks on the map will be handled in order
+//and no race conditions will ensue in the store.
 tvm.store = {
   store: [],
+  queue: tress(async (job, done) => {
+    if (job.type === 'add') {
+      tvm.selection.addData(job.feature);
+      const result = await combinePointAndFeatureInfo({latlng: job.e.latlng}, job.feature);
+      tvm.store.store.push(result);
+      tvm.emit('feature',{features: tvm.store.store, type: 'added', added: result});
+      done(null, 'added')
+    } else if (job.type === 'remove') {
+      const idx = tvm.store.store.findIndex(item => item.object.id === job.feature.properties.id);
+      const removed = tvm.store.store[idx];
+      tvm.store.store.splice(idx, 1);
+      tvm.selection.removeLayer(job.layer);
+      tvm.emit('feature', {features: tvm.store.store, type: 'removed', removed: removed});
+      done(null, 'removed');
+    }
+
+  }),
   addFeature: async function(feature, e) {
-    tvm.selection.addData(feature);
-    const result = await combinePointAndFeatureInfo({latlng: e.latlng}, feature);
-    this.store.push(result);
-    tvm.emit('feature',{features: this.store, type: 'added', added: result});
+    this.queue.push({type: 'add', feature: feature, e: e})
   },
   removeFeature: function(feature, layer) {
-    const idx = this.store.findIndex(item => item.object.id === feature.properties.id);
-    const removed = this.store[idx];
-    this.store.splice(idx, 1);
-    tvm.selection.removeLayer(layer);
-
-    tvm.emit('feature', {features: this.store, type: 'removed', removed: removed});
+    this.queue.push({type: 'remove', feature: feature, layer: layer});
   },
   getStore: function() {
     return this.store
