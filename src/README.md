@@ -10,7 +10,8 @@ Include in your webpage or script:
 * Leaflet css
 * the javascript build of your application. e.g. `mora.iife.js` for the Mora app in the browser, or `mora.es.js` if you are using a transpilation step.
 * `dist/nlmaps/assets/nlmaps.css`
-* `dist/dist/css/ams-stijl.css`
+* `dist/dist/css/ams-stijl.css` - will include the whole Amsterdam style or
+* `dist/dist/css/ams-map.css` - will include just the styling for the embeded map.
 
 Then you will have an object named for the application available, which you can use to create a map. For example, for TVM:
 
@@ -80,3 +81,9 @@ Or by listening directly to the `features` event (which take an identical handle
 
 
 In the return data, `object` is of type `parkeervakken` and includes the id and the geometry as a GeoJSON feature.
+
+## Styling notes
+
+To ajust the map styles override properties the embed-search* classes.
+The input element of the search bar can be selected with 
+  .embed-search__form>input or #nlmaps-geocoder-control-input (has no css class)
