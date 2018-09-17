@@ -29,7 +29,7 @@ ${adres.huisnummer_toevoeging ? '-'+adres.huisnummer_toevoeging : ''}
   })
 
   nlmaps.on('search-select',async function(e) {
-    let point = {latlng:{lat:e.latlng.coordinates[1],lng:e.latlng.coordinates[0]}}
+    let point = {latlng:{lat:e.latlng.coordinates[1],lng:e.latlng.coordinates[0]},resultObject:e.resultObject}
     const result = await pointQueryChain(point);
     mora.emit('query-results', result);
     //emit mapclick so we can place a marker

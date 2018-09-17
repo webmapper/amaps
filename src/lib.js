@@ -27,10 +27,12 @@ async function getBagInfo(click) {
     x: click.latlng.lng,
     y: click.latlng.lat
   }
+  let nummeraanduidingId = false;
+  if(click.resultObject && click.resultObject.nummeraanduiding_id) nummeraanduidingId = click.resultObject.nummeraanduiding_id;
   const url = requestFormatter("https://api.data.amsterdam.nl/bag/nummeraanduiding/?format=json&locatie=", xy);
   return await  query(url).then(res => {
       let output =  {
-        queryResult: responseFormatter(res),
+        queryResult: responseFormatter(res,nummeraanduidingId),
         latlng: click.latlng
       }
       return output;
@@ -108,10 +110,10 @@ function requestFormatter(baseUrl, xy) {
   return `${baseUrl}${xyRD.x},${xyRD.y},50`
 }
 
-function responseFormatter(res) {
+function responseFormatter(res,nummeraanduiding) {
   let filtered;
   if(res.results) {
-    filtered = res.results.filter(x => x.hoofdadres === true);
+    filtered = nummeraanduiding?res.results.filter(x=> x.landelijk_id === nummeraanduiding):res.results.filter(x => x.hoofdadres === true);
   }
   else {
     throw {
