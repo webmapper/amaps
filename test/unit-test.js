@@ -72,3 +72,22 @@ test('test upstream API formatters', async (t) => {
 
   t.end();
 });
+
+
+test('test search string continuation', async (t) => {
+  const lib = require('../src/lib.js');
+  const testUrl = 'https://geodata.nationaalgeoregister.nl/locatieserver/v3/lookup?fq=gemeentenaam:amsterdam&id=adr-a69b4104d569072769fbe6b1e7aa4f17';
+  const searchData = await fetch(testUrl).then((res) => res.json());
+  const point = {
+    latlng: {
+      lat: 52.36581561,
+      lng: 4.91147799
+    },
+    resultObject: searchData.response.docs[0]
+  };
+  const resObjData = await lib.pointQueryChain(point);
+  t.equals(resObjData.dichtstbijzijnd_adres.openbare_ruimte, 'Plantage Kerklaan', 'expected openbareruimtenaam for this location');
+  t.equals(resObjData.dichtstbijzijnd_adres.huisnummer_toevoeging, '2', 'expected huisnummer toevoeging for this location');
+  t.equals(resObjData.dichtstbijzijnd_adres.huisnummer, 18, 'expected huisnummer for this location');
+  t.end();
+});
