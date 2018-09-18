@@ -110,10 +110,11 @@ function requestFormatter(baseUrl, xy) {
   return `${baseUrl}${xyRD.x},${xyRD.y},50`
 }
 
-function responseFormatter(res,nummeraanduiding) {
+function responseFormatter(res,search_id) {
   let filtered;
+  search_id = search_id === false ? false : search_id === undefined ? false : search_id; //make sure that search_id is properly set to false
   if(res.results) {
-    filtered = nummeraanduiding?res.results.filter(x=> x.landelijk_id === nummeraanduiding):res.results.filter(x => x.hoofdadres === true);
+    filtered = search_id !== false ? res.results.filter(x => x.landelijk_id === search_id) : res.results.filter(x => x.hoofdadres === true);
   }
   else {
     throw {
