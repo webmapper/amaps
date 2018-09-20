@@ -1,6 +1,6 @@
 {
   "name": "amaps",
-  "version": "1.2.7",
+  "version": "1.2.8",
   "description": "implementation of nlmaps for Amsterdam",
   "main": "src/index.js",
   "browser": "dist/amaps.iife.js",
@@ -14,7 +14,7 @@
     "emitonoff": "^0.1.1",
     "proj4": "^2.4.4",
     "shelljs": "^0.8.2",
-    "stijl": "Amsterdam/stijl",
+    "stijl": "github:Amsterdam/stijl",
     "tress": "^1.1.3",
     "whatwg-fetch": "^2.0.4"
   },
