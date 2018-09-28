@@ -47,8 +47,8 @@ export default {
     ]
   },
   geocoder: {
-    suggestUrl: 'https://geodata.nationaalgeoregister.nl/locatieserver/v3/suggest?fq=gemeentenaam:amsterdam&',
-    lookupUrl: 'https://geodata.nationaalgeoregister.nl/locatieserver/v3/lookup?fq=gemeentenaam:amsterdam&'
+    suggestUrl: 'https://geodata.nationaalgeoregister.nl/locatieserver/v3/suggest?fq=gemeentenaam:amsterdam&fq=type:adres&',
+    lookupUrl: 'https://geodata.nationaalgeoregister.nl/locatieserver/v3/lookup?fq=gemeentenaam:amsterdam&fq=type:adres&'
   },
   featureQuery: {
     baseUrl: 'https://api.data.amsterdam.nl/bag/nummeraanduiding/?format=json&locatie='
