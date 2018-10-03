@@ -1,5 +1,5 @@
 export default {
-  version: 0.2,
+  version: 0.3,
   basemaps: {
     defaults: {
       attribution: 'Kaartgegevens CC-BY-4.0 Gemeente Amsterdam',
@@ -76,5 +76,6 @@ export default {
     geocoderResultList: ['embed-search__auto-suggest'],
     geocoderResultItem: ['embed-search__auto-suggest__item'],
     geocoderResultSelected: ['embed-search__auto-suggest__item--active']
-  }
+  },
+  placeholder: 'Kies adres...'
 };
