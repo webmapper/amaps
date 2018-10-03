@@ -1,5 +1,5 @@
 export default {
-  version: 0.3,
+  version: 0.2,
   basemaps: {
     defaults: {
       attribution: 'Kaartgegevens CC-BY-4.0 Gemeente Amsterdam',
