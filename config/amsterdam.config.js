@@ -48,7 +48,8 @@ export default {
   },
   geocoder: {
     suggestUrl: 'https://geodata.nationaalgeoregister.nl/locatieserver/v3/suggest?fq=gemeentenaam:amsterdam&fq=type:adres&',
-    lookupUrl: 'https://geodata.nationaalgeoregister.nl/locatieserver/v3/lookup?fq=gemeentenaam:amsterdam&fq=type:adres&'
+    lookupUrl: 'https://geodata.nationaalgeoregister.nl/locatieserver/v3/lookup?fq=gemeentenaam:amsterdam&fq=type:adres&',
+    placeholder: 'Kies adres...'
   },
   featureQuery: {
     baseUrl: 'https://api.data.amsterdam.nl/bag/nummeraanduiding/?format=json&locatie='
@@ -76,6 +77,5 @@ export default {
     geocoderResultList: ['embed-search__auto-suggest'],
     geocoderResultItem: ['embed-search__auto-suggest__item'],
     geocoderResultSelected: ['embed-search__auto-suggest__item--active']
-  },
-  placeholder: 'Kies adres...'
+  }
 };
