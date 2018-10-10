@@ -3,7 +3,7 @@ test/amaps.iife.*
 test/nlmaps
 dist/dist
 test/dist
-nlmaps
+/nlmaps
 
 test/amaps.es.js.map
 test/schema.json
