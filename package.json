@@ -1,5 +1,5 @@
 {
-  "name": "amaps",
+  "name": "amsterdam-amaps",
   "version": "1.2.8",
   "description": "implementation of nlmaps for Amsterdam",
   "main": "src/index.js",
