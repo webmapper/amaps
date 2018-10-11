@@ -81,7 +81,7 @@ npm install amsterdam-stijl
 npm install amsterdam-amaps
 
 import 'amsterdam-amaps/dist/nlmaps/dist/assets/css/nlmaps.css';
-import 'stijl/dist/css/ams-stijl.css';	import 'amsterdam-stijl/dist/css/ams-stijl.css';
+import 'stijl/dist/css/ams-stijl.css';
 import amaps from 'amsterdam-amaps/dist/amaps';
 or import pointquery from 'amsterdam-amaps/dist/pointquery';
 or import multiselect from 'amsterdam-amaps/dist/multiselect';
