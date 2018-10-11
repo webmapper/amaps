@@ -10,7 +10,7 @@ export default [{
     name: 'multiselect',
     file: process.env.NODE_ENV === 'production' ? 'dist/multiselect.iife.js' : 'test/dist/multiselect.iife.js',
     format: 'iife',
-    sourcemap: process.env.NODE_ENV === 'production' ? false : true
+    sourcemap: process.env.NODE_ENV !== 'production'
   },
   plugins: [
     json(),
@@ -31,15 +31,15 @@ export default [{
       ]],
       plugins: 'external-helpers'
     }),
-    (process.env.NODE_ENV === 'production' && uglify()),
+    (process.env.NODE_ENV === 'production' && uglify())
   ]
-},{
+}, {
   input: 'src/multiselect.js',
   output: {
     name: 'multiselect',
     file: process.env.NODE_ENV === 'production' ? 'dist/multiselect.es.js' : 'test/dist/multiselect.es.js',
     format: 'es',
-    sourcemap: process.env.NODE_ENV === 'production' ? false : true
+    sourcemap: process.env.NODE_ENV !== 'production'
   },
   plugins: [
     json(),
@@ -60,6 +60,35 @@ export default [{
       ]],
       plugins: 'external-helpers'
     }),
-    (process.env.NODE_ENV === 'production' && uglify()),
+    (process.env.NODE_ENV === 'production' && uglify())
   ]
-}]
+}, {
+  input: 'src/multiselect.js',
+  output: {
+    name: 'multiselect',
+    file: process.env.NODE_ENV === 'production' ? 'dist/multiselect.js' : 'test/dist/multiselect.js',
+    format: 'cjs',
+    sourcemap: process.env.NODE_ENV !== 'production'
+  },
+  plugins: [
+    json(),
+    resolve({
+      jsnext: true,
+      commonjs: true,
+      browser: true
+    }),
+    commonjs(),
+    babel({
+      exclude: 'node_modules/(?!callbag)**',
+      babelrc: false,
+      presets: [[
+        'env',
+        {
+          modules: false
+        }
+      ]],
+      plugins: 'external-helpers'
+    }),
+    (process.env.NODE_ENV === 'production' && uglify())
+  ]
+}];
