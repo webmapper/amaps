@@ -70,4 +70,5 @@ ${adres.huisnummer_toevoeging ? '-'+adres.huisnummer_toevoeging : ''}
   return map;
 }
 
-export default mora
+const pointquery = mora
+export default pointquery;
