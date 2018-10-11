@@ -176,4 +176,5 @@ tvm.createMap = async function(config) {
   return map;
 }
 
-export default tvm;
+const multiselect = tvm
+export default multiselect;

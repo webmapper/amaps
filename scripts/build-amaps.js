@@ -43,5 +43,5 @@ function fmtDst(path) {
 shell.mkdir('-p', fmtDst('nlmaps/dist/assets'));
 shell.mkdir('-p', fmtDst('dist'));
 shell.cp('-rf', 'nlmaps/packages/assets/*', fmtDst('nlmaps/dist/assets/'));
-shell.cp('-rf', 'node_modules/stijl/dist/*', fmtDst('dist/'));
+shell.cp('-rf', 'node_modules/amsterdam-stijl/dist/*', fmtDst('dist/'));
 shell.cp('-rf', 'node_modules/babel-polyfill/dist/polyfill.min.js', fmtDst('dist/'));
