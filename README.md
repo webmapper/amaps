@@ -72,3 +72,29 @@ To run tests and lint:
 
     docker-compose up --build --exit-code-from test test
     docker-compose up --build --exit-code-from lint lint
+
+### how to use in a project
+
+Te amaps is dependent on amsterdam stijl package so is recomanded to install this in the project as well
+
+npm install amsterdam-stijl
+npm install amsterdam-amaps
+
+import 'amsterdam-amaps/dist/nlmaps/dist/assets/css/nlmaps.css';
+import 'stijl/dist/css/ams-stijl.css';	import 'amsterdam-stijl/dist/css/ams-stijl.css';
+import amaps from 'amsterdam-amaps/dist/amaps.es';
+or import amaps from 'amsterdam-amaps/dist/pointquery.es';
+or import amaps from 'amsterdam-amaps/dist/multiselect.es';
+
+// For example
+const options = {
+        layer: 'standaard',
+        target: 'mapdiv',
+        marker: false,
+        search: true,
+        zoom: 0,
+        onQueryResult: () => {}
+      };
+amaps.createMap(options)
+
+
