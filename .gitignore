@@ -1,3 +1,10 @@
 node_modules
-
+test/amaps.iife.*
 test/nlmaps
+dist/dist
+test/dist
+/nlmaps
+
+test/amaps.es.js.map
+test/schema.json
+test/nlmaps.es.js.map
