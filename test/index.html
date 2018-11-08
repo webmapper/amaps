@@ -12,8 +12,15 @@
   </head>
   <body>
     <div id="mapdiv"></div>
-    <p> <a href="pointquery.html">Point Query Example</a></p>
-    <p> <a href="multiselect.html">Multi-feature Select Example</a></p>
+    <div>
+      <p>&nbsp;This is the demo site for Amaps, the Amsterdam version of <a href="https://nlmaps.nl/">NL Maps</a>.</p>
+      <p>&nbsp;Above is a basic map, using the official Amsterdam topography and Amsterdam interface style. The search box only shows adresses, and only within Amsterdam.</p>
+      <p>&nbsp;We have two other examples with functionality for specific use cases, using bundled scripts to query certain API's when interacting with the map:</br>
+      &nbsp;<a href="pointquery.html">Point query example</a> shows information about a selected coordinate.</br>
+      &nbsp;<a href="multiselect.html">Multi-feature select example</a> shows information about one or more objects selected.
+      </p>
+      <p>&nbsp;Documentation and source code are on <a href="https://github.com/Amsterdam/amaps">GitHub</a>.</p>
+    </div>
     <div id="queryresults"></div>
     <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
     <script src="dist/polyfill.min.js"></script>
@@ -23,15 +30,12 @@
         layer: 'standaard',
         marker: true,
         search: true,
-        zoom: 14,
-        center: {
-            longitude: 4.8937175,
-            latitude: 52.37329259
-        }
+        zoom: 14
+        //center: {
+        //    longitude: 4.8937175,
+        //    latitude: 52.37329259
+        //}
       });
     </script>
   </body>
 </html>
-
-
-
