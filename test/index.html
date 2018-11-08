@@ -21,15 +21,14 @@
     <script>
       let map = amaps.createMap({target: 'mapdiv',
         layer: 'standaard',
-        marker: false,
+        marker: true,
         search: true,
-        zoom: 14
+        zoom: 14,
+        center: {
+            longitude: 4.8937175,
+            latitude: 52.37329259
+        }
       });
-
-      let clicks = amaps.clickProvider(map);
-      let singleMarker = amaps.singleMarker(map);
-      clicks.subscribe(singleMarker);
-
     </script>
   </body>
 </html>
