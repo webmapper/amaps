@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Testing Pointquery app</title>
+    <title>Amaps point query example</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
     <link rel="stylesheet" href="nlmaps/dist/assets/css/nlmaps.css"/>
     <link rel="stylesheet" href="dist/css/ams-map.css"/>
@@ -12,6 +12,14 @@
   </head>
   <body>
     <div id="mapdiv"></div>
+    <div>
+      <p>&nbsp;Point query example</p>
+      <p>&nbsp;In this example clicking in the map will query an API, using that coordinate.</br>
+      &nbsp;It also uses information from the call to fill the search box.</br>
+      &nbsp;And searching an adress will select its location on the map.
+      </p>
+      <p>The API results will appear below.</p>
+    </div>
     <div id="queryresults"></div>
     <script src="dist/polyfill.min.js"></script>
     <script src="appendPolyfill.js"></script>
