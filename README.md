@@ -1,6 +1,7 @@
-# amaps
-implementation of nlmaps for Amsterdam
-for a demo, see https://map.data.amsterdam.nl/
+# Amaps
+Implementation of NL Maps for Amsterdam
+
+For a demo, see https://map.data.amsterdam.nl/
 
 This repository builds `nlmaps` with a configuration file for Amsterdam, specifying Amsterdam's map styling and map layers. In addition, this repository contains several wrapper scripts which bundle the resulting `nlmaps` build with functionality for specific use cases, like querying certain API's when the map is clicked. These specific cases are:
 
