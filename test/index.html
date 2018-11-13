@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Testing amaps</title>
+    <title>Amaps demo</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
     <link rel="stylesheet" href="nlmaps/dist/assets/css/nlmaps.css"/>
     <link rel="stylesheet" href="dist/css/ams-map.css"/>
@@ -12,8 +12,16 @@
   </head>
   <body>
     <div id="mapdiv"></div>
-    <p> <a href="pointquery.html">Point Query Example</a></p>
-    <p> <a href="multiselect.html">Multi-feature Select Example</a></p>
+    <div>
+      <p>&nbsp;<b>Amaps demo</b></p>
+      <p>&nbsp;The Amsterdam version of <a href="https://nlmaps.nl/">NL Maps</a> uses the official Amsterdam topography and Amsterdam interface style.</p>
+      <p>&nbsp;Above is a basic map, showing a marker to mark a certain location. The search box only shows adresses, and only within Amsterdam. Selecting an adress zooms to that location.</p>
+      <p>&nbsp;We have two other examples with functionality for specific use cases, using bundled scripts to query certain API's when interacting with the map:</br>
+      &nbsp;<a href="pointquery.html">Point query example</a> shows information about a selected coordinate.</br>
+      &nbsp;<a href="multiselect.html">Multi-feature select example</a> shows information about one or more objects selected.
+      </p>
+      <p>&nbsp;Documentation and source code are on <a href="https://github.com/Amsterdam/amaps">GitHub</a>.</p>
+    </div>
     <div id="queryresults"></div>
     <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
     <script src="dist/polyfill.min.js"></script>
@@ -21,18 +29,14 @@
     <script>
       let map = amaps.createMap({target: 'mapdiv',
         layer: 'standaard',
-        marker: false,
+        marker: true,
         search: true,
         zoom: 14
+        //center: {
+        //    longitude: 4.8937175,
+        //    latitude: 52.37329259
+        //}
       });
-
-      let clicks = amaps.clickProvider(map);
-      let singleMarker = amaps.singleMarker(map);
-      clicks.subscribe(singleMarker);
-
     </script>
   </body>
 </html>
-
-
-

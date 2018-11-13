@@ -3,7 +3,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Testing Multiselect app</title>
+    <title>Amaps multi-feature select example</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
     <link rel="stylesheet" href="nlmaps/dist/assets/css/nlmaps.css"/>
     <link rel="stylesheet" href="dist/css/ams-map.css"/>
@@ -13,6 +13,13 @@
   </head>
   <body>
     <div id="mapdiv"></div>
+    <div>
+      <p>&nbsp;<b>Point query example</b></p>
+      <p>&nbsp;In this example clicking on an object (parking spot, in this case) will add/remove that object from the selection. An API is queried using the currect selection.</br>
+      </p>
+      <p>Try it out, the API results will appear below.</p>
+      <p><hr></p>
+    </div>
     <div id="queryresults"></div>
     <script src="dist/polyfill.min.js"></script>
     <script src="appendPolyfill.js"></script>
@@ -44,7 +51,7 @@
         layer: 'standaard',
         marker: false,
         search: true,
-        zoom: 14,
+        zoom: 18,
         onFeatures: writeQueryResults
       });
 

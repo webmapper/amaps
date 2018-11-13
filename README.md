@@ -5,10 +5,10 @@ For a demo, see https://map.data.amsterdam.nl/
 
 This repository builds `nlmaps` with a configuration file for Amsterdam, specifying Amsterdam's map styling and map layers. In addition, this repository contains several wrapper scripts which bundle the resulting `nlmaps` build with functionality for specific use cases, like querying certain API's when the map is clicked. These specific cases are:
 
-* MORA (meldingen openbare ruimte)
-* TVM (tijdelijke verkeersmaatregelen).
+* point query (users selects a coordinate in a map and information about it is returned)
+* multiple feature select (users selects one or more objects, parking spots in this case, and information about the selection is returned).
 
-see [`src/README.md`](examples/README.md) for explanation on usage. Below is documentation on the build/development setup.
+see [`src/README.md`](src/README.md) for explanation on usage. Below is documentation on the build/development setup.
 
 ## How it works
 This repo installs a local copy of `nlmaps`, then compiles it with the custom configuration file at `config/amsterdam.config.js`. In `test/` are html and js files for testing:
@@ -16,8 +16,8 @@ This repo installs a local copy of `nlmaps`, then compiles it with the custom co
 - `unit-test.js` tests code internally
 - `browser-test.js` tests integration and accessibility in a headless browser
 - `index.html`: tests/demonstrates Amsterdam configuration of `nlmaps`
-- `mora.html`: tests/demonstrates single-click functionality for MORA
-- `tvm.html`: tests/demonstrates multiple feature selection for TVM.
+- `pointquery.html`: tests/demonstrates single-click functionality with a feature query.
+- `multiselect.html`: tests/demonstrates multiple feature selection from a feature datasource.
 
 
 Versioning
@@ -47,8 +47,8 @@ To lint: `npm run lint`
 Instead of running the above commands separately, you can run a live-reloading development server: `npm run dev`. This watches `src/` and the config file in `config/amsterdam.config.js`, rebuilds and runs tests on changes. You can access the demo html pages at:
 
     localhost:8080/index.html
-    localhost:8080/mora.html
-    localhost:8080/tvm.html
+    localhost:8080/pointquery.html
+    localhost:8080/multiselect.html
 
 If you want to serve and test without using the `dev` command, the server needs to be running in a separate terminal window.
 
