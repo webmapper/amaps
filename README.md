@@ -5,8 +5,8 @@ For a demo, see https://map.data.amsterdam.nl/
 
 This repository builds `nlmaps` with a configuration file for Amsterdam, specifying Amsterdam's map styling and map layers. In addition, this repository contains several wrapper scripts which bundle the resulting `nlmaps` build with functionality for specific use cases, like querying certain API's when the map is clicked. These specific cases are:
 
-* point query (the example works with 'meldingen openbare ruimte')
-* multiple feature select (example works with 'tijdelijke verkeersmaatregelen').
+* point query (users selects a coordinate in a map and information about it is returned)
+* multiple feature select (users selects one or more objects, parking spots in this case, and information about the selection is returned).
 
 see [`src/README.md`](src/README.md) for explanation on usage. Below is documentation on the build/development setup.
 
