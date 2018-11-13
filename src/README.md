@@ -8,12 +8,12 @@ Include in your webpage or script:
 
 * Leaflet js
 * Leaflet css
-* the javascript build of your application. e.g. `mora.iife.js` for the Mora app in the browser, or `mora.es.js` if you are using a transpilation step.
+* the javascript build of your application. e.g. `pointquery.iife.js` for the point query app in the browser, or `pointquery.es.js` if you are using a transpilation step.
 * `dist/nlmaps/assets/nlmaps.css`
 * `dist/dist/css/ams-stijl.css` - will include the whole Amsterdam style or
 * `dist/dist/css/ams-map.css` - will include just the styling for the embeded map.
 
-Then you will have an object named for the application available, which you can use to create a map. For example, for TVM:
+Then you will have an object named for the application available, which you can use to create a map. For example, for the multiselect example:
 
       //example handler function
       function handler(features){
@@ -21,7 +21,7 @@ Then you will have an object named for the application available, which you can 
       }
 
       //create map and register event handlers
-      let map = tvm.createMap({target: 'mapdiv',
+      let map = multiselect.createMap({target: 'mapdiv',
         layer: 'standaard',
         marker: false,
         search: true,
@@ -51,7 +51,7 @@ The data passed to the handlers for all applications is a JSON object or array o
 App-specific functionality
 -------------
 
-### Mora (single click on the map)
+### Pointquery (single click on the map)
 
 Click on the map to place a marker and query for address/locality information. Clicking elsewhere will place the marker there; click on the marker to remove it completely.
 
@@ -67,7 +67,7 @@ Or by listening directly to the `mapclick` and `query-results` events (which tak
 In the return data, `object` is `null` because it concerns point locations, not an object which is selected.
 
 
-### TVM (select multiple features on the map)
+### Multiselect (select multiple features on the map)
 
 On the map, zoom in to see parkeervakken. Click parkeervakken to select; multiple selections are possible; click again to deselect. On each select/deselect, the new list of currently selected features is returned.
 
