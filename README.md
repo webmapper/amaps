@@ -1,14 +1,15 @@
 # Amaps
 Implementation of NL Maps for Amsterdam
 
-For a demo, see https://map.data.amsterdam.nl/
+* For a demo, see https://map.data.amsterdam.nl/
+* For an explanation how to use this map in your own site, see [`src/README.md`](src/README.md).
+* For documentation on the build/development setup, read on below.
 
 This repository builds `nlmaps` with a configuration file for Amsterdam, specifying Amsterdam's map styling and map layers. In addition, this repository contains several wrapper scripts which bundle the resulting `nlmaps` build with functionality for specific use cases, like querying certain API's when the map is clicked. These specific cases are:
 
 * point query (users selects a coordinate in a map and information about it is returned)
 * multiple feature select (users selects one or more objects, parking spots in this case, and information about the selection is returned).
 
-see [`src/README.md`](src/README.md) for explanation on usage. Below is documentation on the build/development setup.
 
 ## How it works
 This repo installs a local copy of `nlmaps`, then compiles it with the custom configuration file at `config/amsterdam.config.js`. In `test/` are html and js files for testing:
