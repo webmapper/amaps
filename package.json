@@ -2,12 +2,16 @@
   "name": "amsterdam-amaps",
   "version": "2.0.1",
   "description": "implementation of nlmaps for Amsterdam",
-  "main": "src/index.js",
+  "main": "dist/amaps.js",
   "browser": "dist/amaps.iife.js",
   "module": "dist/amaps.es.js",
   "nlmaps_version": "2.3.45",
+  "files": [
+    "dist"
+  ],
   "directories": {
-    "test": "test"
+    "test": "test",
+    "dist": "dist"
   },
   "dependencies": {
     "amsterdam-stijl": "^3.0.5",
@@ -70,7 +74,8 @@
     "install-nlmaps": "node scripts/install-nlmaps.js",
     "build-nlmaps": "node scripts/build-nlmaps.js",
     "watch-nlmaps": "nodemon --watch config --exec npm run build-nlmaps",
-    "nlmaps": "npm run get-nlmaps && npm run install-nlmaps && npm run build-nlmaps"
+    "nlmaps": "npm run get-nlmaps && npm run install-nlmaps && npm run build-nlmaps",
+    "prepare": "npm run lint && npm run test && npm run build-amaps"
   },
   "repository": {
     "type": "git",
