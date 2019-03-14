@@ -1,6 +1,6 @@
 {
   "name": "amsterdam-amaps",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "implementation of nlmaps for Amsterdam",
   "main": "src/index.js",
   "browser": "dist/amaps.iife.js",
