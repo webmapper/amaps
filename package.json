@@ -36,7 +36,7 @@
     "eslint-plugin-standard": "^3.1.0",
     "esm": "3.0.63",
     "http-server": "^0.11.1",
-    "live-server": "^1.2.0",
+    "live-server": "^1.2.1",
     "live-server-https": "0.0.2",
     "node-fetch": "^2.1.2",
     "nodemon": "^1.17.4",
@@ -51,7 +51,7 @@
     "rollup-plugin-uglify-es": "0.0.1",
     "serve-static": "^1.13.2",
     "shx": "^0.2.2",
-    "tap": "^11.1.4",
+    "tap": "^12.6.0",
     "tape": "^4.9.1",
     "tape-catch": "^1.0.6"
   },
