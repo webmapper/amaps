@@ -47,9 +47,9 @@ To lint: `npm run lint`
 #### development server
 Instead of running the above commands separately, you can run a live-reloading development server: `npm run dev`. This watches `src/` and the config file in `config/amsterdam.config.js`, rebuilds and runs tests on changes. You can access the demo html pages at:
 
-    localhost:8080/index.html
-    localhost:8080/pointquery.html
-    localhost:8080/multiselect.html
+localhost:8080/index.html
+localhost:8080/pointquery.html
+localhost:8080/multiselect.html
 
 If you want to serve and test without using the `dev` command, the server needs to be running in a separate terminal window.
 
@@ -78,26 +78,30 @@ To run tests and lint:
 
 ### how to use in a project
 
-Te amaps is dependent on amsterdam stijl package so is recomanded to install this in the project as well
+The amaps is dependent on amsterdam stijl package so is recomanded to install this in the project as well
 
-npm install amsterdam-stijl
-npm install amsterdam-amaps
+    npm install amsterdam-stijl
+    npm install amsterdam-amaps
 
-import 'amsterdam-amaps/dist/nlmaps/dist/assets/css/nlmaps.css';
-import 'stijl/dist/css/ams-stijl.css';
-import amaps from 'amsterdam-amaps/dist/amaps';
-or import pointquery from 'amsterdam-amaps/dist/pointquery';
-or import multiselect from 'amsterdam-amaps/dist/multiselect';
+    import 'amsterdam-amaps/nlmaps/assets/css/nlmaps.css';
+    import 'stijl/dist/css/ams-stijl.css';
 
+Import one of the next modules for specific functionality:
+
+    import amaps from 'amsterdam-amaps/amaps';
+    <or> import pointquery from 'amsterdam-amaps/pointquery';
+    <or> import multiselect from 'amsterdam-amaps/multiselect';
+
+Create the amaps with the custom configuration options
+```
 // For example
 const options = {
-        layer: 'standaard',
-        target: 'mapdiv',
-        marker: false,
-        search: true,
-        zoom: 0,
-        onQueryResult: () => {}
-      };
+    layer: 'standaard',
+    target: 'mapdiv',
+    marker: false,
+    search: true,
+    zoom: 0,
+    onQueryResult: () => {}
+};
 amaps.createMap(options)
-
-
+```

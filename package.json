@@ -10,7 +10,7 @@
     "test": "test"
   },
   "dependencies": {
-    "amsterdam-stijl": "^3.0.2",
+    "amsterdam-stijl": "^3.0.5",
     "babel-polyfill": "^6.26.0",
     "emitonoff": "^0.1.1",
     "proj4": "^2.4.4",
