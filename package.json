@@ -78,13 +78,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/webmapper/amaps.git"
+    "url": "git+https://github.com/amsterdam/amaps.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/webmapper/amaps/issues"
+    "url": "https://github.com/amsterdam/amaps/issues"
   },
-  "homepage": "https://github.com/webmapper/amaps#readme"
+  "homepage": "https://github.com/amsterdam/amaps#readme"
 }
