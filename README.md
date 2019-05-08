@@ -93,7 +93,8 @@ Import one of the next modules for specific functionality:
     <or> import multiselect from 'amsterdam-amaps/multiselect';
 
 Create the amaps with the custom configuration options
-```
+
+```js static
 // For example
 const options = {
     layer: 'standaard',
