@@ -10,7 +10,6 @@ This repository builds `nlmaps` with a configuration file for Amsterdam, specify
 * point query (users selects a coordinate in a map and information about it is returned)
 * multiple feature select (users selects one or more objects, parking spots in this case, and information about the selection is returned).
 
-
 ## How it works
 This repo installs a local copy of `nlmaps`, then compiles it with the custom configuration file at `config/amsterdam.config.js`. In `test/` are html and js files for testing:
 
@@ -56,7 +55,6 @@ If you want to serve and test without using the `dev` command, the server needs 
 #### production build and releasing
 
 to build for production, which puts output in `dist/` instead of `test/dist/`, run:
-
 
 `npm run build-amaps -- --production`
 
