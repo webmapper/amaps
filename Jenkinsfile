@@ -13,36 +13,35 @@ pipeline {
     IMAGE_LATEST = "${IMAGE_BASE}:latest"
   }
   stages {
-    stage('Test') {
-      parallel {
-        stage('Linting') {
-          environment {
-            PROJECT = "${PROJECT_PREFIX}lint"
-          }
-          steps {
-            sh "docker-compose -p ${PROJECT} up --build --exit-code-from lint lint"
-          }
-          post {
-            always {
-              sh "docker-compose -p ${PROJECT} down -v || true"
-            }
-          }
-        }
-        stage('Unit') {
-          environment {
-            PROJECT = "${PROJECT_PREFIX}unit"
-          }
-          steps {
-            sh "docker-compose -p ${PROJECT} up --build --exit-code-from test test"
-          }
-          post {
-            always {
-              sh "docker-compose -p ${PROJECT} down -v || true"
-            }
-          }
-        }
-      }
-    }
+//    stage('Test') {
+//      parallel {
+//        stage('Linting') {
+//          environment {
+//            PROJECT = "${PROJECT_PREFIX}lint"
+//          }
+//          steps {
+//            sh "docker-compose -p ${PROJECT} up --build --exit-code-from lint lint"
+//          }
+//          post {
+//            always {
+//              sh "docker-compose -p ${PROJECT} down -v || true"
+//            }
+//          }
+//        }
+//        stage('Unit') {
+//          environment {
+//            PROJECT = "${PROJECT_PREFIX}unit"
+//          }
+//          steps {
+//            sh "docker-compose -p ${PROJECT} up --build --exit-code-from test test"
+//          }
+//          post {
+//            always {
+//              sh "docker-compose -p ${PROJECT} down -v || true"
+//            }
+//          }
+//        }
+//      }
     stage('Build A (Master)') {
       when { branch 'master' }
       steps {
