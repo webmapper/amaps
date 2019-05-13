@@ -20,11 +20,11 @@ pipeline {
             PROJECT = "${PROJECT_PREFIX}lint"
           }
           steps {
-            sh "docker-compose -p ${PROJECT} up --build --exit-code-from lint lint"
+            docker-compose -p ${PROJECT} up --build --exit-code-from lint lint
           }
           post {
             always {
-              sh "docker-compose -p ${PROJECT} down -v || true"
+              docker-compose -p ${PROJECT} down -v || true
             }
           }
         }
@@ -33,11 +33,11 @@ pipeline {
             PROJECT = "${PROJECT_PREFIX}unit"
           }
           steps {
-            sh "docker-compose -p ${PROJECT} up --build --exit-code-from test test"
+            docker-compose -p ${PROJECT} up --build --exit-code-from test test
           }
           post {
             always {
-              sh "docker-compose -p ${PROJECT} down -v || true"
+              docker-compose -p ${PROJECT} down -v || true
             }
           }
         }
