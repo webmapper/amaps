@@ -3,6 +3,9 @@ services:
   serve:
     build:
       context: .
+    environment:
+      - http_proxy=
+      - https_proxy=
     ports:
       - 8095:80
 
@@ -12,6 +15,8 @@ services:
       target: build-deps
     environment:
       - SERVER_HOSTNAME=serve
+      - http_proxy=
+      - https_proxy=
     command: npm run test
     depends_on:
       - serve
@@ -20,4 +25,7 @@ services:
     build:
       context: .
       target: build-deps
+    environment:
+      - http_proxy=
+      - https_proxy=
     command: npm run lint
