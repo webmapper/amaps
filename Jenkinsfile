@@ -24,7 +24,7 @@ node {
                 docker.withRegistry("${DOCKER_REGISTRY_HOST}",'docker_registry_auth') {
                 def image = docker.build("amaps/embedkaart:${env.BUILD_NUMBER}",
                     "--shm-size 1G " +
-                    "--target base " +
+                    "--build-arg BUILD_ENV=acc " +
                     ".")
                     image.push()
                 }
