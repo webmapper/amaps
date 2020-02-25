@@ -43,43 +43,48 @@ pipeline {
 //        }
 //      }
     stage('Build A (Master)') {
-      when { branch 'master' }
-      steps {
-        docker.withRegistry("${DOCKER_REGISTRY_HOST}",'docker_registry_auth') {
-        sh "docker build -t ${IMAGE_BUILD} " +          
-          "--shm-size 1G " +
-          "--build-arg BUILD_ENV=acc " +
-          "."
-        sh "docker push ${IMAGE_BUILD}"
+        tryStep "build", {
+                def image_name = "amaps/embedkaart"
+                docker.withRegistry("${DOCKER_REGISTRY_HOST}",'docker_registry_auth') {
+                def image = docker.build("amaps/embedkaart:${env.BUILD_NUMBER}",
+                    "--shm-size 1G " +
+                    "--target base " +
+                    ".")
+                    image.push()
+                    image.push("acceptance")
+                }
+            }
         }
-      }
-    }
-    stage('Deploy A (Master)') {
-      when { branch 'master' }
-      steps {
-        docker.withRegistry("${DOCKER_REGISTRY_HOST}",'docker_registry_auth') {
-        sh "docker pull ${IMAGE_BUILD}"
-        sh "docker tag ${IMAGE_BUILD} ${IMAGE_ACCEPTANCE}"
-        sh "docker push ${IMAGE_ACCEPTANCE}"
-        build job: 'Subtask_Openstack_Playbook', parameters: [
-          [$class: 'StringParameterValue', name: 'INVENTORY', value: 'acceptance'],
-          [$class: 'StringParameterValue', name: 'PLAYBOOK', value: 'deploy-embedkaart.yml']
-        ]
+
+
+        stage("Deploy to ACC") {
+            tryStep "deployment", {
+                build job: 'Subtask_Openstack_Playbook',
+                parameters: [
+                    [$class: 'StringParameterValue', name: 'INVENTORY', value: 'acceptance'],
+                    [$class: 'StringParameterValue', name: 'PLAYBOOK', value: 'deploy-embedkaart.yml'],
+                ]
+            }
         }
-      }
     }
-    stage('Build P (Master)') {
-      when { branch 'master' }
-      steps {
-        // NOTE BUILD_ENV intentionaly not set (using Dockerfile default)
-        sh "docker build -t ${IMAGE_PRODUCTION} " +
-            "--shm-size 1G " +
-            "."
-        sh "docker tag ${IMAGE_PRODUCTION} ${IMAGE_LATEST}"
-        sh "docker push ${IMAGE_PRODUCTION}"
-        sh "docker push ${IMAGE_LATEST}"
-      }
-    }
+
+    if (BRANCH == "master") {
+        stage("Build and Push Production image") {
+            tryStep "build", {
+                docker.withRegistry("${DOCKER_REGISTRY_HOST}",'docker_registry_auth') {
+                    def cachedImage = docker.image("amaps/embedkaart:production")
+                    cachedImage.pull()
+                    def image = docker.build("amaps/embedkaart:${env.BUILD_NUMBER}",
+                        "--shm-size 1G " +
+                        "--build-arg BUILD_ENV=prod " +
+                        "--build-arg BUILD_NUMBER=${env.BUILD_NUMBER} " +
+                        "--build-arg GIT_COMMIT=${env.GIT_COMMIT} " +
+                        ".")
+                    image.push("production")
+                    image.push("latest")
+                }
+            }
+        }
     stage('Waiting for approval (Master)') {
       when {
         branch 'master'
