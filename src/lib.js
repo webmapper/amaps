@@ -29,7 +29,7 @@ async function getBagInfo(click) {
   }
   let nummeraanduidingId = false;
   if(click.resultObject && click.resultObject.nummeraanduiding_id) nummeraanduidingId = click.resultObject.nummeraanduiding_id;
-  const url = requestFormatter("https://api.data.amsterdam.nl/bag/nummeraanduiding/?format=json&locatie=", xy);
+  const url = requestFormatter("https://api.data.amsterdam.nl/bag/v1.1/nummeraanduiding/?format=json&locatie=", xy);
   return await  query(url).then(res => {
       let output =  {
         queryResult: responseFormatter(res,nummeraanduidingId),
