@@ -15,7 +15,7 @@
 }
 
 .nlmaps-geolocator-control img {
-  background-image: url('../img/geolocator_icon.svg');
+  background-image: url('./assets/img/geolocator_icon.svg');
   display: block;
   box-sizing: border-box;
   width: 26px;
