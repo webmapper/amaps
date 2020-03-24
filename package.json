@@ -1,6 +1,6 @@
 {
   "name": "@datapunt/amsterdam-amaps",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "implementation of nlmaps for Amsterdam",
   "main": "dist/amaps.js",
   "browser": "dist/amaps.iife.js",
