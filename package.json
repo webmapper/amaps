@@ -1,6 +1,6 @@
 {
-  "name": "amsterdam-amaps",
-  "version": "2.0.1",
+  "name": "@datapunt/amsterdam-amaps",
+  "version": "3.0.2",
   "description": "implementation of nlmaps for Amsterdam",
   "main": "dist/amaps.js",
   "browser": "dist/amaps.iife.js",
@@ -86,5 +86,8 @@
   "bugs": {
     "url": "https://github.com/amsterdam/amaps/issues"
   },
-  "homepage": "https://github.com/amsterdam/amaps#readme"
+  "homepage": "https://github.com/amsterdam/amaps#readme",
+  "publishConfig": {
+    "access": "public"
+  }
 }

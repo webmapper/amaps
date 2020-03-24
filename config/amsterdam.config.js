@@ -52,7 +52,7 @@ export default {
     placeholder: 'Kies adres...'
   },
   featureQuery: {
-    baseUrl: 'https://api.data.amsterdam.nl/bag/nummeraanduiding/?format=json&locatie='
+    baseUrl: 'https://api.data.amsterdam.nl/bag/v1.1/nummeraanduiding/?format=json&locatie='
   },
   marker: {
     url: 'https://map.data.amsterdam.nl/dist/images/svg/marker.svg',
