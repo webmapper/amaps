@@ -1,7 +1,8 @@
-import "whatwg-fetch";
-import { nlmaps } from "../nlmaps/dist/nlmaps.es.js";
-import { pointQueryChain } from "./lib.js";
-import emitonoff from "emitonoff";
+import 'whatwg-fetch';
+import { nlmaps } from '../nlmaps/dist/nlmaps.es.js';
+import { pointQueryChain } from './lib.js';
+import 'leaflet.markercluster';
+import emitonoff from 'emitonoff';
 const mora = {};
 emitonoff(mora);
 
