@@ -5,6 +5,7 @@ services:
       context: .
     ports:
       - 8095:80
+
   test:
     build:
       context: .
@@ -14,6 +15,7 @@ services:
     command: npm run test
     depends_on:
       - serve
+
   lint:
     build:
       context: .

@@ -1,5 +1,6 @@
-FROM node:8.9 AS build-nlmaps
-MAINTAINER hans@webmapper.net
+FROM node:10.10 AS build-nlmaps
+LABEL maintainer="datapunt@amsterdam.nl"
+
 WORKDIR /app
 COPY package.json package.json
 RUN npm install shx
@@ -7,16 +8,20 @@ COPY scripts /app/scripts
 COPY config /app/config
 RUN npm run nlmaps
 
-
-
-FROM node:8.9 AS build-deps
-MAINTAINER hans@webmapper.net
+FROM node:10.10 AS build-deps
+LABEL maintainer="datapunt@amsterdam.nl"
 WORKDIR /app
 COPY --from=build-nlmaps /app/nlmaps /app/nlmaps
-RUN apt-get update && apt-get install -yq gconf-service libasound2 libatk1.0-0 libc6 libcairo2 libcups2 libdbus-1-3 libexpat1 libfontconfig1 libgcc1 libgconf-2-4 libgdk-pixbuf2.0-0 libglib2.0-0 libgtk-3-0 libnspr4 libpango-1.0-0 libpangocairo-1.0-0 libstdc++6 libx11-6 libx11-xcb1 libxcb1 libxcomposite1 libxcursor1 libxdamage1 libxext6 libxfixes3 libxi6 libxrandr2 libxrender1 libxss1 libxtst6 ca-certificates fonts-liberation libappindicator1 libnss3 lsb-release xdg-utils wget
+COPY scripts /app/scripts
+# fix the jesse apt-get errors by skipping the download.
+RUN cat /app/scripts/apt.sources.list > /etc/apt/sources.list
+# Fix to 
+RUN apt-get update
+RUN apt-key adv --recv-keys --keyserver keys.gnupg.net 46925553
+RUN apt-key adv --recv-keys --keyserver keys.gnupg.net 65FFB764
+RUN apt-get install --force-yes -yq gconf-service libasound2 libatk1.0-0 libc6 libcairo2 libcups2 libdbus-1-3 libexpat1 libfontconfig1 libgcc1 libgconf-2-4 libgdk-pixbuf2.0-0 libglib2.0-0 libgtk-3-0 libnspr4 libpango-1.0-0 libpangocairo-1.0-0 libstdc++6 libx11-6 libx11-xcb1 libxcb1 libxcomposite1 libxcursor1 libxdamage1 libxext6 libxfixes3 libxi6 libxrandr2 libxrender1 libxss1 libxtst6 ca-certificates fonts-liberation libappindicator1 libnss3 lsb-release xdg-utils wget
 COPY package.json package.json
 RUN npm install
-COPY scripts /app/scripts
 COPY test /app/test
 COPY src /app/src
 COPY .eslintrc.js /app/.eslintrc.js
