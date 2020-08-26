@@ -44,5 +44,14 @@
         //}
       });
     </script>
+    <script>
+    // Currently, the URL https://map.data.amsterdam.nl/ is directed to the maps server.
+    // The root shows the index.html page from this amaps repro
+    // It is currently not possible to redirect the URL https://map.data.amsterdam.nl to https://api.data.amsterdam.nl from the DNS.
+    // Therefore the redirect is simulated from within this index.html page.
+    // TO DO: redirect URL https://map.data.amsterdam.nl/ to https://api.data.amsterdam.nl from the DNS.
+    // Simulate an HTTP redirect:
+    window.location.replace("https://api.data.amsterdam.nl");
+    </script>
   </body>
 </html>
