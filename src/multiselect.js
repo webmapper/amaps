@@ -2,6 +2,7 @@ import 'whatwg-fetch';
 import tress from 'tress';
 import { nlmaps } from '../nlmaps/dist/nlmaps.es.js';
 import { pointQueryChain } from './lib.js';
+import 'leaflet.markercluster';
 import emitonoff from 'emitonoff';
 /* eslint-disable-next-line max-len */
 const URL = 'https://map.data.amsterdam.nl/maps/parkeervakken?REQUEST=GetFeature&SERVICE=wfs&OUTPUTFORMAT=application/json;%20subtype=geojson;%20charset=utf-8&Typename=fiscaal_parkeervakken&version=1.1.0&srsname=urn:ogc:def:crs:EPSG::4326';

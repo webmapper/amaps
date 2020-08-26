@@ -1,6 +1,6 @@
 {
-  "name": "amsterdam-amaps",
-  "version": "2.0.1",
+  "name": "@datapunt/amsterdam-amaps",
+  "version": "3.1.1",
   "description": "implementation of nlmaps for Amsterdam",
   "main": "dist/amaps.js",
   "browser": "dist/amaps.iife.js",
@@ -40,6 +40,8 @@
     "eslint-plugin-standard": "^3.1.0",
     "esm": "3.0.63",
     "http-server": "^0.11.1",
+    "leaflet": "^1.6.0",
+    "leaflet.markercluster": "^1.4.1",
     "live-server": "^1.2.1",
     "live-server-https": "0.0.2",
     "node-fetch": "^2.1.2",
@@ -59,6 +61,10 @@
     "tape": "^4.9.1",
     "tape-catch": "^1.0.6"
   },
+  "peerDependencies": {
+    "leaflet": "^1.6.0",
+    "leaflet.markercluster": "^1.4.1"
+  },
   "scripts": {
     "dev": "npm-run-all --parallel serve watch-browser-test watch-unit-test watch-build-amaps watch-nlmaps",
     "test": "npm-run-all browser-test unit-test",
@@ -69,6 +75,7 @@
     "serve": "node scripts/devserver.js",
     "lint": "eslint test scripts src",
     "build-amaps": "node scripts/build-amaps.js",
+    "build": "npm run build-amaps --production",
     "watch-build-amaps": "NODE_ENV=development node scripts/build-amaps.js -w",
     "get-nlmaps": "shx rm -rf nlmaps && git clone --depth=1 --branch v$npm_package_nlmaps_version https://github.com/webmapper/nlmaps",
     "install-nlmaps": "node scripts/install-nlmaps.js",
@@ -86,5 +93,8 @@
   "bugs": {
     "url": "https://github.com/amsterdam/amaps/issues"
   },
-  "homepage": "https://github.com/amsterdam/amaps#readme"
+  "homepage": "https://github.com/amsterdam/amaps#readme",
+  "publishConfig": {
+    "access": "public"
+  }
 }

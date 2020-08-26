@@ -21,17 +21,17 @@ test('test query response formatter function', async (t) => {
   const lib = require('../src/lib.js');
 
   // test query and responseFormatter
-  const res = await lib.query('https://api.data.amsterdam.nl/bag/nummeraanduiding/?format=json&locatie=121382.15683784202,487363.8792724314,50')
+  const res = await lib.query('https://api.data.amsterdam.nl/bag/v1.1/nummeraanduiding/?format=json&locatie=121382.15683784202,487363.8792724314,50')
     .then((data) => lib.responseFormatter(data));
   t.equals(typeof res._links.self.href, 'string', 'expected structure of return data formatted by responseFormatter for BAG');
 
   // test handling of empty response
-  const resWithEmptyResults = { _links: { self: { href: 'https://api.data.amsterdam.nl/bag/nummeraanduiding/?format=json&locatie=121382.15683784202,487363.8792724314,50' }, next: { href: 'https://api.data.amsterdam.nl/bag/nummeraanduiding/?format=json&locatie=121382.15683784202%2C487363.8792724314%2C50&page=2' }, previous: { href: null } }, count: 27, results: [] };
+  const resWithEmptyResults = { _links: { self: { href: 'https://api.data.amsterdam.nl/bag/v1.1/nummeraanduiding/?format=json&locatie=121382.15683784202,487363.8792724314,50' }, next: { href: 'https://api.data.amsterdam.nl/bag/v1.1/nummeraanduiding/?format=json&locatie=121382.15683784202%2C487363.8792724314%2C50&page=2' }, previous: { href: null } }, count: 27, results: [] };
   const faultyResponseParsed = lib.responseFormatter(resWithEmptyResults);
   t.equals(faultyResponseParsed, null, 'responseFormatter returns null when response list is empty');
 
   // test throwing when no results property
-  const resWithNoResults = { _links: { self: { href: 'https://api.data.amsterdam.nl/bag/nummeraanduiding/?format=json&locatie=121382.15683784202,487363.8792724314,50' }, next: { href: 'https://api.data.amsterdam.nl/bag/nummeraanduiding/?format=json&locatie=121382.15683784202%2C487363.8792724314%2C50&page=2' }, previous: { href: null } }, count: 27 };
+  const resWithNoResults = { _links: { self: { href: 'https://api.data.amsterdam.nl/bag/v1.1/nummeraanduiding/?format=json&locatie=121382.15683784202,487363.8792724314,50' }, next: { href: 'https://api.data.amsterdam.nl/bag/v1.1/nummeraanduiding/?format=json&locatie=121382.15683784202%2C487363.8792724314%2C50&page=2' }, previous: { href: null } }, count: 27 };
   const testFn = () => lib.responseFormatter(resWithNoResults);
   await t.throws(testFn, 'responseFormatter throws when no results object in response');
 
@@ -40,7 +40,7 @@ test('test query response formatter function', async (t) => {
 
 test('test upstream API formatters', async (t) => {
   const lib = require('../src/lib.js');
-  const testUrl = 'https://api.data.amsterdam.nl/bag/nummeraanduiding/?format=json&locatie=121509.7748003435,487489.09617943474,50';
+  const testUrl = 'https://api.data.amsterdam.nl/bag/v1.1/nummeraanduiding/?format=json&locatie=121509.7748003435,487489.09617943474,50';
   const bagData = await fetch(testUrl).then((res) => res.json());
   const obj = {
     latlng: {
@@ -55,7 +55,7 @@ test('test upstream API formatters', async (t) => {
   t.equals(resOmgevInfo.omgevingsinfo.buurtnaam, 'Oude Kerk e.o.', 'result has buurtnaam as expected');
   t.equals(resOmgevInfo.omgevingsinfo.stadsdeelcode, 'A', 'result has stadsdeelcode as expected');
 
-  const testUrl2 = 'https://api.data.amsterdam.nl/bag/nummeraanduiding/?format=json&locatie=106751,484766,50';
+  const testUrl2 = 'https://api.data.amsterdam.nl/bag/v1.1/nummeraanduiding/?format=json&locatie=106751,484766,50';
   const resOutsideAmsterdam = await fetch(testUrl2).then((res) => res.json())
     .then((x) => ({
       queryResult: lib.responseFormatter(x),
