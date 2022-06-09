@@ -1,3 +1,5 @@
+# DEPRECATED - no longer actively maintained
+
 # Amaps
 Implementation of NL Maps for Amsterdam
 
