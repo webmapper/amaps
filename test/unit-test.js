@@ -76,7 +76,7 @@ test('test upstream API formatters', async (t) => {
 
 test('test search string continuation', async (t) => {
   const lib = require('../src/lib.js');
-  const testUrl = 'https://geodata.nationaalgeoregister.nl/locatieserver/v3/lookup?fq=gemeentenaam:amsterdam&id=adr-a69b4104d569072769fbe6b1e7aa4f17';
+  const testUrl = 'https://api.pdok.nl/bzk/locatieserver/search/v3_1/lookup?fq=gemeentenaam:amsterdam&id=adr-a69b4104d569072769fbe6b1e7aa4f17';
   const searchData = await fetch(testUrl).then((res) => res.json());
   const point = {
     latlng: {

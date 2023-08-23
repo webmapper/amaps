@@ -47,8 +47,8 @@ export default {
     ]
   },
   geocoder: {
-    suggestUrl: 'https://geodata.nationaalgeoregister.nl/locatieserver/v3/suggest?fq=gemeentenaam:amsterdam&fq=type:adres&',
-    lookupUrl: 'https://geodata.nationaalgeoregister.nl/locatieserver/v3/lookup?fq=gemeentenaam:amsterdam&fq=type:adres&',
+    suggestUrl: 'https://api.pdok.nl/bzk/locatieserver/search/v3_1/suggest?q=gemeentenaam:amsterdam&q=type:adres&',
+    lookupUrl: 'https://api.pdok.nl/bzk/locatieserver/search/v3_1/lookup?fq=gemeentenaam:amsterdam&fq=type:adres&',
     placeholder: 'Kies adres...'
   },
   featureQuery: {
