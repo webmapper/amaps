@@ -47,7 +47,7 @@ export default {
     ]
   },
   geocoder: {
-    suggestUrl: 'https://api.pdok.nl/bzk/locatieserver/search/v3_1/suggest?q=gemeentenaam:amsterdam&q=type:adres&',
+    suggestUrl: 'https://api.pdok.nl/bzk/locatieserver/search/v3_1/suggest?fq=gemeentenaam:amsterdam&fq=type:adres&',
     lookupUrl: 'https://api.pdok.nl/bzk/locatieserver/search/v3_1/lookup?fq=gemeentenaam:amsterdam&fq=type:adres&',
     placeholder: 'Kies adres...'
   },
