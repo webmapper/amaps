@@ -34,5 +34,5 @@ RUN npm run build-amaps
 
 
 # Web server image
-FROM nginx:1.12.2-alpine
+FROM nginx:1.25-alpine3.18
 COPY --from=build-deps /app/test /usr/share/nginx/html
